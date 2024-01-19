@@ -1,12 +1,13 @@
 module.exports = {
   extends: [
     '@nuxtjs/eslint-config-typescript',
-    'plugin:nuxt/recommended',
-    'plugin:vue/recommended',
     'plugin:prettier/recommended',
     'prettier',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:vue/vue3-essential',
   ],
-  plugins: ['prettier', 'unused-imports'],
+  plugins: ['prettier', 'unused-imports', '@typescript-eslint', 'vue'],
   root: true,
   rules: {
     'prettier/prettier': ['error', require('./.prettierrc.json')],
@@ -16,6 +17,8 @@ module.exports = {
     'import/named': 0,
     'vue/multi-word-component-names': 0,
     'import/no-named-as-default': 0,
+    '@typescript-eslint/ban-ts-comment': 0,
+    '@typescript-eslint/no-explicit-any': 0,
     'vue/component-name-in-template-casing': [
       'error',
       'PascalCase',
@@ -95,3 +98,28 @@ module.exports = {
     ],
   },
 }
+
+// module.exports = {
+//   env: {
+//     browser: true,
+//     es2021: true,
+//   },
+//   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:vue/vue3-essential'],
+//   overrides: [
+//     {
+//       env: {
+//         node: true,
+//       },
+//       files: ['.eslintrc.{js,cjs}'],
+//       parserOptions: {
+//         sourceType: 'script',
+//       },
+//     },
+//   ],
+//   parserOptions: {
+//     ecmaVersion: 'latest',
+//     parser: '@typescript-eslint/parser',
+//     sourceType: 'module',
+//   },
+//   plugins: ['@typescript-eslint', 'vue'],
+// }
