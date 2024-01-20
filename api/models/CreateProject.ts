@@ -2,17 +2,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Tag } from './Tag';
-export type Project = {
-    id?: number;
+export type CreateProject = {
     title?: string | null;
     shortDescription?: string | null;
     description?: string | null;
     company?: string | null;
-    image?: string | null;
-    backgroundImage?: string | null;
     year?: number;
     website?: string | null;
-    tags?: Array<Tag> | null;
+    image?: Blob | null;
+    backgroundImage?: Blob | null;
+    tags?: Array<string> | null;
 };
 
