@@ -33,12 +33,12 @@ export const useProjectStore = defineStore('projectStore', {
       let response: Project | undefined
 
       try {
-        this.projectsError = undefined
+        this.projectCreateError = undefined
         this.projectCreating = true
 
         response = await ProjectService.postProject(project)
       } catch (error) {
-        this.projectsError = extractError(error)
+        this.projectCreateError = extractError(error)
       } finally {
         this.projectCreating = false
       }

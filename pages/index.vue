@@ -1,9 +1,9 @@
 <template>
   <div :class="{ 'search-active': isSearchActive }" class="search-box-container">
-    <input
+    <TextInput
       v-model="search"
       type="text"
-      class="search-input input input-bordered w-full"
+      class="search-input"
       placeholder="Search"
       @focus="handleFocus"
       @blur="handleBlur"
@@ -20,6 +20,7 @@ import { defineComponent } from 'vue'
 import { isEmpty } from 'lodash'
 import { useProjectStore } from '../store/ProjectStore'
 import ProjectList from '../components/lists/ProjectList.vue'
+import TextInput from '../components/forms/TextInput.vue'
 
 interface Data {
   isSearchActive: boolean
@@ -30,6 +31,7 @@ export default defineComponent({
   name: 'Index',
   components: {
     ProjectList,
+    TextInput,
   },
   data(): Data {
     return {
