@@ -1,6 +1,6 @@
 <template>
   <FormElementContainer :label="label">
-    <select class="select select-bordered w-full">
+    <select v-model="value" class="select select-bordered w-full">
       <option v-for="(option, index) in options" :key="index" :value="option.value">
         {{ option.text }}
       </option>
@@ -12,6 +12,10 @@
 import { defineComponent, type PropType } from 'vue'
 import type { SelectListItem } from '../../types/SelectListItem'
 import FormElementContainer from './FormElementContainer.vue'
+
+interface Data {
+  value: string | number | null
+}
 
 export default defineComponent({
   name: 'SelectList',
@@ -39,7 +43,7 @@ export default defineComponent({
     },
   },
   emits: ['update:modelValue'],
-  data() {
+  data(): Data {
     return {
       value: this.modelValue,
     }

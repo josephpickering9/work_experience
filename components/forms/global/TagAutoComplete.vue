@@ -1,0 +1,100 @@
+<template>
+  <div class="flex flex-col gap-2">
+    <AutoComplete :data="tagItems" :label="label" placeholder="Search" @select="selectTag">
+      <template #item="{ item }">
+        <Tag :tag="tags.find((tag) => tag.title === item.title) ?? defaultTag(item.title)" />
+      </template>
+    </AutoComplete>
+    <div v-if="convertedTags && convertedTags.length" class="flex min-h-8 items-center gap-2">
+      <Tag v-for="(tag, index) in convertedTags" :key="index" :tag="tag" clearable @remove="removeTag" />
+    </div>
+    <div v-else class="flex min-h-8 items-center text-sm italic text-gray-500">No tags added</div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
+import type { SearchItem } from '../../../types/SearchItem'
+import { TagType, type Tag as TagModel } from '../../../api'
+import { useTagStore } from '../../../store/TagStore'
+import AutoComplete from '../AutoComplete.vue'
+import Tag from '../../tags/Tag.vue'
+
+interface Data {
+  value: string[]
+}
+
+export default defineComponent({
+  name: 'TagAutoComplete',
+  components: { AutoComplete, Tag },
+  props: {
+    label: {
+      type: String,
+      default: null,
+    },
+    modelValue: {
+      type: Array as PropType<string[]>,
+      default: null,
+    },
+  },
+  emits: ['update:modelValue'],
+  data(): Data {
+    return {
+      value: [],
+    }
+  },
+  computed: {
+    tags(): TagModel[] {
+      return useTagStore().tags
+    },
+    tagItems(): SearchItem[] {
+      return this.tags.map((tag) => {
+        return {
+          title: tag.title,
+        }
+      })
+    },
+    convertedTags(): TagModel[] {
+      return this.value.map((title) => {
+        const tag = this.tags.find((t) => t.title === title)
+        if (tag) return tag
+
+        return {
+          id: 0,
+          title,
+          type: TagType.DEFAULT,
+          projects: [],
+        }
+      })
+    },
+  },
+  async mounted() {
+    if (this.tags.length === 0) await useTagStore().getTags()
+  },
+  methods: {
+    selectTag(tag: SearchItem) {
+      this.value.push(tag.title)
+    },
+    removeTag(tag: TagModel) {
+      this.value = this.value.filter((t) => t !== tag.title)
+    },
+    defaultTag(title: string): TagModel {
+      return {
+        id: 0,
+        title,
+        type: TagType.DEFAULT,
+        projects: [],
+      }
+    },
+  },
+  watch: {
+    modelValue() {
+      this.value = this.modelValue
+    },
+    value() {
+      this.$emit('update:modelValue', this.value)
+    },
+  },
+})
+</script>

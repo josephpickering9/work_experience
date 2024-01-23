@@ -2,13 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Project } from './Project';
 import type { TagType } from './TagType';
-export type Tag = {
-    id: number;
+export type CreateTag = {
     title: string;
     type: TagType;
     icon?: string;
-    projects: Array<Project>;
 };
 

@@ -16,8 +16,8 @@ export const useProjectStore = defineStore('projectStore', {
     projectCreateError: undefined as string | undefined,
   }),
   actions: {
-    async getProjects(search: string): Promise<void> {
-      if (!search || this.projectsLoading) return
+    async getProjects(search?: string): Promise<void> {
+      if (this.projectsLoading) return
 
       try {
         this.projectsError = undefined

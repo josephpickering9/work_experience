@@ -9,7 +9,7 @@
       @blur="handleBlur"
       @keyup.enter="getProjects"
     />
-    <div v-if="isSearchActive" class="search-results">
+    <div v-if="isSearchActive && !isEmpty(search)" class="search-results">
       <ProjectList />
     </div>
   </div>
@@ -40,6 +40,7 @@ export default defineComponent({
     }
   },
   methods: {
+    isEmpty,
     async getProjects() {
       await useProjectStore().getProjects(this.search)
     },

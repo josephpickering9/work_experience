@@ -2,23 +2,23 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CreateProject } from '../models/CreateProject';
-import type { Project } from '../models/Project';
+import type { CreateTag } from '../models/CreateTag';
+import type { Tag } from '../models/Tag';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class ProjectService {
+export class TagService {
     /**
      * @param search
-     * @returns Project Success
+     * @returns Tag Success
      * @throws ApiError
      */
-    public static getProject(
+    public static getTag(
         search?: string,
-    ): CancelablePromise<Array<Project>> {
+    ): CancelablePromise<Array<Tag>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/project',
+            url: '/tag',
             query: {
                 'search': search,
             },
@@ -26,30 +26,30 @@ export class ProjectService {
     }
     /**
      * @param requestBody
-     * @returns Project Success
+     * @returns Tag Success
      * @throws ApiError
      */
-    public static postProject(
-        requestBody?: CreateProject,
-    ): CancelablePromise<Project> {
+    public static postTag(
+        requestBody?: CreateTag,
+    ): CancelablePromise<Tag> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/project',
+            url: '/tag',
             body: requestBody,
             mediaType: 'application/json',
         });
     }
     /**
      * @param id
-     * @returns Project Success
+     * @returns Tag Success
      * @throws ApiError
      */
-    public static getProjectId(
+    public static getTagId(
         id?: number,
-    ): CancelablePromise<Project> {
+    ): CancelablePromise<Tag> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/project/id',
+            url: '/tag/id',
             query: {
                 'id': id,
             },
@@ -60,12 +60,12 @@ export class ProjectService {
      * @returns any Success
      * @throws ApiError
      */
-    public static deleteProjectId(
+    public static deleteTagId(
         id?: number,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/project/id',
+            url: '/tag/id',
             query: {
                 'id': id,
             },
@@ -74,16 +74,16 @@ export class ProjectService {
     /**
      * @param id
      * @param requestBody
-     * @returns Project Success
+     * @returns Tag Success
      * @throws ApiError
      */
-    public static putProject(
+    public static putTag(
         id: number,
-        requestBody?: CreateProject,
-    ): CancelablePromise<Project> {
+        requestBody?: CreateTag,
+    ): CancelablePromise<Tag> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/project/{id}',
+            url: '/tag/{id}',
             path: {
                 'id': id,
             },

@@ -27,7 +27,7 @@
         @update:file="backgroundImage = $event"
       />
     </div>
-    <!-- <TextInput v-model="tags" label="Tags" /> -->
+    <TagAutoComplete v-model="tags" label="Tags" />
     <button class="btn btn-primary" @click="save">Save</button>
   </div>
 </template>
@@ -38,12 +38,12 @@ import { useProjectStore } from '../../../store/ProjectStore'
 import { useNotificationStore } from '../../../store/NotificationStore'
 import type { CreateProject } from '../../../api/models/CreateProject'
 import type { Project } from '../../../api/models/Project'
-import type { Tag } from '../../../api/models/Tag'
 import TextInput from '../TextInput.vue'
 import TextEditor from '../TextEditor.vue'
 import FileInput from '../FileInput.vue'
 import { getImageUrl } from '../../../utils/image-helper'
 import YearSelectList from './YearSelectList.vue'
+import TagAutoComplete from './TagAutoComplete.vue'
 
 interface Data {
   title: string
@@ -56,7 +56,7 @@ interface Data {
   backgroundImageUrl?: string
   year: number
   website: string
-  tags: Tag[]
+  tags: string[]
 }
 
 export default defineComponent({
@@ -66,6 +66,7 @@ export default defineComponent({
     TextInput,
     YearSelectList,
     FileInput,
+    TagAutoComplete,
   },
   props: {
     id: {
