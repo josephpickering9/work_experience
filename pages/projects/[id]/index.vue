@@ -1,7 +1,12 @@
 <template>
   <Skeleton v-if="loading" />
   <div v-else-if="project" class="flex flex-grow flex-col gap-6">
-    <div class="header-container" :style="`background-image: url('${getImageUrl(project.backgroundImage ?? '')}')`"></div>
+    <div
+      v-if="project.backgroundImage"
+      class="header-container"
+      :style="`background-image: url('${getImageUrl(project.backgroundImage ?? '')}')`"
+    ></div>
+    <div v-else class="h-72"></div>
 
     <div class="prose z-10 -mt-32 flex max-w-full items-center justify-between gap-4 px-8">
       <div class="flex items-center gap-4">

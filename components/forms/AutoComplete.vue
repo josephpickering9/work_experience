@@ -18,10 +18,10 @@
           @keydown.arrow-down.stop.prevent="onArrowDown"
           @keydown.escape="close"
         />
-        <button v-if="value" type="button" class="absolute right-4 text-sm" @click="clear">X</button>
+        <button v-if="value" type="button" tabindex="0" class="absolute right-4 text-sm" @click="clear">X</button>
       </div>
       <div
-        v-show="showOptions"
+        v-show="showOptions && searchResults.length"
         ref="results"
         tabindex="0"
         :class="resultsClass"
@@ -37,7 +37,7 @@
             role="option"
             :aria-selected="highlighted === index"
             tabindex="0"
-            @mousedown.stop.prevent="handleSelect(item)"
+            @mousedown.stop.prevent="handleSelect(item.title)"
             @mouseenter="setHighlighted(index)"
             @focus="setHighlighted(index)"
           >
@@ -155,9 +155,9 @@ export default defineComponent({
       this.showOptions = true
       this.checkScrollPosition()
     },
-    handleSelect(item: any) {
-      this.$emit('select', item)
-      this.$emit('update:modelValue', item.title)
+    handleSelect(title: string) {
+      this.$emit('select', title)
+      this.$emit('update:modelValue', title)
       this.showOptions = false
       this.clear()
     },
@@ -175,7 +175,9 @@ export default defineComponent({
     },
     onEnter() {
       if (this.highlighted !== -1) {
-        this.handleSelect(this.searchResults[this.highlighted])
+        this.handleSelect(this.searchResults[this.highlighted].title)
+      } else {
+        this.handleSelect(this.value)
       }
     },
     onArrowUp() {
@@ -258,14 +260,6 @@ export default defineComponent({
           }
         }
       })
-      // this.$nextTick(() => {
-      //   if (this.showResultsAbove) {
-      //     const resultsElement = this.$refs.results as HTMLElement
-      //     if (resultsElement) {
-      //       resultsElement.scrollTop = resultsElement.scrollHeight
-      //     }
-      //   }
-      // })
     },
   },
   watch: {
@@ -274,6 +268,11 @@ export default defineComponent({
     },
     value() {
       this.$emit('update:modelValue', this.value)
+    },
+    searchResults() {
+      this.highlighted = -1
+
+      if (this.searchResults.length === 1) this.highlighted = 0
     },
   },
 })

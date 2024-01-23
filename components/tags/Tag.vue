@@ -35,11 +35,11 @@ export default defineComponent({
     tagClass(): object {
       return {
         'badge-outline': this.outline,
-        'badge-info': this.tag.type === ref<TagType>(TagType.BACKEND).value,
+        'badge-error': this.tag.type === ref<TagType>(TagType.BACKEND).value,
         'badge-success': this.tag.type === ref<TagType>(TagType.FRONTEND).value,
         'badge-warning': this.tag.type === ref<TagType>(TagType.OTHER).value,
         'badge-primary': this.tag.type === ref<TagType>(TagType.DEV_OPS).value,
-        'badge-error': this.tag.type === ref<TagType>(TagType.DEFAULT).value,
+        'badge-neutral': this.tag.type === ref<TagType>(TagType.DEFAULT).value,
       }
     },
   },

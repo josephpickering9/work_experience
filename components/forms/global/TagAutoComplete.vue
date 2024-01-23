@@ -37,7 +37,7 @@ export default defineComponent({
     },
     modelValue: {
       type: Array as PropType<string[]>,
-      default: null,
+      default: () => [],
     },
   },
   emits: ['update:modelValue'],
@@ -77,11 +77,13 @@ export default defineComponent({
     if (this.tags.length === 0) await useTagStore().getTags()
   },
   methods: {
-    selectTag(tag: SearchItem) {
-      this.value.push(tag.title)
+    selectTag(tag: string) {
+      this.value.push(tag)
+      this.$emit('update:modelValue', this.value)
     },
     removeTag(tag: TagModel) {
       this.value = this.value.filter((t) => t !== tag.title)
+      this.$emit('update:modelValue', this.value)
     },
     defaultTag(title: string): TagModel {
       return {

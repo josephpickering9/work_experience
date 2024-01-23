@@ -115,7 +115,7 @@ export default defineComponent({
         backgroundImage: this.backgroundImage ? (this.backgroundImage.item(0) as Blob) : undefined,
         year: this.year,
         website: this.website,
-        tags: ['tag'],
+        tags: this.tags,
       }
     },
   },
@@ -130,7 +130,7 @@ export default defineComponent({
         this.company = this.project.company
         this.year = this.project.year
         this.website = this.project.website ?? ''
-        this.tags = this.project.tags ?? []
+        this.tags = this.project.tags.map((tag) => tag.title) ?? []
         this.imageUrl = this.project.image ? getImageUrl(this.project.image) : undefined
         this.backgroundImageUrl = this.project.backgroundImage ? getImageUrl(this.project.backgroundImage) : undefined
       } else {
