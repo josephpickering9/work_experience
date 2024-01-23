@@ -1,4 +1,3 @@
-import type { getImageUrl } from '~/utils/image-helper'; import type { getImageUrl } from '~/utils/image-helper';
 <template>
   <NuxtLink v-if="project" :to="`/projects/${project.id}`" class="card w-full max-w-3xl bg-base-100 shadow-xl">
     <div class="card-body">
