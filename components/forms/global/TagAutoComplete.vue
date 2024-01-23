@@ -5,10 +5,12 @@
         <Tag :tag="tags.find((tag) => tag.title === item.title) ?? defaultTag(item.title)" />
       </template>
     </AutoComplete>
-    <div v-if="convertedTags && convertedTags.length" class="flex min-h-8 items-center gap-2">
-      <Tag v-for="(tag, index) in convertedTags" :key="index" :tag="tag" clearable @remove="removeTag" />
+    <div class="flex min-h-8 items-center px-4">
+      <div v-if="convertedTags && convertedTags.length" class="flex items-center gap-2">
+        <Tag v-for="(tag, index) in convertedTags" :key="index" :tag="tag" clearable @remove="removeTag" />
+      </div>
+      <div v-else class="flex items-center text-sm italic text-gray-500">No tags added</div>
     </div>
-    <div v-else class="flex min-h-8 items-center text-sm italic text-gray-500">No tags added</div>
   </div>
 </template>
 
@@ -49,11 +51,13 @@ export default defineComponent({
       return useTagStore().tags
     },
     tagItems(): SearchItem[] {
-      return this.tags.map((tag) => {
-        return {
-          title: tag.title,
-        }
-      })
+      return this.tags
+        .filter((tag) => !this.convertedTags.some((c) => c.title === tag.title))
+        .map((tag) => {
+          return {
+            title: tag.title,
+          }
+        })
     },
     convertedTags(): TagModel[] {
       return this.value.map((title) => {

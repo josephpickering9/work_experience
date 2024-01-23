@@ -1,7 +1,9 @@
 <template>
-  <div v-if="tag" class="badge flex items-center space-x-2" :class="tagClass">
+  <div v-if="tag" class="badge flex items-center space-x-1" :class="tagClass">
     <span>{{ tag.title }}</span>
-    <button v-if="clearable" class="text-xs" @click="$emit('remove', tag)">X</button>
+    <button v-if="clearable" class="flex items-center" @click="$emit('remove', tag)">
+      <Icon name="material-symbols:delete" />
+    </button>
   </div>
 </template>
 
@@ -9,9 +11,11 @@
 import { defineComponent, type PropType, ref } from 'vue'
 import type { Tag } from '../../api'
 import { TagType } from '../../api'
+import { Icon } from '#components'
 
 export default defineComponent({
   name: 'Tag',
+  components: { Icon },
   props: {
     tag: {
       type: Object as PropType<Tag>,

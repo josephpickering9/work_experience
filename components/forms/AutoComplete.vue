@@ -1,7 +1,7 @@
 <template>
   <FormElementContainer :label="label">
     <div class="relative">
-      <div class="relative flex items-center">
+      <div class="flex items-center">
         <input
           ref="input"
           v-model="value"
@@ -18,17 +18,17 @@
         <button v-if="value" type="button" class="absolute right-4 text-sm" @click="clear">X</button>
       </div>
       <div
-        v-show="showOptions"
+        v-show="true"
         ref="results"
         tabindex="0"
         :class="resultsClass"
-        class="results input input-bordered absolute z-50 my-2 flex h-auto max-h-52 w-full items-center overflow-hidden overflow-y-auto rounded-md"
+        class="input input-bordered absolute z-50 my-2 h-auto max-h-52 w-full overflow-hidden overflow-y-auto rounded-md p-0 shadow"
       >
-        <ul class="m-0 w-full list-none rounded-md bg-base-100 p-0 shadow">
+        <ul class="m-0 w-full list-none bg-base-100 p-0">
           <li
             v-for="(item, index) in searchResults"
             :key="index"
-            class="cursor-pointer select-none py-2"
+            class="m-0 min-h-9 cursor-pointer select-none p-4 hover:bg-gray-700"
             role="option"
             @mousedown.stop.prevent="handleSelect(item)"
           >
