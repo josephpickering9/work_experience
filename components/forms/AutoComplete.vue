@@ -13,12 +13,15 @@
           @input="handleInputDebounce"
           @focus="focus"
           @blur="blur"
-          @keyup.enter="$emit('keyup.enter')"
+          @keyup.enter.stop.prevent="onEnter"
+          @keydown.arrow-up.stop.prevent="onArrowUp"
+          @keydown.arrow-down.stop.prevent="onArrowDown"
+          @keydown.escape="close"
         />
         <button v-if="value" type="button" class="absolute right-4 text-sm" @click="clear">X</button>
       </div>
       <div
-        v-show="true"
+        v-show="showOptions"
         ref="results"
         tabindex="0"
         :class="resultsClass"
@@ -28,9 +31,15 @@
           <li
             v-for="(item, index) in searchResults"
             :key="index"
+            ref="item"
             class="m-0 min-h-9 cursor-pointer select-none p-4 hover:bg-gray-700"
+            :class="{ 'bg-gray-700': highlighted === index }"
             role="option"
+            :aria-selected="highlighted === index"
+            tabindex="0"
             @mousedown.stop.prevent="handleSelect(item)"
+            @mouseenter="setHighlighted(index)"
+            @focus="setHighlighted(index)"
           >
             <slot name="item" :item="item">
               {{ item.title }}
@@ -55,6 +64,8 @@ interface Data {
   showOptions: boolean
   inputPosition: { top: number; height: number }
   showResultsAbove: boolean
+  highlighted: number
+  itemHighlighted: number
 }
 
 export default defineComponent({
@@ -101,6 +112,8 @@ export default defineComponent({
       showOptions: false,
       inputPosition: { top: 0, height: 0 },
       showResultsAbove: false,
+      highlighted: -1,
+      itemHighlighted: -1,
     }
   },
   computed: {
@@ -134,6 +147,9 @@ export default defineComponent({
     clear() {
       this.value = ''
     },
+    close() {
+      this.showOptions = false
+    },
     handleInput() {
       this.$emit('search', this.value)
       this.showOptions = true
@@ -157,6 +173,51 @@ export default defineComponent({
       this.showOptions = false
       this.$emit('blur')
     },
+    onEnter() {
+      if (this.highlighted !== -1) {
+        this.handleSelect(this.searchResults[this.highlighted])
+      }
+    },
+    onArrowUp() {
+      this.incrementHighlighted()
+    },
+    onArrowDown() {
+      this.showOptions = true
+      this.decrementHighlighted()
+    },
+    setHighlighted(index: number) {
+      this.highlighted = index
+    },
+    incrementHighlighted() {
+      if (this.showResultsAbove) {
+        if (this.highlighted > 0) {
+          this.highlighted--
+        } else {
+          this.highlighted = this.searchResults.length - 1
+        }
+      } else if (this.highlighted > 0) {
+        this.highlighted--
+      } else {
+        this.highlighted = this.searchResults.length - 1
+      }
+
+      this.checkScrollPosition()
+    },
+    decrementHighlighted() {
+      if (this.showResultsAbove) {
+        if (this.highlighted < this.searchResults.length - 1) {
+          this.highlighted++
+        } else {
+          this.highlighted = 0
+        }
+      } else if (this.highlighted < this.searchResults.length - 1) {
+        this.highlighted++
+      } else {
+        this.highlighted = 0
+      }
+
+      this.checkScrollPosition()
+    },
     calculateInputPosition() {
       const inputElement = this.$refs.input as HTMLElement
       if (inputElement) {
@@ -173,13 +234,38 @@ export default defineComponent({
     },
     checkScrollPosition() {
       this.$nextTick(() => {
-        if (this.showResultsAbove) {
-          const resultsElement = this.$refs.results as HTMLElement
-          if (resultsElement) {
-            resultsElement.scrollTop = resultsElement.scrollHeight
+        const resultsElement = this.$refs.results as HTMLElement
+        if (resultsElement) {
+          if (this.highlighted === -1) {
+            resultsElement.scrollTop = this.showResultsAbove ? resultsElement.scrollHeight : 0
+          }
+
+          // @ts-ignore
+          const highlightedItem = this.$refs.item[this.highlighted] as HTMLElement
+          if (highlightedItem) {
+            const itemTop = highlightedItem.offsetTop
+            const itemBottom = itemTop + highlightedItem.offsetHeight
+            const containerScrollTop = resultsElement.scrollTop
+            const containerBottom = containerScrollTop + resultsElement.offsetHeight
+
+            if (this.showResultsAbove) {
+              if (itemTop < containerScrollTop || itemBottom > containerBottom) {
+                resultsElement.scrollTop = itemBottom - resultsElement.offsetHeight
+              }
+            } else if (itemTop < containerScrollTop || itemBottom > containerBottom) {
+              resultsElement.scrollTop = itemTop
+            }
           }
         }
       })
+      // this.$nextTick(() => {
+      //   if (this.showResultsAbove) {
+      //     const resultsElement = this.$refs.results as HTMLElement
+      //     if (resultsElement) {
+      //       resultsElement.scrollTop = resultsElement.scrollHeight
+      //     }
+      //   }
+      // })
     },
   },
   watch: {
