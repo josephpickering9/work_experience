@@ -1,13 +1,19 @@
 <template>
-  <button v-if="!href" class="btn" :class="buttonClass" @click="$emit('click')">{{ label }}</button>
-  <NuxtLink v-else :to="href" class="btn" :class="buttonClass">{{ label }}</NuxtLink>
+  <button v-if="!href" class="btn" :class="buttonClass" @click="$emit('click')">
+    <FormButtonInner :label="label" :icon="icon" />
+  </button>
+  <NuxtLink v-else :to="href" class="btn" :class="buttonClass">
+    <FormButtonInner :label="label" :icon="icon" />
+  </NuxtLink>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import FormButtonInner from './FormButtonInner.vue'
 
 export default defineComponent({
   name: 'FormButton',
+  components: { FormButtonInner },
   props: {
     label: {
       type: String,
@@ -29,11 +35,16 @@ export default defineComponent({
       type: String,
       default: null,
     },
+    icon: {
+      type: String,
+      default: null,
+    },
   },
   emits: ['click'],
   computed: {
     buttonClass(): object {
       return {
+        'btn-xs': this.size === 'xs',
         'btn-sm': this.size === 'sm',
         'btn-lg': this.size === 'lg',
         'btn-primary': this.type === 'primary',

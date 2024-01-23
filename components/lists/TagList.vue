@@ -1,5 +1,5 @@
 <template>
-  <div class="tags prose w-full max-w-3xl space-y-6">
+  <div class="tags prose w-full max-w-5xl">
     <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
       <h1 class="m-0">Tags</h1>
       <div class="flex flex-col items-center gap-4 md:flex-row">
@@ -24,15 +24,20 @@
       <div class="text-2xl font-bold">No tags found</div>
       <div class="text-lg">Try searching for something else</div>
     </div>
-    <div v-else class="flex flex-col items-center justify-start space-y-4">
-      <TagListItem v-for="tag in filteredTags" :key="tag.id" :tag="tag" />
+    <div v-else class="flex flex-col items-center justify-start">
+      <div v-for="(typeTags, type) in filteredTags" :key="type" class="flex w-full flex-col">
+        <h2>{{ type }}</h2>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <TagListItem v-for="(tag, index) in typeTags" :key="index" :tag="tag" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { isEmpty } from 'lodash'
+import { groupBy, isEmpty } from 'lodash'
 import Skeleton from '../loading/Skeleton.vue'
 import { useTagStore } from '../../store/TagStore'
 import type { Tag } from '../../api/models/Tag'
@@ -72,7 +77,7 @@ export default defineComponent({
     loading(): boolean {
       return useTagStore().tagsLoading || this.initialLoad
     },
-    filteredTags(): Tag[] {
+    filteredTags(): Record<string, Tag[]> {
       let tags = this.tags
 
       if (!isEmpty(this.search)) {
@@ -83,7 +88,7 @@ export default defineComponent({
         tags = tags.filter((tag) => tag.type === this.tagType)
       }
 
-      return this.tags
+      return groupBy(tags, (tag) => tag.type)
     },
     tagTypes(): SelectListItem[] {
       return this.tags

@@ -1,6 +1,6 @@
 <template>
   <div v-if="tag" class="badge flex items-center space-x-1" :class="tagClass">
-    <span>{{ tag.title }}</span>
+    <span class="font-bold">{{ tag.title }}</span>
     <button v-if="clearable" class="flex items-center" @click="$emit('remove', tag)">
       <Icon name="material-symbols:delete" />
     </button>
