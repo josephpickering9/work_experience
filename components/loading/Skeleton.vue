@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full max-w-3xl flex-col gap-4">
+  <div class="flex w-full max-w-5xl flex-col gap-4">
     <div class="flex items-center gap-4">
       <div class="skeleton h-16 w-16 shrink-0 rounded-full"></div>
       <div class="flex flex-col gap-4">
