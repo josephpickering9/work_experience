@@ -4,6 +4,7 @@
     <TextInput v-model="title" label="Title" :disabled="loading" />
     <TagTypeSelectList v-model="type" label="Type" :disabled="loading" />
     <IconAutoComplete v-model="icon" label="Icon" :disabled="loading" />
+    <ColourPicker v-model="customColour" label="Custom Colour" :disabled="loading" />
     <div class="flex items-center justify-between space-x-2">
       <FormButton label="Save" type="primary" size="sm" :disabled="loading" @click="save" />
       <FormButton
@@ -28,6 +29,7 @@ import type { Tag } from '../../../api/models/Tag'
 import TextInput from '../TextInput.vue'
 import FormButton from '../FormButton.vue'
 import { TagType } from '../../../api'
+import ColourPicker from '../ColourPicker.vue'
 import TagTypeSelectList from './TagTypeSelectList.vue'
 import IconAutoComplete from './IconAutoComplete.vue'
 
@@ -35,6 +37,7 @@ interface Data {
   title: string
   type: TagType
   icon?: string
+  customColour?: string
 }
 
 export default defineComponent({
@@ -44,6 +47,7 @@ export default defineComponent({
     FormButton,
     TagTypeSelectList,
     IconAutoComplete,
+    ColourPicker,
   },
   props: {
     id: {
@@ -56,6 +60,7 @@ export default defineComponent({
       title: '',
       type: TagType.DEFAULT,
       icon: undefined,
+      customColour: undefined,
     }
   },
   computed: {
@@ -79,6 +84,7 @@ export default defineComponent({
         title: this.title,
         type: this.type,
         icon: this.icon,
+        customColour: this.customColour,
       }
     },
   },
@@ -89,7 +95,8 @@ export default defineComponent({
       if (!this.tagError && this.tag) {
         this.title = this.tag.title
         this.type = this.tag.type
-        this.icon = this.tag.icon
+        this.icon = this.tag.icon ?? ''
+        this.customColour = this.tag.customColour ?? ''
       } else {
         useNotificationStore().displayErrorNotification(this.tagError || 'An error occurred')
       }

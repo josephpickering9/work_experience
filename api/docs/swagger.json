@@ -530,6 +530,10 @@
           },
           "icon": {
             "type": "string"
+          },
+          "customColour": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -612,10 +616,12 @@
             "$ref": "#/components/schemas/TagType"
           },
           "icon": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "customColour": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "projects": {
             "type": "array",
@@ -632,7 +638,10 @@
           "Backend",
           "Frontend",
           "DevOps",
-          "Other"
+          "Other",
+          "Data",
+          "CMS",
+          "Mobile"
         ],
         "type": "string"
       }

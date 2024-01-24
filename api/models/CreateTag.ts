@@ -7,5 +7,6 @@ export type CreateTag = {
     title: string;
     type: TagType;
     icon?: string;
+    customColour?: string | null;
 };
 

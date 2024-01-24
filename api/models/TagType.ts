@@ -8,4 +8,7 @@ export enum TagType {
     FRONTEND = 'Frontend',
     DEV_OPS = 'DevOps',
     OTHER = 'Other',
+    DATA = 'Data',
+    CMS = 'CMS',
+    MOBILE = 'Mobile',
 }

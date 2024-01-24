@@ -9,6 +9,7 @@ import SelectList from '../SelectList.vue'
 import { TagType, type Tag } from '../../../api'
 import { useTagStore } from '../../../store/TagStore'
 import type { SelectListItem } from '../../../types/SelectListItem'
+import { enumToSelectListItem } from '../../../utils/enum-helper'
 
 interface Data {
   value: TagType
@@ -46,10 +47,7 @@ export default defineComponent({
       return useTagStore().tags
     },
     tagTypes(): SelectListItem[] {
-      return this.tags
-        .map((tag) => tag.type)
-        .filter((value, index, self) => self.indexOf(value) === index)
-        .map((type) => ({ text: type, value: type }))
+      return enumToSelectListItem(TagType)
     },
   },
   async mounted() {

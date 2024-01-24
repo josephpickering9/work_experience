@@ -1,5 +1,5 @@
 <template>
-  <div v-if="tag" class="badge flex items-center space-x-1" :class="tagClass">
+  <div v-if="tag" class="badge flex items-center space-x-1" :class="tagClass" :style="tagStyle">
     <Icon v-if="tag.icon" :name="tag.icon" />
     <span class="font-bold">{{ tag.title }}</span>
     <button v-if="clearable" class="flex items-center" @click="$emit('remove', tag)">
@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType, ref } from 'vue'
+import { defineComponent, type PropType, ref, type StyleValue } from 'vue'
 import type { Tag } from '../../api'
 import { TagType } from '../../api'
 import { Icon } from '#components'
@@ -38,9 +38,21 @@ export default defineComponent({
         'badge-outline': this.outline,
         'badge-error': this.tag.type === ref<TagType>(TagType.BACKEND).value,
         'badge-success': this.tag.type === ref<TagType>(TagType.FRONTEND).value,
-        'badge-warning': this.tag.type === ref<TagType>(TagType.OTHER).value,
+        'badge-default': this.tag.type === ref<TagType>(TagType.OTHER).value,
         'badge-primary': this.tag.type === ref<TagType>(TagType.DEV_OPS).value,
         'badge-neutral': this.tag.type === ref<TagType>(TagType.DEFAULT).value,
+        'badge-accent': this.tag.type === ref<TagType>(TagType.CMS).value,
+        'badge-info': this.tag.type === ref<TagType>(TagType.MOBILE).value,
+        'badge-warning': this.tag.type === ref<TagType>(TagType.DATA).value,
+        'text-white': this.tag.customColour === '#000000',
+      }
+    },
+    tagStyle(): StyleValue {
+      if (!this.tag.customColour) return {}
+
+      return {
+        'background-color': this.tag.customColour,
+        'border-color': this.tag.customColour,
       }
     },
   },

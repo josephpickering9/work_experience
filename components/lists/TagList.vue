@@ -13,8 +13,8 @@
       <Skeleton />
       <Skeleton />
     </div>
-    <div v-else-if="tags.length === 0" class="flex flex-col items-center space-y-4">
-      <div class="text-2xl font-bold">No tags found</div>
+    <div v-else-if="Object.keys(filteredTags).length === 0" class="flex flex-col justify-start space-y-4">
+      <h2>No tags found</h2>
       <div class="text-lg">Try searching for something else</div>
     </div>
     <div v-else class="flex flex-col items-center justify-start">
@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { groupBy, isEmpty } from 'lodash'
+import { isEmpty } from 'lodash'
 import Skeleton from '../loading/Skeleton.vue'
 import { useTagStore } from '../../store/TagStore'
 import type { Tag } from '../../api/models/Tag'
@@ -80,7 +80,20 @@ export default defineComponent({
         tags = tags.filter((tag) => tag.type === this.tagType)
       }
 
-      return groupBy(tags, (tag) => tag.type)
+      const groupedAndSorted = tags.reduce((acc: any, tag: Tag) => {
+        const type = (acc[tag.type] = acc[tag.type] || [])
+        type.push(tag)
+        acc[tag.type].sort((a: Tag, b: Tag) => a.title.localeCompare(b.title))
+        return acc
+      }, {})
+
+      const sortedGroupTitles = Object.keys(groupedAndSorted).sort((a, b) => a.localeCompare(b))
+      const sortedGroupedTags = sortedGroupTitles.reduce((acc: any, title: string) => {
+        acc[title] = groupedAndSorted[title]
+        return acc
+      }, {})
+
+      return sortedGroupedTags
     },
   },
   async mounted() {

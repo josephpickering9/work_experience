@@ -8,8 +8,8 @@ export type Tag = {
     id: number;
     title: string;
     type: TagType;
-    icon?: string;
-    customColour?: string;
+    icon?: string | null;
+    customColour?: string | null;
     projects: Array<Project>;
 };
 
