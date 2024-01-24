@@ -81,19 +81,13 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/CreateProject"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateProject"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateProject"
+                "properties": {
+                  "createProject": {
+                    "$ref": "#/components/schemas/CreateProject"
+                  }
+                }
               }
             }
           }
@@ -202,19 +196,13 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/CreateProject"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateProject"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateProject"
+                "properties": {
+                  "createProject": {
+                    "$ref": "#/components/schemas/CreateProject"
+                  }
+                }
               }
             }
           }

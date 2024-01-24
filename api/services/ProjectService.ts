@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CreateProject } from '../models/CreateProject';
 import type { Project } from '../models/Project';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -25,18 +24,18 @@ export class ProjectService {
         });
     }
     /**
-     * @param requestBody
+     * @param formData
      * @returns Project Success
      * @throws ApiError
      */
     public static postProject(
-        requestBody?: CreateProject,
+        formData?: any,
     ): CancelablePromise<Project> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/project',
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
     /**
@@ -73,13 +72,13 @@ export class ProjectService {
     }
     /**
      * @param id
-     * @param requestBody
+     * @param formData
      * @returns Project Success
      * @throws ApiError
      */
     public static putProject(
         id: number,
-        requestBody?: CreateProject,
+        formData?: any,
     ): CancelablePromise<Project> {
         return __request(OpenAPI, {
             method: 'PUT',
@@ -87,8 +86,8 @@ export class ProjectService {
             path: {
                 'id': id,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
 }

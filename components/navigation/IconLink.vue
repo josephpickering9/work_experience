@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center gap-x-2">
     <Icon v-if="icon" :name="icon" />
-    <a :href="to">
+    <a :href="to" :target="target" :rel="target === '_blank' ? 'noreferrer' : ''">
       {{ label }}
     </a>
   </div>
@@ -26,6 +26,10 @@ export default defineComponent({
     icon: {
       type: String,
       default: null,
+    },
+    target: {
+      type: String,
+      default: '_blank',
     },
   },
 })
