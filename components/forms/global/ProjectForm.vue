@@ -28,7 +28,18 @@
       />
     </div>
     <TagAutoComplete v-model="tags" label="Tags" />
-    <button class="btn btn-primary" @click="save">Save</button>
+    <div class="flex items-center justify-between space-x-2">
+      <FormButton label="Save" type="primary" size="sm" :disabled="loading" @click="save" />
+      <FormButton
+        v-if="isUpdate"
+        label="Delete"
+        type="error"
+        size="sm"
+        icon="material-symbols:delete"
+        :disabled="loading"
+        @click="remove"
+      />
+    </div>
   </div>
 </template>
 
@@ -42,6 +53,7 @@ import TextInput from '../TextInput.vue'
 import TextEditor from '../TextEditor.vue'
 import FileInput from '../FileInput.vue'
 import { getImageUrl } from '../../../utils/image-helper'
+import FormButton from '../FormButton.vue'
 import YearSelectList from './YearSelectList.vue'
 import TagAutoComplete from './TagAutoComplete.vue'
 
@@ -67,6 +79,7 @@ export default defineComponent({
     YearSelectList,
     FileInput,
     TagAutoComplete,
+    FormButton,
   },
   props: {
     id: {
@@ -151,6 +164,16 @@ export default defineComponent({
       if (!this.error && response) {
         this.$router.push(`/projects/${response.id}`)
         useNotificationStore().displaySuccessNotification(`Project ${this.isUpdate ? 'updated' : 'created'} successfully`)
+      } else {
+        useNotificationStore().displayErrorNotification(this.error || 'An error occurred')
+      }
+    },
+    async remove() {
+      await useProjectStore().deleteProject(this.id)
+
+      if (!this.error) {
+        this.$router.push(`/projects`)
+        useNotificationStore().displaySuccessNotification(`Project deleted successfully`)
       } else {
         useNotificationStore().displayErrorNotification(this.error || 'An error occurred')
       }

@@ -80,5 +80,19 @@ export const useProjectStore = defineStore('projectStore', {
 
       return response
     },
+    async deleteProject(id: number): Promise<void> {
+      if (!id || this.projectCreating) return
+
+      try {
+        this.projectCreateError = undefined
+        this.projectCreating = true
+
+        await ProjectService.deleteProjectId(id)
+      } catch (error) {
+        this.projectCreateError = extractError(error)
+      } finally {
+        this.projectCreating = false
+      }
+    },
   },
 })

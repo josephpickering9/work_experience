@@ -18,7 +18,7 @@
     </div>
 
     <div class="prose mx-auto flex w-full max-w-5xl flex-col justify-center gap-4 px-8">
-      <div class="flex flex-wrap items-end gap-6">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-end">
         <div v-if="Object.keys(groupedTags).length > 0" class="flex flex-wrap items-center gap-4">
           <div v-for="(typeTags, type) in groupedTags" :key="type">
             <small class="m-0 italic">{{ type }}</small>
@@ -27,13 +27,16 @@
             </div>
           </div>
         </div>
-        <IconLink v-if="project.website" :to="project.website" :label="project.website" icon="material-symbols:globe" />
-        <!-- <IconLink v-if="project.repository" :to="project.repository" label="GitHub" icon="mdi:github" /> -->
+        <div class="flex items-center gap-6">
+          <IconLink v-if="project.website" :to="project.website" label="Website" icon="material-symbols:globe" />
+          <!-- <IconLink v-if="project.repository" :to="project.repository" label="GitHub" icon="mdi:github" /> -->
+          <IconLink v-if="project.company" to="#" :label="project.company" icon="material-symbols:business-center" />
+        </div>
       </div>
 
       <h2 class="m-0 text-xl font-normal italic">{{ project.shortDescription }}</h2>
 
-      <div v-html="project.description" />
+      <div class="project-description" v-html="project.description" />
     </div>
   </div>
 </template>
@@ -102,5 +105,11 @@ export default defineComponent({
 
 .title {
   @apply relative m-0 text-4xl;
+}
+</style>
+
+<style>
+.project-description p {
+  @apply mt-0;
 }
 </style>
