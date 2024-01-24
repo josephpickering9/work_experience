@@ -1,5 +1,5 @@
 <template>
-  <div class="projects w-full max-w-5xl space-y-8">
+  <div class="projects w-full space-y-8" :class="wrapperClass">
     <div v-if="showHeader" class="prose flex max-w-full flex-col items-center justify-between gap-4 md:flex-row">
       <h1 class="m-0">Projects</h1>
       <div class="flex flex-col items-center gap-4 md:flex-row">
@@ -59,6 +59,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    maxWidth: {
+      type: String,
+      default: 'max-w-5xl',
+    },
   },
   data(): Data {
     return {
@@ -74,6 +78,11 @@ export default defineComponent({
     },
     loading(): boolean {
       return useProjectStore().projectsLoading || this.initialLoad
+    },
+    wrapperClass(): object {
+      return {
+        [this.maxWidth]: true,
+      }
     },
   },
   async mounted() {

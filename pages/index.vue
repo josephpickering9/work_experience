@@ -72,10 +72,10 @@ export default defineComponent({
 }
 
 .search-box-container.search-active .search-input {
-  @apply max-w-3xl;
+  @apply max-w-5xl;
 }
 
 .search-results {
-  @apply w-full;
+  @apply flex w-full justify-center;
 }
 </style>

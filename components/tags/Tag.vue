@@ -12,6 +12,7 @@
 import { defineComponent, type PropType, ref, type StyleValue } from 'vue'
 import type { Tag } from '../../api'
 import { TagType } from '../../api'
+import { setTextColourForBackground } from '../../utils/colour-helper'
 import { Icon } from '#components'
 
 export default defineComponent({
@@ -44,7 +45,7 @@ export default defineComponent({
         'badge-accent': this.tag.type === ref<TagType>(TagType.CMS).value,
         'badge-info': this.tag.type === ref<TagType>(TagType.MOBILE).value,
         'badge-warning': this.tag.type === ref<TagType>(TagType.DATA).value,
-        'text-white': this.tag.customColour === '#000000',
+        [setTextColourForBackground(this.tag.customColour ?? '')]: this.tag.customColour,
       }
     },
     tagStyle(): StyleValue {
