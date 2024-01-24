@@ -80,5 +80,19 @@ export const useTagStore = defineStore('tagStore', {
 
       return response
     },
+    async deleteTag(id: number): Promise<void> {
+      if (!id || this.tagCreating) return
+
+      try {
+        this.tagCreateError = undefined
+        this.tagCreating = true
+
+        await TagService.deleteTagId(id)
+      } catch (error) {
+        this.tagCreateError = extractError(error)
+      } finally {
+        this.tagCreating = false
+      }
+    },
   },
 })

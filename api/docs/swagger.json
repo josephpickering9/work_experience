@@ -614,6 +614,9 @@
           "icon": {
             "type": "string"
           },
+          "customColour": {
+            "type": "string"
+          },
           "projects": {
             "type": "array",
             "items": {

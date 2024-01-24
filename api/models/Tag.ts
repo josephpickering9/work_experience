@@ -9,6 +9,7 @@ export type Tag = {
     title: string;
     type: TagType;
     icon?: string;
+    customColour?: string;
     projects: Array<Project>;
 };
 

@@ -1,10 +1,10 @@
 <template>
   <FormElementContainer :label="label">
     <div class="relative">
-      <div class="flex items-center">
+      <div v-if="!value" class="flex items-center">
         <input
           ref="input"
-          v-model="value"
+          v-model="search"
           :type="type"
           :placeholder="placeholder"
           :required="required"
@@ -18,7 +18,14 @@
           @keydown.arrow-down.stop.prevent="onArrowDown"
           @keydown.escape="close"
         />
-        <button v-if="value" type="button" tabindex="0" class="absolute right-4 text-sm" @click="clear">X</button>
+      </div>
+      <div v-else class="flex items-center">
+        <div class="input input-bordered flex w-full items-center pr-8">
+          <slot name="selectedItem">
+            <span class="truncate">{{ value }}</span>
+          </slot>
+        </div>
+        <button type="button" tabindex="0" class="absolute right-4 text-sm" @click.stop.prevent="clear">X</button>
       </div>
       <div
         v-show="showOptions && searchResults.length"
@@ -61,6 +68,7 @@ import FormElementContainer from './FormElementContainer.vue'
 
 interface Data {
   value: string
+  search: string
   showOptions: boolean
   inputPosition: { top: number; height: number }
   showResultsAbove: boolean
@@ -109,6 +117,7 @@ export default defineComponent({
   data(): Data {
     return {
       value: this.modelValue,
+      search: '',
       showOptions: false,
       inputPosition: { top: 0, height: 0 },
       showResultsAbove: false,
@@ -118,13 +127,15 @@ export default defineComponent({
   },
   computed: {
     searchResults(): SearchItem[] {
-      const results = isEmpty(this.value)
+      const results = isEmpty(this.search)
         ? this.data
         : this.data.filter((item) => {
-            return item.title.toLowerCase().includes(this.value?.toLowerCase())
+            return item.title.toLowerCase().includes(this.search.toLowerCase())
           })
 
-      return this.showResultsAbove ? results.reverse() : results
+      const ordered = this.showResultsAbove ? results.reverse() : results
+
+      return ordered.slice(0, 100)
     },
     handleInputDebounce(): DebouncedFunc<() => any> {
       return debounce(this.handleInput, 0)
@@ -144,12 +155,6 @@ export default defineComponent({
     window.removeEventListener('resize', this.calculateInputPosition)
   },
   methods: {
-    clear() {
-      this.value = ''
-    },
-    close() {
-      this.showOptions = false
-    },
     handleInput() {
       this.$emit('search', this.value)
       this.showOptions = true
@@ -158,8 +163,9 @@ export default defineComponent({
     handleSelect(title: string) {
       this.$emit('select', title)
       this.$emit('update:modelValue', title)
+      this.value = title
       this.showOptions = false
-      this.clear()
+      this.search = ''
     },
     focus() {
       if (this.searchResults.length) {
@@ -232,7 +238,7 @@ export default defineComponent({
     adjustResultsPosition() {
       const spaceAbove = this.inputPosition.top
       const spaceBelow = window.innerHeight - this.inputPosition.top - this.inputPosition.height
-      this.showResultsAbove = spaceAbove > spaceBelow
+      this.showResultsAbove = spaceBelow < 200 && spaceAbove > spaceBelow
     },
     checkScrollPosition() {
       this.$nextTick(() => {
@@ -260,6 +266,12 @@ export default defineComponent({
           }
         }
       })
+    },
+    clear() {
+      this.value = ''
+    },
+    close() {
+      this.showOptions = false
     },
   },
   watch: {
