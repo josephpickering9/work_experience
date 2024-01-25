@@ -132,12 +132,13 @@ jobs:
           RELEASE_PATH: ${{ matrix.server.path }}/releases/${{ github.sha }}
           ACTIVE_RELEASE_PATH: ${{ matrix.server.path }}/current
           BASE_PATH: ${{ matrix.server.path }}
+          NUXT_ENV: ${{ secrets.NUXT_ENV }}
         with:
           host: ${{ matrix.server.ip }}
           username: ${{ matrix.server.username }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ matrix.server.port }}
-          envs: GITHUB_SHA,RELEASE_PATH,ACTIVE_RELEASE_PATH,BASE_PATH,ENV_PATH
+          envs: GITHUB_SHA,RELEASE_PATH,ACTIVE_RELEASE_PATH,BASE_PATH,ENV_PATH,NUXT_ENV
           script: |
             printf "%s" "$NUXT_ENV" > "${RELEASE_PATH}/.env"
             cd $RELEASE_PATH
