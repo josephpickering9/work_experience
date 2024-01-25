@@ -140,12 +140,10 @@ jobs:
           envs: GITHUB_SHA,RELEASE_PATH,ACTIVE_RELEASE_PATH,BASE_PATH,ENV_PATH
           script: |
             printf "%s" "$NUXT_ENV" > "${RELEASE_PATH}/.env"
-            cd $ACTIVE_RELEASE_PATH
+            cd $RELEASE_PATH
             yarn install
             yarn build
             ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
-            ln -s -n -f $RELEASE_PATH/.nuxt $ACTIVE_RELEASE_PATH
-            ln -s -n -f $RELEASE_PATH/.output $ACTIVE_RELEASE_PATH
             pm2 startOrReload ecosystem.config.js
 
   run-after-hooks:
