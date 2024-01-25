@@ -144,8 +144,8 @@ jobs:
             yarn install
             yarn build
             ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
-            ln -s -n -f $RELEASE_PATH/.nuxt $ACTIVE_RELEASE_PATH/.nuxt
-            ln -s -n -f $RELEASE_PATH/.output $ACTIVE_RELEASE_PATH/.output
+            ln -s -n -f $RELEASE_PATH/.nuxt $ACTIVE_RELEASE_PATH
+            ln -s -n -f $RELEASE_PATH/.output $ACTIVE_RELEASE_PATH
             pm2 startOrReload ecosystem.config.js
 
   run-after-hooks:
