@@ -139,11 +139,10 @@ jobs:
           port: ${{ matrix.server.port }}
           envs: GITHUB_SHA,RELEASE_PATH,ACTIVE_RELEASE_PATH,BASE_PATH,ENV_PATH
           script: |
-            printf "%s" "$NUXT_ENV" > "${BASE_PATH}/.env"
-            ln -s -f ${BASE_PATH}/.env $RELEASE_PATH
-            ln -s -f $STORAGE_PATH $RELEASE_PATH
-            ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
+            printf "%s" "$NUXT_ENV" > "${RELEASE_PATH}/.env"
             cd $ACTIVE_RELEASE_PATH
+            yarn build
+            ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
             pm2 startOrReload ecosystem.config.js
 
   run-after-hooks:
