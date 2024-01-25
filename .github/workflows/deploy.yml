@@ -141,6 +141,7 @@ jobs:
           script: |
             printf "%s" "$NUXT_ENV" > "${RELEASE_PATH}/.env"
             cd $ACTIVE_RELEASE_PATH
+            yarn install
             yarn build
             ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
             pm2 startOrReload ecosystem.config.js
