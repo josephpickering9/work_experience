@@ -144,7 +144,7 @@ jobs:
             ln -s -f $STORAGE_PATH $RELEASE_PATH
             ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
             cd $ACTIVE_RELEASE_PATH
-            pm2 startOrReload ecosystem.config.js --env $NODE_ENV
+            pm2 startOrReload ecosystem.config.js
 
   run-after-hooks:
     name: '${{ matrix.server.name }}: After hook'
