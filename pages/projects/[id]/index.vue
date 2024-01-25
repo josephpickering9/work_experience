@@ -17,8 +17,8 @@
       <NuxtLink :to="`/projects/${$route.params.id}/update`" class="text-xs">Edit</NuxtLink>
     </div>
 
-    <div class="prose mx-auto flex w-full max-w-5xl flex-col justify-center gap-4 px-8">
-      <div class="flex flex-col gap-6 lg:flex-row lg:items-end">
+    <div class="prose mx-auto flex w-full max-w-7xl flex-col justify-center gap-4 px-8">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div v-if="Object.keys(groupedTags).length > 0" class="flex flex-wrap items-center gap-4">
           <div v-for="(typeTags, type) in groupedTags" :key="type">
             <small class="m-0 italic">{{ type }}</small>
@@ -36,7 +36,13 @@
 
       <h2 class="m-0 text-xl font-normal italic">{{ project.shortDescription }}</h2>
 
+      <h3 class="m-0">Overview</h3>
       <div class="project-description" v-html="project.description" />
+
+      <div v-if="project.website" class="flex flex-col items-center gap-4 md:flex-row">
+        <MockupBrowser :url="project.website" />
+        <MockupPhone :url="project.website" />
+      </div>
     </div>
   </div>
 </template>
@@ -48,11 +54,12 @@ import { useProjectStore } from '../../../store/ProjectStore'
 import Skeleton from '../../../components/loading/Skeleton.vue'
 import Tag from '../../../components/tags/Tag.vue'
 import IconLink from '../../../components/navigation/IconLink.vue'
+import MockupBrowser from '../../../components/mockup/MockupBrowser.vue'
 
 export default defineComponent({
   // eslint-disable-next-line vue/match-component-file-name
   name: 'Project',
-  components: { Skeleton, Tag, IconLink },
+  components: { Skeleton, Tag, IconLink, MockupBrowser },
   computed: {
     id(): number {
       return Number(this.$route.params.id)
