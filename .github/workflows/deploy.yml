@@ -142,7 +142,6 @@ jobs:
           script: |
             printf "%s" "$NUXT_ENV" > "${RELEASE_PATH}/.env"
             cd $RELEASE_PATH
-            nvm use node
             yarn install
             yarn build
             ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
