@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'WorkExperienceWeb',
-      port: '3010',
+      port: '3000',
       exec_mode: 'cluster',
       instances: 'max',
       intepreter: 'node',
