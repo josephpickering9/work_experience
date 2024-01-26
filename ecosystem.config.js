@@ -5,7 +5,6 @@ module.exports = {
       port: '3000',
       exec_mode: 'cluster',
       instances: 'max',
-      interpreter: '/usr/bin/node',
       script: './.output/server/index.mjs',
       node_args: '--loader ts-node/esm',
       env: {
