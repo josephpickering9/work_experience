@@ -25,18 +25,18 @@ export class CompanyService {
         });
     }
     /**
-     * @param requestBody
+     * @param formData
      * @returns Company Success
      * @throws ApiError
      */
     public static postCompany(
-        requestBody?: CreateCompany,
+        formData?: CreateCompany,
     ): CancelablePromise<Company> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/company',
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
     /**
@@ -73,13 +73,13 @@ export class CompanyService {
     }
     /**
      * @param id
-     * @param requestBody
+     * @param formData
      * @returns Company Success
      * @throws ApiError
      */
     public static putCompany(
         id: number,
-        requestBody?: CreateCompany,
+        formData?: CreateCompany,
     ): CancelablePromise<Company> {
         return __request(OpenAPI, {
             method: 'PUT',
@@ -87,8 +87,8 @@ export class CompanyService {
             path: {
                 'id': id,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
 }

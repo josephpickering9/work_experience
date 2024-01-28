@@ -58,17 +58,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCompany"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCompany"
-              }
-            },
-            "application/*+json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/CreateCompany"
               }
@@ -179,17 +169,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCompany"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCompany"
-              }
-            },
-            "application/*+json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/CreateCompany"
               }
