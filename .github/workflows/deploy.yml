@@ -2,7 +2,7 @@ name: Build & Deploy
 
 on:
   push:
-    branches: [main, feature-ssr]
+    branches: [main]
 
 jobs:
   delete-previous-artifacts:
