@@ -145,7 +145,7 @@ jobs:
             yarn install
             yarn build
             ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
-            pm2 startOrReload ecosystem.config.js
+            nohup yarn start > /dev/null 2>&1 &
 
   run-after-hooks:
     name: '${{ matrix.server.name }}: After hook'
