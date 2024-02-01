@@ -4,14 +4,16 @@
       <h1 class="m-0">Companies</h1>
       <div class="flex flex-col items-center gap-4 md:flex-row">
         <TextInput v-model="search" class="w-full md:max-w-48" size="sm" placeholder="Search" :disabled="loading" />
-        <FormButton
-          v-if="isAuthenticated"
-          label="Add Company"
-          type="primary"
-          size="sm"
-          href="/companies/new"
-          :disabled="loading"
-        />
+        <ClientOnly>
+          <FormButton
+            v-if="isAuthenticated"
+            label="Add Company"
+            type="primary"
+            size="sm"
+            href="/companies/new"
+            :disabled="loading"
+          />
+        </ClientOnly>
       </div>
     </div>
     <div v-if="loading" class="flex flex-col items-center space-y-4">

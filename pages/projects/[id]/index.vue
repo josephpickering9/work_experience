@@ -15,7 +15,9 @@
           <h1 class="title">{{ project.title }}</h1>
           <small class="text-white">{{ project.year }}</small>
         </div>
-        <NuxtLink v-if="isAuthenticated" :to="`/projects/${$route.params.id}/update`" class="text-xs">Edit</NuxtLink>
+        <ClientOnly>
+          <NuxtLink v-if="isAuthenticated" :to="`/projects/${$route.params.id}/update`" class="text-xs">Edit</NuxtLink>
+        </ClientOnly>
       </div>
 
       <div class="prose mx-auto flex w-full max-w-7xl flex-col justify-center gap-4 px-8">
@@ -75,12 +77,14 @@ export default defineNuxtComponent({
   name: 'Project',
   components: { Skeleton, Tag, IconLink, MockupBrowser, MockupPhone, CompanyItem },
   async setup() {
+    const { isAuthenticated } = useAuth()
+
     const projectId = Number(useRoute().params.id)
     const initialProject = useProjectStore().project
     if (!initialProject || initialProject?.id !== projectId) await useProjectStore().getProject(projectId)
 
     const project = useProjectStore().project
-    if (!project) return
+    if (!project) return { isAuthenticated }
 
     useMeta().updateMeta({
       title: project.title,
@@ -89,7 +93,7 @@ export default defineNuxtComponent({
     })
 
     return {
-      isAuthenticated: useAuth().isAuthenticated,
+      isAuthenticated,
     }
   },
   computed: {
