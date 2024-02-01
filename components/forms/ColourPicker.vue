@@ -58,6 +58,6 @@ export default defineComponent({
 
 <style>
 .vc-colorpicker {
-  @apply w-72 overflow-hidden rounded-md border border-gray-700 !bg-base-100;
+  @apply w-72 overflow-hidden rounded-md border border-gray-600 !bg-base-100;
 }
 </style>
