@@ -5,7 +5,14 @@
       <div class="flex flex-col items-center gap-4 md:flex-row">
         <TextInput v-model="search" class="w-full md:max-w-48" size="sm" placeholder="Search" :disabled="loading" />
         <TagTypeSelectList v-model="tagType" class="w-full md:max-w-48" size="sm" :disabled="loading" />
-        <FormButton label="Add Project" type="primary" size="sm" href="/projects/new" :disabled="loading" />
+        <FormButton
+          v-if="isAuthenticated"
+          label="Add Project"
+          type="primary"
+          size="sm"
+          href="/projects/new"
+          :disabled="loading"
+        />
       </div>
     </div>
     <div v-if="loading" class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -37,6 +44,7 @@ import TextInput from '../forms/TextInput.vue'
 import FormButton from '../forms/FormButton.vue'
 import TagTypeSelectList from '../forms/global/TagTypeSelectList.vue'
 import { LoadingType } from '../../types/LoadingType'
+import useAuth from '../../composables/useAuth'
 import ProjectListItem from './ProjectListItem.vue'
 
 interface Data {
@@ -68,6 +76,13 @@ export default defineComponent({
       type: Array as () => string[],
       default: () => [],
     },
+  },
+  setup() {
+    const { isAuthenticated } = useAuth()
+
+    return {
+      isAuthenticated,
+    }
   },
   data(): Data {
     return {

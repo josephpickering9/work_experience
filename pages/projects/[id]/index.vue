@@ -15,7 +15,7 @@
           <h1 class="title">{{ project.title }}</h1>
           <small class="text-white">{{ project.year }}</small>
         </div>
-        <NuxtLink :to="`/projects/${$route.params.id}/update`" class="text-xs">Edit</NuxtLink>
+        <NuxtLink v-if="isAuthenticated" :to="`/projects/${$route.params.id}/update`" class="text-xs">Edit</NuxtLink>
       </div>
 
       <div class="prose mx-auto flex w-full max-w-7xl flex-col justify-center gap-4 px-8">
@@ -68,6 +68,7 @@ import CompanyItem from '../../../components/forms/global/CompanyItem.vue'
 import { useCompanyStore } from '../../../store/CompanyStore'
 import useMeta from '../../../composables/useMeta'
 import { getImageUrl } from '../../../utils/image-helper'
+import useAuth from '../../../composables/useAuth'
 import { defineNuxtComponent } from '#app'
 
 export default defineNuxtComponent({
@@ -86,6 +87,10 @@ export default defineNuxtComponent({
       description: project.shortDescription,
       image: project.backgroundImage ? getImageUrl(project.backgroundImage) : undefined,
     })
+
+    return {
+      isAuthenticated: useAuth().isAuthenticated,
+    }
   },
   computed: {
     id(): number {

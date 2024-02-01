@@ -4,13 +4,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useAuth0 } from '@auth0/auth0-vue'
+import useAuth from '../../composables/useAuth'
 
 export default defineComponent({
-  // eslint-disable-next-line vue/match-component-file-name
   name: 'Login',
   setup() {
-    useAuth0()?.loginWithRedirect()
+    const { login } = useAuth()
+
+    if (login) login()
   },
 })
 </script>
