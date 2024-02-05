@@ -9,7 +9,7 @@
               <img v-if="project.image" :src="getImageUrl(project.image)" class="m-0 h-10 w-10 rounded-full" />
               <small class="text-white">{{ project.year }}</small>
             </div>
-            <img v-if="project.image" :src="getImageUrl(project.image)" class="hidden h-10 w-10 rounded-full md:flex" />
+            <img v-if="project.image" :src="getImageUrl(project.image)" class="m-0 hidden h-10 w-10 rounded-full md:flex" />
             <h1 class="title">{{ project.title }}</h1>
             <small class="hidden text-white md:flex">{{ project.year }}</small>
           </div>
@@ -17,7 +17,7 @@
             <NuxtLink
               v-if="isAuthenticated"
               :to="`/projects/${$route.params.id}/update`"
-              class="absolute right-8 top-6 text-xs md:relative"
+              class="absolute right-8 top-6 text-xs md:relative md:right-auto md:top-auto"
             >
               Edit
             </NuxtLink>
@@ -160,7 +160,7 @@ export default defineNuxtComponent({
 
 <style scoped>
 .header-container {
-  @apply relative flex h-72 flex-col justify-end bg-cover bg-center py-4;
+  @apply relative flex h-72 flex-col justify-end bg-cover bg-center py-8;
 }
 
 .header-container::after {

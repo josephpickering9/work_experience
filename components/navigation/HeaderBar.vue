@@ -40,7 +40,7 @@
       </div>
     </div>
     <div class="flex-none md:hidden">
-      <button class="btn-square" @click="showMobileMenu = !showMobileMenu">
+      <button class="btn-square" @click="toggleMobileMenu">
         <Icon v-if="!showMobileMenu" name="mdi:hamburger-menu" size="2em" />
         <Icon v-else name="mdi:close" size="2em" />
       </button>
@@ -49,9 +49,9 @@
     <div v-if="showMobileMenu" class="mobile-menu md:hidden">
       <div class="flex h-full w-full flex-col items-center p-4">
         <ul class="menu flex w-full flex-col items-center justify-start p-4 py-20 text-xl">
-          <li><NuxtLink to="/projects">Projects</NuxtLink></li>
-          <li><NuxtLink to="/companies">Companies</NuxtLink></li>
-          <li><NuxtLink to="/tags">Tags</NuxtLink></li>
+          <li><NuxtLink to="/projects" @click="toggleMobileMenu">Projects</NuxtLink></li>
+          <li><NuxtLink to="/companies" @click="toggleMobileMenu">Companies</NuxtLink></li>
+          <li><NuxtLink to="/tags" @click="toggleMobileMenu">Tags</NuxtLink></li>
           <li class="w-full"><div class="divider" /></li>
           <ClientOnly>
             <li v-if="!isAuthenticated"><button type="button" @click="login">Login</button></li>
@@ -95,6 +95,11 @@ export default defineComponent({
     return {
       showMobileMenu: false,
     }
+  },
+  methods: {
+    toggleMobileMenu() {
+      this.showMobileMenu = !this.showMobileMenu
+    },
   },
 })
 </script>
