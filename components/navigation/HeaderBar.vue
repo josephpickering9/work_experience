@@ -22,6 +22,7 @@
         <!-- TODO: Hook this up -->
         <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
       </div>
+      <ThemeController />
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="avatar btn btn-circle btn-ghost">
           <div class="w-10 rounded-full">
@@ -73,6 +74,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import useAuth from '../../composables/useAuth'
+import ThemeController from '../theme/ThemeController.vue'
 import { Icon } from '#components'
 
 interface Data {
@@ -81,7 +83,7 @@ interface Data {
 
 export default defineComponent({
   name: 'HeaderBar',
-  components: { Icon },
+  components: { Icon, ThemeController },
   setup() {
     const { isAuthenticated, login, logout } = useAuth()
 
