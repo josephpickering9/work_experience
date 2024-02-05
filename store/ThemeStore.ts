@@ -9,4 +9,5 @@ export const useThemeStore = defineStore('themeStore', {
       this.selectedTheme = theme
     },
   },
+  persist: true,
 })

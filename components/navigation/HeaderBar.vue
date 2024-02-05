@@ -54,16 +54,15 @@
           <li><NuxtLink to="/companies" @click="toggleMobileMenu">Companies</NuxtLink></li>
           <li><NuxtLink to="/tags" @click="toggleMobileMenu">Tags</NuxtLink></li>
           <li class="w-full"><div class="divider" /></li>
+          <li><ThemeController /></li>
           <ClientOnly>
             <li v-if="!isAuthenticated"><button type="button" @click="login">Login</button></li>
             <li v-else><button type="button" @click="logout">Logout</button></li>
           </ClientOnly>
         </ul>
         <div class="mt-auto flex flex-col gap-4">
-          <div class="avatar btn btn-circle btn-ghost">
-            <div class="w-32 rounded-full">
-              <img alt="Profile" src="~/assets/img/joe.png" />
-            </div>
+          <div class="w-20 overflow-hidden rounded-full">
+            <img alt="Profile" src="~/assets/img/joe.png" />
           </div>
         </div>
       </div>
