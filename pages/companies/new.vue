@@ -17,6 +17,9 @@ export default defineComponent({
     const { updateMeta } = useMeta()
 
     updateMeta({ title: 'New Company', description: 'Create a new company' })
+
+    // eslint-disable-next-line no-undef
+    definePageMeta({ middleware: 'auth' })
   },
 })
 </script>
