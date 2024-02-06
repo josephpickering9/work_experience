@@ -182,8 +182,8 @@ export default defineComponent({
         path: this.$route.path,
         query: {
           search: !isEmpty(this.search) ? this.search : undefined,
-          company: this.companyId,
-          type: this.tagType,
+          company: this.companyId ? this.companyId : undefined,
+          type: this.tagType ? this.tagType : undefined,
         },
       })
     },
