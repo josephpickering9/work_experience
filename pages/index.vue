@@ -5,7 +5,7 @@
       v-model:model-search="search"
       type="text"
       class="search-input"
-      placeholder="Search"
+      :placeholder="placeholder"
       :show-empty-message="false"
       :open-on-focus="false"
       @focus="handleFocus"
@@ -48,6 +48,11 @@ export default defineComponent({
       search: '',
       tags: [],
     }
+  },
+  computed: {
+    placeholder(): string {
+      return this.isSearchActive ? 'Search by tag or keyword' : 'Search'
+    },
   },
   methods: {
     isEmpty,
