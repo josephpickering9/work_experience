@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Company } from './Company';
+import type { ProjectImage } from './ProjectImage';
 import type { Tag } from './Tag';
 export type Project = {
     id: number;
@@ -11,11 +12,10 @@ export type Project = {
     description: string;
     companyId?: number | null;
     company?: Company;
-    image?: string | null;
-    backgroundImage?: string | null;
     year: number;
     website?: string | null;
     slug: string;
+    images: Array<ProjectImage>;
     tags: Array<Tag>;
 };
 
