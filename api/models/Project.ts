@@ -17,5 +17,11 @@ export type Project = {
     slug: string;
     images: Array<ProjectImage>;
     tags: Array<Tag>;
+    logo?: ProjectImage;
+    readonly logoUrl?: string | null;
+    card?: ProjectImage;
+    readonly cardUrl?: string | null;
+    banner?: ProjectImage;
+    readonly bannerUrl?: string | null;
 };
 

@@ -899,7 +899,6 @@
       },
       "CreateProjectImage": {
         "required": [
-          "image",
           "type"
         ],
         "type": "object",
@@ -911,7 +910,8 @@
           },
           "image": {
             "type": "string",
-            "format": "binary"
+            "format": "binary",
+            "nullable": true
           },
           "type": {
             "$ref": "#/components/schemas/ImageType"
@@ -1014,6 +1014,30 @@
             "items": {
               "$ref": "#/components/schemas/Tag"
             }
+          },
+          "logo": {
+            "$ref": "#/components/schemas/ProjectImage"
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "card": {
+            "$ref": "#/components/schemas/ProjectImage"
+          },
+          "cardUrl": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "banner": {
+            "$ref": "#/components/schemas/ProjectImage"
+          },
+          "bannerUrl": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
           }
         },
         "additionalProperties": false

@@ -5,7 +5,7 @@
 import type { ImageType } from './ImageType';
 export type CreateProjectImage = {
     id?: number | null;
-    image: Blob;
+    image?: Blob | null;
     type: ImageType;
 };
 

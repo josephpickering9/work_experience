@@ -7,10 +7,14 @@
         <div class="prose z-10 flex w-full max-w-full items-center justify-between gap-4 overflow-hidden px-8">
           <div class="flex flex-col gap-x-4 gap-y-2 md:flex-row md:items-center">
             <div class="flex items-center justify-start space-x-2 md:hidden">
-              <img v-if="project.image" :src="getImageUrl(project.image)" class="m-0 h-10 w-10 rounded-full" />
+              <img v-if="project.logoUrl" :src="getImageUrl(project.logoUrl)" class="m-0 h-10 w-10 rounded-full" />
               <small class="text-white">{{ project.year }}</small>
             </div>
-            <img v-if="project.image" :src="getImageUrl(project.image)" class="m-0 hidden h-10 w-10 rounded-full md:flex" />
+            <img
+              v-if="project.logoUrl"
+              :src="getImageUrl(project.logoUrl)"
+              class="m-0 hidden h-10 w-10 rounded-full md:flex"
+            />
             <h1 ref="title" class="title text-gray-400">{{ project.title }}</h1>
             <small class="hidden text-white md:flex">{{ project.year }}</small>
           </div>
@@ -151,10 +155,10 @@ export default defineNuxtComponent({
       }
     },
     headerStyle(): object {
-      if (!this.project?.backgroundImage) return {}
+      if (!this.project?.bannerUrl) return {}
 
       return {
-        backgroundImage: `url(${getImageUrl(this.project.backgroundImage)})`,
+        backgroundImage: `url(${getImageUrl(this.project.bannerUrl)})`,
       }
     },
   },
