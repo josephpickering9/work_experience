@@ -17,7 +17,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import type { PropType } from 'vue'
 import FormElementContainer from './FormElementContainer.vue'
 
 interface Data {
@@ -45,7 +44,7 @@ export default defineComponent({
       default: false,
     },
     imageUrl: {
-      type: [String, Array] as PropType<string | string[]>,
+      type: String,
       default: null,
     },
     multiple: {

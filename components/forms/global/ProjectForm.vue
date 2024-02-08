@@ -15,15 +15,17 @@
       <FileInput v-model:image-url="logoUrl" label="Logo" :disabled="loading" @update:file="logo = $event" />
       <FileInput v-model:image-url="bannerUrl" label="Banner" :disabled="loading" @update:file="banner = $event" />
       <FileInput v-model:image-url="cardUrl" label="Card" :disabled="loading" @update:file="card = $event" />
-      <FileInput
-        v-model:image-url="desktopUrls"
+    </div>
+    <div class="grid gap-4 md:grid-cols-2">
+      <FileInputList
+        v-model:image-urls="desktopUrls"
         label="Desktop"
         :disabled="loading"
         :multiple="true"
         @update:file="desktop = $event"
       />
-      <FileInput
-        v-model:image-url="mobileUrls"
+      <FileInputList
+        v-model:image-urls="mobileUrls"
         label="Mobile"
         :disabled="loading"
         :multiple="true"
@@ -55,6 +57,7 @@ import type { Project } from '../../../api/models/Project'
 import TextInput from '../TextInput.vue'
 import TextEditor from '../TextEditor.vue'
 import FileInput from '../FileInput.vue'
+import FileInputList from '../FileInputList.vue'
 import FormButton from '../FormButton.vue'
 import { getImageUrl } from '../../../utils/image-helper'
 import { ImageType, type CreateProjectImage } from '../../../api'
@@ -89,6 +92,7 @@ export default defineComponent({
     TextInput,
     YearSelectList,
     FileInput,
+    FileInputList,
     TagAutoComplete,
     CompanyAutoComplete,
     FormButton,
@@ -144,7 +148,6 @@ export default defineComponent({
         companyId: this.companyId,
         year: this.year,
         website: this.website,
-        logo: this.logo ? this.logo.item(0) : undefined,
         images: this.createProjectImageValue,
         tags: this.tags,
       }
@@ -175,7 +178,9 @@ export default defineComponent({
           images.push({ type: ImageType.DESKTOP, image: this.desktop.item(i) as Blob })
         }
       } else {
-        const desktops = this.project?.images.filter((image) => image.type === ImageType.DESKTOP)
+        const desktops = this.project?.images.filter(
+          (image) => image.type === ImageType.DESKTOP && this.desktopUrls.includes(getImageUrl(image.image)),
+        )
         if (desktops) {
           desktops.forEach((image) => images.push({ id: image.id, type: ImageType.DESKTOP }))
         }
@@ -186,7 +191,9 @@ export default defineComponent({
           images.push({ type: ImageType.MOBILE, image: this.mobile.item(i) as Blob })
         }
       } else {
-        const mobiles = this.project?.images.filter((image) => image.type === ImageType.MOBILE)
+        const mobiles = this.project?.images.filter(
+          (image) => image.type === ImageType.MOBILE && this.mobileUrls.includes(getImageUrl(image.image)),
+        )
         if (mobiles) {
           mobiles.forEach((image) => images.push({ id: image.id, type: ImageType.MOBILE }))
         }
@@ -227,13 +234,6 @@ export default defineComponent({
 
       if (this.isUpdate) {
         if (!this.project) return useNotificationStore().displayErrorNotification('Project not found')
-
-        // console.log(
-        //   'yeah boy',
-        //   this.createProjectValue,
-        //   objectToFormData(this.createProjectValue),
-        //   objectToFormData2(this.createProjectValue),
-        // )
 
         response = await useProjectStore().updateProject(this.project.id, this.createProjectValue)
       } else {
