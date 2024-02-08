@@ -46,9 +46,9 @@ export default defineComponent({
       return getImageUrl(this.project.logoUrl)
     },
     backgroundImage(): string {
-      if (!this.project?.bannerUrl) return 'https://via.placeholder.com/320x200'
+      if (!this.project?.cardUrl) return 'https://via.placeholder.com/320x200'
 
-      return getImageUrl(this.project.bannerUrl) // TODO: Update to cardUrl
+      return getImageUrl(this.project.cardUrl)
     },
   },
 })
