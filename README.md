@@ -4,7 +4,16 @@ Welcome to the Work Experience (Frontend) project, a Nuxt 3 application designed
 
 ## Live Demo
 
-Visit [experience.josephpickering.co.uk](experience.josephpickering.co.uk) to see the project in action.
+Visit [experience.josephpickering.co.uk](https://experience.josephpickering.co.uk) to see the project in action.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Linting](#linting)
+- [OpenAPI Codegen](#openapi-codegen)
+- [Deployment](#deployment)
 
 ## Overview
 
@@ -17,8 +26,9 @@ This project leverages the power of Nuxt 3, Tailwind CSS, and daisyUI library to
 - **SEO & Meta Tag Management:** Enhances visibility and searchability on the web.
 - **Deployment:** Automated deployment on a Digital Ocean droplet via GitHub Actions for continuous integration and delivery.
 - **Linting with Husky:** Enforces code quality and style consistency.
-- **TypeScript Code Generation:** Utilises `openapi-typescript-codegen` to automatically generate TypeScript definitions from Swagger documentation.
+- **OpenAPI TypeScript Generation:** Utilises [`openapi-typescript-codegen`](https://github.com/ferdikoomen/openapi-typescript-codegen) to automatically generate TypeScript definitions from Swagger documentation.
 - **Integration with Work Experience (API):** This frontend is connected to a dedicated API service, providing dynamic data and interaction capabilities.
+- **Progressive Web Application:** Enhanced with progressive web application capacilities, utilising the [`@vite-pwa/nuxt`](https://nuxt.com/modules/vite-pwa-nuxt) package
 
 ## Installation
 
