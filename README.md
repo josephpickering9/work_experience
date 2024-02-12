@@ -2,6 +2,8 @@
 
 Welcome to the Work Experience (Frontend) project, a Nuxt 3 application designed to showcase a portfolio of my life's work across various technologies. Initially created as a personal tool to quickly find projects built with different technologies, it has evolved into a comprehensive display of my professional journey.
 
+Linked to the [Work Experience API](https://github.com/josephpickering9/work_experience_api) project.
+
 ## Live Demo
 
 Visit [experience.josephpickering.co.uk](https://experience.josephpickering.co.uk) to see the project in action.
@@ -9,7 +11,7 @@ Visit [experience.josephpickering.co.uk](https://experience.josephpickering.co.u
 ## Table of Contents
 
 - [Overview](#overview)
-- [Features](#features)
+  - [Features](#features)
 - [Installation](#installation)
 - [Linting](#linting)
 - [OpenAPI Codegen](#openapi-codegen)
@@ -22,7 +24,7 @@ This project leverages the power of Nuxt 3, Tailwind CSS, and daisyUI library to
 ### Features
 
 - **Server-Side Rendering (SSR):** Ensures faster load times and better SEO performance.
-- **Tailwind CSS & daisyUI:** Utilized for rapid UI development with a focus on design and customization.
+- **Tailwind CSS & daisyUI:** Utilised for rapid UI development with a focus on design and customisation.
 - **SEO & Meta Tag Management:** Enhances visibility and searchability on the web.
 - **Deployment:** Automated deployment on a Digital Ocean droplet via GitHub Actions for continuous integration and delivery.
 - **Linting with Husky:** Enforces code quality and style consistency.
