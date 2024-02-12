@@ -1,75 +1,79 @@
-# Nuxt 3 Minimal Starter
+# Work Experience (Frontend)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Welcome to the Work Experience (Frontend) project, a Nuxt 3 application designed to showcase a portfolio of my life's work across various technologies. Initially created as a personal tool to quickly find projects built with different technologies, it has evolved into a comprehensive display of my professional journey.
 
-## Setup
+## Live Demo
 
-Make sure to install the dependencies:
+Visit [experience.josephpickering.co.uk](experience.josephpickering.co.uk) to see the project in action.
 
-```bash
-# npm
-npm install
+## Overview
 
-# pnpm
-pnpm install
+This project leverages the power of Nuxt 3, Tailwind CSS, and daisyUI library to provide a server-side rendered application with a focus on aesthetics and responsiveness. It's designed to improve SEO and meta information management, ensuring that my work is not only showcased but also easily discoverable.
 
-# yarn
-yarn install
+### Features
 
-# bun
-bun install
-```
+- **Server-Side Rendering (SSR):** Ensures faster load times and better SEO performance.
+- **Tailwind CSS & daisyUI:** Utilized for rapid UI development with a focus on design and customization.
+- **SEO & Meta Tag Management:** Enhances visibility and searchability on the web.
+- **Deployment:** Automated deployment on a Digital Ocean droplet via GitHub Actions for continuous integration and delivery.
+- **Linting with Husky:** Enforces code quality and style consistency.
+- **TypeScript Code Generation:** Utilises `openapi-typescript-codegen` to automatically generate TypeScript definitions from Swagger documentation.
+- **Integration with Work Experience (API):** This frontend is connected to a dedicated API service, providing dynamic data and interaction capabilities.
 
-## Development Server
+## Installation
 
-Start the development server on `http://localhost:3000`:
+1. **Clone the repository:**
 
-```bash
-# npm
-npm run dev
+   ```bash
+   git clone https://github.com/josephpickering9/work-experience.git
+   cd work-experience
+   ```
 
-# pnpm
-pnpm run dev
+2. **Install Dependencies:**
 
-# yarn
-yarn dev
+   ```bash
+   yarn install
+   ```
 
-# bun
-bun run dev
-```
+3. **Initial Configuration:**
 
-## Production
+   After installation, you may need to configure environment variables or other settings specific to your development environment. Create a .env file (using .env.example) at the root of your project and fill it with necessary configurations, such as API endpoints or keys.
 
-Build the application for production:
+4. **Running the project:**
 
-```bash
-# npm
-npm run build
+   With dependencies installed, linting configured, and TypeScript types generated, you're now ready to run the project locally:
 
-# pnpm
-pnpm run build
+   ```bash
+   yarn dev
+   ```
 
-# yarn
-yarn build
+## Linting
 
-# bun
-bun run build
-```
-
-Locally preview production build:
+To maintain high code quality and consistency across the project, linting is enforced using Husky. This setup ensures that all commits meet our code standards before they can be pushed to the repository.
 
 ```bash
-# npm
-npm run preview
+# lint on updated files
+$ yarn lint
 
-# pnpm
-pnpm run preview
+# lint on all files
+$ yarn lint:full
 
-# yarn
-yarn preview
-
-# bun
-bun run preview
+# lint & fix errors
+$ yarn lint --fix
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## OpenAPI Codegen
+
+This project uses the openapi-typescript-codegen package to automatically generate TypeScript interfaces and types from the Swagger documentation provided by the Work Experience (API) project. This process ensures type safety and accelerates development by providing auto-completion and validation based on the API's schema.
+
+```bash
+# generate files
+$ yarn codegen
+
+# fetch latest swagger.json and generate files
+$ yarn fetch-codegen
+```
+
+## Deployment
+
+The project is configured for deployment on a Digital Ocean droplet via GitHub Actions. To deploy your changes, simply push to the `develop` branch, and the CI/CD pipeline will handle the rest.
