@@ -2,41 +2,69 @@
   <div class="prose w-full max-w-3xl space-y-5 rounded-md border border-gray-600 px-6 py-4">
     <h1>{{ isUpdate ? 'Update' : 'New' }} Project</h1>
     <div class="flex flex-col gap-4 md:flex-row">
-      <TextInput v-model="title" label="Title" class="w-full md:w-3/4" :disabled="loading" />
-      <YearSelectList v-model="year" label="Year" class="w-full md:w-1/4" :disabled="loading" />
+      <FormGroup :errors="v$.title?.$errors" name="Title" class="md:w-3/4">
+        <TextInput v-model="title" label="Title" :disabled="loading" />
+      </FormGroup>
+      <FormGroup :errors="v$.year?.$errors" name="Year" class="md:w-1/4">
+        <YearSelectList v-model="year" label="Year" :disabled="loading" />
+      </FormGroup>
     </div>
-    <TextInput v-model="shortDescription" label="Short Description" :disabled="loading" />
-    <TextEditor v-model="description" label="Description" :disabled="loading" />
+    <FormGroup :errors="v$.shortDescription?.$errors" name="Short Description">
+      <TextInput v-model="shortDescription" label="Short Description" :disabled="loading" />
+    </FormGroup>
+    <FormGroup :errors="v$.description?.$errors" name="Description">
+      <TextEditor v-model="description" label="Description" :disabled="loading" />
+    </FormGroup>
     <div class="flex flex-col gap-4 md:flex-row">
-      <CompanyAutoComplete v-model="companyId" label="Company" class="w-full md:w-1/2" :disabled="loading" />
-      <TextInput v-model="website" label="Website" class="w-full md:w-1/2" :disabled="loading" />
+      <FormGroup :errors="v$.companyId?.$errors" name="Company" class="md:w-1/2">
+        <CompanyAutoComplete v-model="companyId" label="Company" :disabled="loading" />
+      </FormGroup>
+      <FormGroup :errors="v$.website?.$errors" name="Website" class="md:w-1/2">
+        <TextInput v-model="website" label="Website" :disabled="loading" />
+      </FormGroup>
     </div>
     <div class="flex">
-      <Toggle v-model="showMockup" label="Show Mockup" :disabled="loading" />
+      <FormGroup :errors="v$.showMockup?.$errors" name="Show Mockup">
+        <Toggle v-model="showMockup" label="Show Mockup" :disabled="loading" />
+      </FormGroup>
     </div>
     <div class="grid gap-4 md:grid-cols-2">
-      <FileInput v-model:image-url="logoUrl" label="Logo" :disabled="loading" @update:file="logo = $event" />
-      <FileInput v-model:image-url="bannerUrl" label="Banner" :disabled="loading" @update:file="banner = $event" />
-      <FileInput v-model:image-url="cardUrl" label="Card" :disabled="loading" @update:file="card = $event" />
+      <FormGroup :errors="v$.logo?.$errors" name="Logo">
+        <FileInput v-model:image-url="logoUrl" label="Logo" :disabled="loading" @update:file="logo = $event" />
+      </FormGroup>
+      <FormGroup :errors="v$.banner?.$errors" name="Banner">
+        <FileInput v-model:image-url="bannerUrl" label="Banner" :disabled="loading" @update:file="banner = $event" />
+      </FormGroup>
+      <FormGroup :errors="v$.card?.$errors" name="Card">
+        <FileInput v-model:image-url="cardUrl" label="Card" :disabled="loading" @update:file="card = $event" />
+      </FormGroup>
     </div>
     <div class="grid gap-4 md:grid-cols-2">
-      <FileInputList
-        v-model:image-urls="desktopUrls"
-        label="Desktop"
-        :disabled="loading"
-        :multiple="true"
-        @update:file="desktop = $event"
-      />
-      <FileInputList
-        v-model:image-urls="mobileUrls"
-        label="Mobile"
-        :disabled="loading"
-        :multiple="true"
-        @update:file="mobile = $event"
-      />
+      <FormGroup :errors="v$.desktop?.$errors" name="Desktop">
+        <FileInputList
+          v-model:image-urls="desktopUrls"
+          label="Desktop"
+          :disabled="loading"
+          :multiple="true"
+          @update:file="desktop = $event"
+        />
+      </FormGroup>
+      <FormGroup :errors="v$.mobile?.$errors" name="Mobile">
+        <FileInputList
+          v-model:image-urls="mobileUrls"
+          label="Mobile"
+          :disabled="loading"
+          :multiple="true"
+          @update:file="mobile = $event"
+        />
+      </FormGroup>
     </div>
-    <TagAutoComplete v-model="tags" label="Tags" />
-    <RepositoryInput v-model="repositories" label="Repositories" />
+    <FormGroup :errors="v$.tags?.$errors" name="Tags">
+      <TagAutoComplete v-model="tags" label="Tags" />
+    </FormGroup>
+    <FormGroup :errors="v$.repositories?.$errors" name="Repositories">
+      <RepositoryInput v-model="repositories" label="Repositories" />
+    </FormGroup>
     <div class="flex items-center justify-between space-x-2">
       <FormButton label="Save" type="primary" size="sm" :disabled="loading" @click="save" />
       <FormButton
@@ -54,6 +82,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useVuelidate } from '@vuelidate/core'
+import { required, numeric } from '@vuelidate/validators'
+import useValidation from '../../../composables/useValidation'
 import { useProjectStore } from '../../../store/ProjectStore'
 import { useNotificationStore } from '../../../store/NotificationStore'
 import type { CreateProject } from '../../../api/models/CreateProject'
@@ -66,6 +97,7 @@ import FormButton from '../FormButton.vue'
 import { getImageUrl } from '../../../utils/image-helper'
 import { ImageType, type CreateProjectImage, type CreateProjectRepository } from '../../../api'
 import Toggle from '../Toggle.vue'
+import FormGroup from '../FormGroup.vue'
 import YearSelectList from './YearSelectList.vue'
 import TagAutoComplete from './TagAutoComplete.vue'
 import CompanyAutoComplete from './CompanyAutoComplete.vue'
@@ -106,12 +138,16 @@ export default defineComponent({
     FormButton,
     Toggle,
     RepositoryInput,
+    FormGroup,
   },
   props: {
     slug: {
       type: String,
       default: null,
     },
+  },
+  setup() {
+    return { v$: useVuelidate() }
   },
   data(): Data {
     return {
@@ -214,6 +250,14 @@ export default defineComponent({
       return images
     },
   },
+  validations() {
+    return {
+      title: { required },
+      year: { required, numeric },
+      shortDescription: { required },
+      tags: { required },
+    }
+  },
   async mounted() {
     if (this.isUpdate) {
       await useProjectStore().getProjectBySlug(this.slug)
@@ -244,6 +288,9 @@ export default defineComponent({
   },
   methods: {
     async save() {
+      const isValid = await useValidation().validate(this.v$)
+      if (!isValid) return
+
       let response: Project | undefined
 
       if (this.isUpdate) {
