@@ -13,7 +13,6 @@ import { cloneDeep } from 'lodash-es'
 import type { CreateProject, Project } from '../../../api'
 import { useProjectStore } from '../../../store/ProjectStore'
 import FormGroup from '../FormGroup.vue'
-import useValidation from '../../../composables/useValidation'
 import { defaultProjectForm } from '../../../mocks/Defaults'
 import RepositoryInput from './RepositoryInput.vue'
 
@@ -49,7 +48,7 @@ export default defineComponent({
   },
   methods: {
     async validate(): Promise<boolean> {
-      return await useValidation().validate(this.v$)
+      return await true
     },
   },
   watch: {

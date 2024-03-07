@@ -3,7 +3,7 @@
     <div class="header-container header-container-dark" :style="headerStyle" />
 
     <div class="flex gap-6 md:flex-row">
-      <div class="flex flex-col gap-4 md:w-1/2">
+      <div class="flex flex-col md:w-1/2 md:gap-20">
         <FormGroup :errors="v$.banner?.$errors" name="Banner">
           <FileInput v-model:image-url="bannerUrl" label="Banner" :disabled="loading" @update:file="banner = $event" />
         </FormGroup>
@@ -55,7 +55,7 @@
 <script lang="ts">
 import { defineComponent, type PropType, type StyleValue } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, sortBy } from 'lodash-es'
 import { ImageType } from '../../../api'
 import type { CreateProject, CreateProjectImage, Project } from '../../../api'
 import { useProjectStore } from '../../../store/ProjectStore'
@@ -153,7 +153,13 @@ export default defineComponent({
         (image) => image.type === ImageType.DESKTOP && this.desktopUrls.includes(getImageUrl(image.image)),
       )
       if (desktops) {
-        desktops.forEach((image) => images.push({ id: image.id, type: ImageType.DESKTOP }))
+        desktops.forEach((image) =>
+          images.push({
+            id: image.id,
+            type: ImageType.DESKTOP,
+            order: this.desktopUrls.indexOf(getImageUrl(image.image)) + 1,
+          }),
+        )
       }
 
       if (this.mobile?.length) {
@@ -165,7 +171,13 @@ export default defineComponent({
         (image) => image.type === ImageType.MOBILE && this.mobileUrls.includes(getImageUrl(image.image)),
       )
       if (mobiles) {
-        mobiles.forEach((image) => images.push({ id: image.id, type: ImageType.MOBILE }))
+        mobiles.forEach((image) =>
+          images.push({
+            id: image.id,
+            type: ImageType.MOBILE,
+            order: this.mobileUrls.indexOf(getImageUrl(image.image)) + 1,
+          }),
+        )
       }
 
       return images
@@ -189,12 +201,14 @@ export default defineComponent({
         this.logoUrl = this.project.logoUrl ? getImageUrl(this.project.logoUrl) : undefined
         this.bannerUrl = this.project.bannerUrl ? getImageUrl(this.project.bannerUrl) : undefined
         this.cardUrl = this.project.cardUrl ? getImageUrl(this.project.cardUrl) : undefined
-        this.desktopUrls = this.project.images
-          .filter((image) => image.type === ImageType.DESKTOP)
-          .map((image) => getImageUrl(image.image))
-        this.mobileUrls = this.project.images
-          .filter((image) => image.type === ImageType.MOBILE)
-          .map((image) => getImageUrl(image.image))
+        this.desktopUrls = sortBy(
+          this.project.images.filter((image) => image.type === ImageType.DESKTOP),
+          'order',
+        ).map((image) => getImageUrl(image.image))
+        this.mobileUrls = sortBy(
+          this.project.images.filter((image) => image.type === ImageType.MOBILE),
+          'order',
+        ).map((image) => getImageUrl(image.image))
       },
       immediate: true,
     },
@@ -223,6 +237,12 @@ export default defineComponent({
       this.form.images = this.createProjectImageValue
     },
     mobile() {
+      this.form.images = this.createProjectImageValue
+    },
+    desktopUrls() {
+      this.form.images = this.createProjectImageValue
+    },
+    mobileUrls() {
       this.form.images = this.createProjectImageValue
     },
   },

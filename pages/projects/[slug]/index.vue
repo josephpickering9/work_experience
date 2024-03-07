@@ -68,8 +68,8 @@
         <h2 class="m-0 text-xl font-normal italic">{{ project.shortDescription }}</h2>
         <div class="project-description" v-html="project.description" />
 
-        <Carousel v-if="desktopImages.length" title="Desktop" :images="desktopImages" width="1007" height="508" />
-        <Carousel v-if="mobileImages.length" title="Mobile" :images="mobileImages" width="335" height="673" />
+        <Carousel v-if="desktopImages.length" v-model="desktopImages" title="Desktop" width="1007" height="508" />
+        <Carousel v-if="mobileImages.length" v-model="mobileImages" title="Mobile" width="335" height="673" />
 
         <div
           v-if="project.website && project.showMockup"

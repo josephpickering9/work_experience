@@ -36,7 +36,8 @@
     "pinia-plugin-persistedstate": "^3.2.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
-    "vue3-colorpicker": "^2.2.3"
+    "vue3-colorpicker": "^2.2.3",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.1.0",

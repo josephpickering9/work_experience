@@ -88,20 +88,6 @@ export default defineComponent({
     error(): string | undefined {
       return useProjectStore().projectCreateError
     },
-    // createProjectValue(): CreateProject {
-    //   return {
-    //     title: this.title,
-    //     shortDescription: this.shortDescription,
-    //     description: this.description,
-    //     companyId: this.companyId,
-    //     year: this.year,
-    //     website: this.website,
-    //     showMockup: this.showMockup,
-    //     images: this.createProjectImageValue,
-    //     tags: this.tags,
-    //     repositories: this.repositories,
-    //   }
-    // },
   },
   async mounted() {
     if (this.isUpdate) {
@@ -122,6 +108,7 @@ export default defineComponent({
             id: image.id,
             type: image.type,
             image: undefined,
+            order: image.order,
           }
         })
       } else {
