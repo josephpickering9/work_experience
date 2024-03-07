@@ -1,17 +1,28 @@
 <template>
-  <div v-if="form" class="flex flex-col gap-4 pb-4">
-    <div class="grid gap-4 md:grid-cols-2">
-      <FormGroup :errors="v$.logo?.$errors" name="Logo">
-        <FileInput v-model:image-url="logoUrl" label="Logo" :disabled="loading" @update:file="logo = $event" />
-      </FormGroup>
-      <FormGroup :errors="v$.banner?.$errors" name="Banner">
-        <FileInput v-model:image-url="bannerUrl" label="Banner" :disabled="loading" @update:file="banner = $event" />
-      </FormGroup>
-      <FormGroup :errors="v$.card?.$errors" name="Card">
-        <FileInput v-model:image-url="cardUrl" label="Card" :disabled="loading" @update:file="card = $event" />
-      </FormGroup>
+  <div v-if="form" class="relative flex flex-col gap-8 pb-4">
+    <div class="header-container header-container-dark" :style="headerStyle" />
+
+    <div class="flex gap-6 md:flex-row">
+      <div class="flex flex-col gap-4 md:w-1/2">
+        <FormGroup :errors="v$.banner?.$errors" name="Banner">
+          <FileInput v-model:image-url="bannerUrl" label="Banner" :disabled="loading" @update:file="banner = $event" />
+        </FormGroup>
+        <FormGroup :errors="v$.logo?.$errors" name="Logo">
+          <FileInput v-model:image-url="logoUrl" label="Logo" :disabled="loading" @update:file="logo = $event" />
+        </FormGroup>
+      </div>
+      <div class="card card-bordered w-full bg-base-100 shadow-xl md:w-1/2">
+        <figure class="m-0">
+          <img :src="cardUrl ?? 'https://via.placeholder.com/320x200'" class="h-[230px] w-full object-cover" />
+        </figure>
+        <div class="card-body px-6 py-6">
+          <FormGroup :errors="v$.card?.$errors" name="Card">
+            <FileInput v-model:image-url="cardUrl" label="Card" :disabled="loading" @update:file="card = $event" />
+          </FormGroup>
+        </div>
+      </div>
     </div>
-    <div class="grid gap-4 md:grid-cols-2">
+    <div class="flex gap-4 md:flex-row">
       <FormGroup :errors="v$.desktop?.$errors" name="Desktop">
         <FileInputList
           v-model:image-urls="desktopUrls"
@@ -21,6 +32,8 @@
           @update:file="desktop = $event"
         />
       </FormGroup>
+    </div>
+    <div class="flex gap-4 md:flex-row">
       <FormGroup :errors="v$.mobile?.$errors" name="Mobile">
         <FileInputList
           v-model:image-urls="mobileUrls"
@@ -40,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+import { defineComponent, type PropType, type StyleValue } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { cloneDeep } from 'lodash-es'
 import { ImageType } from '../../../api'
@@ -104,6 +117,11 @@ export default defineComponent({
     },
     loading(): boolean {
       return useProjectStore().projectCreating || useProjectStore().projectLoading
+    },
+    headerStyle(): StyleValue {
+      return {
+        backgroundImage: `url(${this.bannerUrl ?? 'https://via.placeholder.com/1500x300'})`,
+      }
     },
     createProjectImageValue(): CreateProjectImage[] {
       const images: CreateProjectImage[] = []
@@ -210,3 +228,26 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+.header-container {
+  @apply relative -mx-6 -mt-6 flex h-40 flex-col justify-end bg-cover bg-center py-8;
+}
+
+.header-container::after {
+  content: '';
+  @apply absolute left-0 top-0 block h-full w-full bg-gradient-to-b from-transparent;
+}
+
+.header-container-light::after {
+  @apply to-gray-400;
+}
+
+.header-container-dark::after {
+  @apply to-black;
+}
+
+.title {
+  @apply relative m-0 text-4xl;
+}
+</style>

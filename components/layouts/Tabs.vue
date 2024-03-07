@@ -11,7 +11,7 @@
         @click="setActiveTab(index)"
       />
 
-      <div role="tabpanel" class="tab-content w-full rounded-box border-gray-600 p-6">
+      <div role="tabpanel" class="tab-content w-full overflow-x-hidden rounded-box border-gray-600 p-6">
         <slot :index="index" />
       </div>
     </template>
@@ -41,13 +41,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped>
-/* .tab {
-  @apply border-b-0;
-}
-.tab,
-.tab-content {
-  @apply !border-gray-600;
-} */
-</style>
