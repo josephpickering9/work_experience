@@ -1,5 +1,5 @@
 <template>
-  <div v-if="form" class="flex flex-col gap-4">
+  <div v-if="form" class="flex flex-col gap-4 pb-4">
     <FormGroup :errors="v$.form?.description?.$errors" name="Description">
       <TextEditor v-model="form.description" label="Description" :disabled="loading" />
     </FormGroup>

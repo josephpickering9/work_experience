@@ -1,5 +1,5 @@
 <template>
-  <div v-if="form" class="flex flex-col gap-4">
+  <div v-if="form" class="flex flex-col gap-4 pb-4">
     <FormGroup :errors="v$.form?.repositories?.$errors" name="Repositories">
       <RepositoryInput v-model="form.repositories" />
     </FormGroup>

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="form" class="flex flex-col gap-4">
+  <div v-if="form" class="flex flex-col gap-4 pb-4">
     <div class="grid gap-4 md:grid-cols-2">
       <FormGroup :errors="v$.logo?.$errors" name="Logo">
         <FileInput v-model:image-url="logoUrl" label="Logo" :disabled="loading" @update:file="logo = $event" />

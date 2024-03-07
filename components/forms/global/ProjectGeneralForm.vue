@@ -1,5 +1,5 @@
 <template>
-  <div v-if="form" class="flex flex-col gap-6">
+  <div v-if="form" class="flex flex-col gap-6 pb-4">
     <div class="flex flex-col gap-4 md:flex-row">
       <FormGroup :errors="v$.form?.title?.$errors" name="Title" class="md:w-3/4">
         <TextInput v-model="form.title" label="Title" :disabled="loading" />
@@ -20,7 +20,7 @@
       </FormGroup>
     </div>
     <FormGroup :errors="v$.form?.tags?.$errors" name="Tags">
-      <TagAutoComplete v-model="form.tags" label="Tags" />
+      <TagAutoComplete v-model="form.tags" label="Tags" placeholder="Search by tag name" />
     </FormGroup>
   </div>
 </template>
@@ -76,6 +76,7 @@ export default defineComponent({
         title: { required },
         year: { required, numeric },
         shortDescription: { required },
+        tags: { required },
       },
     }
   },
