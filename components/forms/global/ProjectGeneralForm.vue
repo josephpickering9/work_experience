@@ -28,7 +28,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
-import { required, numeric } from '@vuelidate/validators'
+import { required, numeric, url } from '@vuelidate/validators'
 import { cloneDeep } from 'lodash-es'
 import type { CreateProject, Project } from '../../../api'
 import { useProjectStore } from '../../../store/ProjectStore'
@@ -76,6 +76,7 @@ export default defineComponent({
         title: { required },
         year: { required, numeric },
         shortDescription: { required },
+        website: { url },
         tags: { required },
       },
     }
