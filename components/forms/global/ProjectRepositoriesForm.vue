@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col gap-4">
-    <FormGroup :errors="v$.repositories?.$errors" name="Repositories">
-      <RepositoryInput v-model="repositories" />
+  <div v-if="form" class="flex flex-col gap-4">
+    <FormGroup :errors="v$.form?.repositories?.$errors" name="Repositories">
+      <RepositoryInput v-model="form.repositories" />
     </FormGroup>
   </div>
 </template>
@@ -9,13 +9,16 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
-import type { CreateProject, CreateProjectRepository, Project } from '../../../api'
+import { cloneDeep } from 'lodash-es'
+import type { CreateProject, Project } from '../../../api'
 import { useProjectStore } from '../../../store/ProjectStore'
 import FormGroup from '../FormGroup.vue'
+import useValidation from '../../../composables/useValidation'
+import { defaultProjectForm } from '../../../mocks/Defaults'
 import RepositoryInput from './RepositoryInput.vue'
 
 interface Data {
-  repositories: CreateProjectRepository[]
+  form: CreateProject
 }
 
 export default defineComponent({
@@ -24,7 +27,7 @@ export default defineComponent({
   props: {
     modelValue: {
       type: Object as PropType<CreateProject>,
-      default: () => undefined,
+      default: () => cloneDeep(defaultProjectForm),
     },
   },
   emits: ['update:modelValue'],
@@ -33,7 +36,7 @@ export default defineComponent({
   },
   data(): Data {
     return {
-      repositories: [],
+      form: this.modelValue,
     }
   },
   computed: {
@@ -42,6 +45,25 @@ export default defineComponent({
     },
     loading(): boolean {
       return useProjectStore().projectCreating || useProjectStore().projectLoading
+    },
+  },
+  methods: {
+    async validate(): Promise<boolean> {
+      return await useValidation().validate(this.v$)
+    },
+  },
+  watch: {
+    modelValue: {
+      handler(value: CreateProject) {
+        this.form = value
+      },
+      immediate: true,
+    },
+    form: {
+      handler(value: CreateProject) {
+        this.$emit('update:modelValue', value)
+      },
+      deep: true,
     },
   },
 })

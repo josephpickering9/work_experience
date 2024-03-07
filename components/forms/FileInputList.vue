@@ -8,7 +8,7 @@
         :multiple="multiple"
         @change="inputChange"
       />
-      <div v-if="images.length" class="flex w-full flex-wrap items-center gap-4">
+      <div v-if="images && images.length" class="flex w-full flex-wrap items-center gap-4">
         <button
           v-for="(url, index) in images"
           :key="index"
