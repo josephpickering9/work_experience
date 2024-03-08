@@ -12,7 +12,14 @@
       </div>
     </FormElementContainer>
     <div v-if="images && images.length" class="flex w-full flex-wrap items-center gap-4">
-      <Carousel v-model="images" width="180px" :show-hover-button="true" :draggable="true" @hover-button="removeImage" />
+      <Carousel
+        v-model="images"
+        width="180px"
+        :show-hover-button="true"
+        :draggable="true"
+        :show-arrows="true"
+        @hover-button="removeImage"
+      />
     </div>
   </div>
 </template>
