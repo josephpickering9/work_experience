@@ -13,7 +13,7 @@
 import { defineComponent } from 'vue'
 import type { SearchItem } from '../../../types/SearchItem'
 import { ListIcon } from '../../../assets/data/icons'
-import AutoComplete from '../AutoComplete.vue'
+import AutoComplete from '../elements/AutoComplete.vue'
 import IconListItem from '../../lists/IconListItem.vue'
 
 interface Data {
