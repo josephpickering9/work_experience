@@ -185,7 +185,13 @@ export default defineComponent({
   },
   mounted() {
     if (this.project) {
-      this.form.images = this.project.images
+      this.form.images = this.project.images.map((image) => {
+        return {
+          id: image.id,
+          type: image.type,
+          order: image.order,
+        }
+      })
     }
   },
   methods: {
