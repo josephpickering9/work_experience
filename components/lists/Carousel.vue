@@ -116,22 +116,18 @@ export default defineComponent({
   @apply opacity-0 transition-opacity duration-300 hover:opacity-100;
 }
 
-.carousel-arrows {
-  @apply absolute left-0 top-0 flex h-full w-full items-center justify-center;
-}
-
 .carousel-arrow-left,
 .carousel-arrow-right {
   @apply absolute top-1/2 -translate-y-1/2 transform;
   @apply bg-black bg-opacity-50 text-white;
-  @apply rounded-full p-2;
+  @apply z-50 rounded-full p-2;
 }
 
 .carousel-arrow-left {
-  @apply -left-6;
+  @apply -left-4 md:-left-6;
 }
 
 .carousel-arrow-right {
-  @apply -right-6;
+  @apply -right-4 md:-right-6;
 }
 </style>
