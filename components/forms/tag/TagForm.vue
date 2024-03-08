@@ -30,8 +30,8 @@ import TextInput from '../elements/TextInput.vue'
 import FormButton from '../elements/FormButton.vue'
 import { TagType } from '../../../api'
 import ColourPicker from '../elements/ColourPicker.vue'
+import IconAutoComplete from '../global/IconAutoComplete.vue'
 import TagTypeSelectList from './TagTypeSelectList.vue'
-import IconAutoComplete from './IconAutoComplete.vue'
 
 interface Data {
   title: string
