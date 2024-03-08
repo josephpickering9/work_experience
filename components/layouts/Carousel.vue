@@ -38,10 +38,10 @@
       </div>
     </div>
 
-    <button v-if="showArrows" class="carousel-arrow-left" @click="scrollLeft">
+    <button v-if="showArrows" type="button" class="carousel-arrow-left" @click="scrollLeft">
       <Icon name="material-symbols:chevron-left" size="2em" />
     </button>
-    <button v-if="showArrows" class="carousel-arrow-right" @click="scrollRight">
+    <button v-if="showArrows" type="button" class="carousel-arrow-right" @click="scrollRight">
       <Icon name="material-symbols:chevron-right" size="2em" />
     </button>
   </div>
