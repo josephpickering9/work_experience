@@ -16,28 +16,3 @@ export default defineComponent({
   name: 'Spinner',
 })
 </script>
-
-<style lang="postcss" scoped>
-.loading-absolute {
-  @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform;
-}
-.loading-relative {
-  @apply relative flex items-center justify-center;
-}
-
-.loading-small {
-  @apply h-3 w-3;
-}
-
-.loading-medium {
-  @apply h-5 w-5;
-}
-
-.loading-large {
-  @apply h-10 w-10;
-}
-
-.loading-manual {
-  @apply h-full w-full;
-}
-</style>
