@@ -12,7 +12,7 @@
         </NuxtLink>
       </ClientOnly>
     </div>
-    <div class="hidden flex-none gap-2 md:flex">
+    <div class="hidden flex-none gap-2 md:flex md:items-center">
       <ul class="menu menu-horizontal px-1">
         <li><NuxtLink to="/projects">Projects</NuxtLink></li>
         <li><NuxtLink to="/companies">Companies</NuxtLink></li>
