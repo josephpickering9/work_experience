@@ -11,10 +11,10 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import type { SearchItem } from '../../../../types/SearchItem'
-import { ListIcon } from '../../../assets/data/icons'
-import AutoComplete from '../elements/AutoComplete.vue'
-import IconListItem from '../../lists/icon/IconListItem.vue'
+import type { SearchItem } from '~/types/SearchItem'
+import { ListIcon } from '~/app/assets/data/icons'
+import AutoComplete from '~/app/components/forms/elements/AutoComplete.vue'
+import IconListItem from '~/app/components/lists/icon/IconListItem.vue'
 
 interface Props {
   label?: string | null

@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import FormButtonInner from './FormButtonInner.vue'
+import FormButtonInner from '~/app/components/forms/elements/FormButtonInner.vue'
 
 interface Props {
   label?: string | null

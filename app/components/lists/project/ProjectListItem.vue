@@ -24,9 +24,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Project } from '../../../../api/models/Project'
-import { getImageUrl } from '../../../utils/image-helper'
-import Tag from '../../tags/Tag.vue'
+import type { Project } from '~/api/models/Project'
+import { getImageUrl } from '~/app/utils/image-helper'
+import Tag from '~/app/components/tags/Tag.vue'
 
 interface Props {
   project: Project

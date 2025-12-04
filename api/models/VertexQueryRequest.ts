@@ -2,10 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type CreateProjectRepository = {
-    id?: number | null;
-    title: string;
-    url: string;
-    order?: number | null;
+export type VertexQueryRequest = {
+    query?: string;
+    tenantId?: string | null;
 };
 

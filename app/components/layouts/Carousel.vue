@@ -50,7 +50,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import Draggable from 'vuedraggable'
-import { getImageUrl } from '../../utils/image-helper'
+import { getImageUrl } from '~/app/utils/image-helper'
 
 interface Props {
   modelValue?: string[]

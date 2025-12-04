@@ -4,8 +4,8 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import type { SelectListItem } from '../../../../types/SelectListItem'
-import SelectList from '../elements/SelectList.vue'
+import type { SelectListItem } from '~/types/SelectListItem'
+import SelectList from '~/app/components/forms/elements/SelectList.vue'
 
 interface Props {
   label?: string

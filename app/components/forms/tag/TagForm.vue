@@ -23,13 +23,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useTagStore } from '../../../store/TagStore'
-import { useNotificationStore } from '../../../store/NotificationStore'
-import { TagType, type CreateTag, type Tag } from '../../../../api'
-import TextInput from '../elements/TextInput.vue'
-import FormButton from '../elements/FormButton.vue'
-import ColourPicker from '../elements/ColourPicker.vue'
-import IconAutoComplete from '../global/IconAutoComplete.vue'
+import { useTagStore } from '~/app/store/TagStore'
+import { useNotificationStore } from '~/app/store/NotificationStore'
+import { TagType, type CreateTag, type Tag } from '~/api'
+import TextInput from '~/app/components/forms/elements/TextInput.vue'
+import FormButton from '~/app/components/forms/elements/FormButton.vue'
+import ColourPicker from '~/app/components/forms/elements/ColourPicker.vue'
+import IconAutoComplete from '~/app/components/forms/global/IconAutoComplete.vue'
 import TagTypeSelectList from './TagTypeSelectList.vue'
 
 interface Props {

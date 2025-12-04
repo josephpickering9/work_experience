@@ -95,17 +95,6 @@ export default withNuxt()
       'no-this-alias': 'off',
       'no-console': ['error'],
       'no-alert': ['error'],
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['~'],
-              message: 'Please use an explicit path in Storybook imports. 😡',
-            },
-          ],
-        },
-      ],
 
       // Unused imports rules
       'unused-imports/no-unused-imports': 'error',

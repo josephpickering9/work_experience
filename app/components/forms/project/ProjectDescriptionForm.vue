@@ -10,12 +10,12 @@
 import { ref, computed, watch } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { cloneDeep } from 'lodash-es'
-import type { CreateProject, Project } from '../../../../api'
-import { useProjectStore } from '../../../store/ProjectStore'
-import useValidation from '../../../composables/useValidation'
-import { defaultProjectForm } from '../../../../mocks/Defaults'
-import FormGroup from '../elements/FormGroup.vue'
-import TextEditor from '../elements/TextEditor.vue'
+import type { CreateProject, Project } from '~/api'
+import { useProjectStore } from '~/app/store/ProjectStore'
+import useValidation from '~/app/composables/useValidation'
+import { defaultProjectForm } from '~/mocks/Defaults'
+import FormGroup from '~/app/components/forms/elements/FormGroup.vue'
+import TextEditor from '~/app/components/forms/elements/TextEditor.vue'
 
 interface Props {
   modelValue?: CreateProject

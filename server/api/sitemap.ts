@@ -1,4 +1,4 @@
-import { OpenAPI, ProjectService } from '../../api'
+import { OpenAPI, ProjectService } from '../../api/index'
 import { defineSitemapEventHandler } from '#imports'
 import { useRuntimeConfig } from 'nuxt/app'
 

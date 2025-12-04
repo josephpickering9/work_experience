@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import FormElementContainer from './FormElementContainer.vue'
+import FormElementContainer from '~/app/components/forms/elements/FormElementContainer.vue'
 
 interface Props {
   modelValue?: boolean

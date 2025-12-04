@@ -16,8 +16,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { isEmpty } from 'lodash-es'
-import type { Company } from '../../../../api'
-import { getImageUrl } from '../../../utils/image-helper'
+import type { Company } from '~/api'
+import { getImageUrl } from '~/app/utils/image-helper'
 
 interface Props {
   company?: Company | null

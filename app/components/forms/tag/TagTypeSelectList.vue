@@ -12,11 +12,11 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
-import { TagType, type Tag } from '../../../../api'
-import { useTagStore } from '../../../store/TagStore'
-import type { SelectListItem } from '../../../../types/SelectListItem'
-import { enumToSelectListItem } from '../../../utils/enum-helper'
-import SelectList from '../elements/SelectList.vue'
+import { TagType, type Tag } from '~/api'
+import { useTagStore } from '~/app/store/TagStore'
+import type { SelectListItem } from '~/types/SelectListItem'
+import { enumToSelectListItem } from '~/app/utils/enum-helper'
+import SelectList from '~/app/components/forms/elements/SelectList.vue'
 
 interface Props {
   label?: string | null

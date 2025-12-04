@@ -25,11 +25,11 @@
 import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { isEmpty } from 'lodash-es'
-import { useProjectStore } from '../store/ProjectStore'
-import useMeta from '../composables/useMeta'
-import { notEmpty } from '../utils/array-helper'
-import ProjectList from '../components/lists/project/ProjectList.vue'
-import TagAutoComplete from '../components/forms/tag/TagAutoComplete.vue'
+import { useProjectStore } from '~/app/store/ProjectStore'
+import useMeta from '~/app/composables/useMeta'
+import { notEmpty } from '~/app/utils/array-helper'
+import ProjectList from '~/app/components/lists/project/ProjectList.vue'
+import TagAutoComplete from '~/app/components/forms/tag/TagAutoComplete.vue'
 
 const route = useRoute()
 const router = useRouter()

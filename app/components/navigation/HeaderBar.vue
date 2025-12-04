@@ -152,14 +152,14 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import useAuth from '../../composables/useAuth'
-import { useProjectImageStore } from '../../store/ProjectImageStore'
-import { useNotificationStore } from '../../store/NotificationStore'
-import { NotificationPosition } from '../../../types/NotificationPosition'
-import ThemeController from '../theme/ThemeController.vue'
-import FormButton from '../forms/elements/FormButton.vue'
-import Spinner from '../loading/Spinner.vue'
-import FooterBar from './FooterBar.vue'
+import useAuth from '~/app/composables/useAuth'
+import { useProjectImageStore } from '~/app/store/ProjectImageStore'
+import { useNotificationStore } from '~/app/store/NotificationStore'
+import { NotificationPosition } from '~/types/NotificationPosition'
+import ThemeController from '~/app/components/theme/ThemeController.vue'
+import FormButton from '~/app/components/forms/elements/FormButton.vue'
+import Spinner from '~/app/components/loading/Spinner.vue'
+import FooterBar from '~/app/components/navigation/FooterBar.vue'
 
 // Interfaces
 interface BeforeInstallPromptEvent extends Event {

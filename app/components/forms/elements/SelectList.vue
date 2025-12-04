@@ -20,8 +20,8 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import type { SelectListItem } from '../../../../types/SelectListItem'
-import FormElementContainer from './FormElementContainer.vue'
+import type { SelectListItem } from '~/types/SelectListItem'
+import FormElementContainer from '~/app/components/forms/elements/FormElementContainer.vue'
 
 interface Props {
   label?: string | null
