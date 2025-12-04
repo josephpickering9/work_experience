@@ -5,13 +5,9 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, watch } from 'vue'
-
-// Local component imports
 import FormElementContainer from './FormElementContainer.vue'
 
-// Props
 interface Props {
   modelValue?: boolean
   label?: string | undefined
@@ -29,7 +25,6 @@ const emit = defineEmits<{
   'update:modelValue': [value: boolean]
 }>()
 
-// Refs
 const value = ref(props.modelValue)
 
 // Watch methods

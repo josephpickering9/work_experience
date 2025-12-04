@@ -25,14 +25,10 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, watch } from 'vue'
-
-// Local component imports
 import Carousel from '../../layouts/Carousel.vue'
 import FormElementContainer from './FormElementContainer.vue'
 
-// Props
 interface Props {
   label?: string | null
   modelValue?: FileList | null
@@ -58,11 +54,9 @@ const emit = defineEmits<{
   'update:imageUrls': [value: string[]]
 }>()
 
-// Refs
 const file = ref<HTMLInputElement | null>(null)
 const images = ref<string[]>(props.imageUrls ?? [])
 
-// Methods
 function inputChange() {
   if (file.value) {
     emit('update:file', file.value.files)

@@ -48,17 +48,11 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed } from 'vue'
 import Draggable from 'vuedraggable'
-
-// Local imports
 import { getImageUrl } from '../../utils/image-helper'
-
-// Library component imports
 import { Icon } from '#components'
 
-// Props
 interface Props {
   modelValue?: string[]
   title?: string | null
@@ -87,10 +81,8 @@ const emit = defineEmits<{
   'update:modelValue': [value: string[]]
 }>()
 
-// Refs
 const carousel = ref<any>(null)
 
-// Computed
 const images = computed({
   get(): string[] {
     return props.modelValue
@@ -100,7 +92,6 @@ const images = computed({
   },
 })
 
-// Methods
 function getCarouselElement() {
   const carouselComponent = carousel.value
   return carouselComponent?.$el ? carouselComponent.$el : carouselComponent

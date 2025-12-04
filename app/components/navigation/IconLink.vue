@@ -11,10 +11,8 @@
 </template>
 
 <script setup lang="ts">
-// Library component imports
 import { Icon } from '#components'
 
-// Props
 interface Props {
   to: string
   label: string

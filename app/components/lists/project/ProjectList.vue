@@ -43,20 +43,15 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch, onMounted } from 'vue'
 import { isEmpty } from 'lodash-es'
 import { useRoute, useRouter } from 'vue-router'
-
-// Local imports
 import { useProjectStore } from '../../../store/ProjectStore'
 import type { Project } from '../../../../api/models/Project'
 import { TagType } from '../../../../api'
 import { LoadingType } from '../../../../types/LoadingType'
 import useAuth from '../../../composables/useAuth'
 import { getEnumValue } from '../../../utils/enum-helper'
-
-// Local component imports
 import Skeleton from '../../loading/Skeleton.vue'
 import TextInput from '../../forms/elements/TextInput.vue'
 import FormButton from '../../forms/elements/FormButton.vue'
@@ -64,7 +59,6 @@ import TagTypeSelectList from '../../forms/tag/TagTypeSelectList.vue'
 import CompanyAutoComplete from '../../forms/company/CompanyAutoComplete.vue'
 import ProjectListItem from './ProjectListItem.vue'
 
-// Props
 interface Props {
   showHeader?: boolean
   maxWidth?: string
@@ -81,20 +75,17 @@ const props = withDefaults(defineProps<Props>(), {
   setProjects: () => [],
 })
 
-// Composables
 const route = useRoute()
 const router = useRouter()
 const { isAuthenticated } = useAuth()
 const projectStore = useProjectStore()
 
-// Refs
 const initialLoad = ref(props.setProjects.length === 0)
 const search = ref<string | undefined>(undefined)
 const companyId = ref<number | undefined>(undefined)
 const tagType = ref<TagType | undefined>(undefined)
 const loadingTypeCard = ref(LoadingType.CARD)
 
-// Computed
 const projects = computed((): Project[] => {
   return projectStore.projects
 })
@@ -153,7 +144,6 @@ const wrapperClass = computed(() => ({
   [props.maxWidth]: true,
 }))
 
-// Methods
 function setValues() {
   search.value = route.query.search?.toString() || search.value
   companyId.value = route.query.company ? parseInt(route.query.company.toString()) : undefined
@@ -171,7 +161,6 @@ function updateQueryParams() {
   })
 }
 
-// Lifecycle methods
 onMounted(async () => {
   setValues()
 

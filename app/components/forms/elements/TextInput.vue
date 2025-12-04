@@ -19,13 +19,9 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch } from 'vue'
-
-// Local component imports
 import FormElementContainer from './FormElementContainer.vue'
 
-// Props
 interface Props {
   modelValue?: string | null | undefined
   label?: string | null
@@ -54,16 +50,13 @@ const emit = defineEmits<{
   'keyup.enter': []
 }>()
 
-// Refs
 const value = ref(props.modelValue)
 
-// Computed
 const inputClass = computed(() => ({
   'input-sm': props.size === 'sm',
   'input-lg': props.size === 'lg',
 }))
 
-// Methods
 function clear() {
   value.value = ''
 }

@@ -17,19 +17,13 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch, onMounted } from 'vue'
-
-// Local imports
 import type { SearchItem } from '../../../../types/SearchItem'
 import type { Company } from '../../../../api'
 import { useCompanyStore } from '../../../store/CompanyStore'
-
-// Local component imports
 import AutoComplete from '../elements/AutoComplete.vue'
 import CompanyItem from './CompanyItem.vue'
 
-// Props
 interface Props {
   modelValue?: number | null | undefined
   label?: string | null
@@ -51,13 +45,10 @@ const emit = defineEmits<{
   'update:modelValue': [value: number | undefined]
 }>()
 
-// Composables
 const companyStore = useCompanyStore()
 
-// Refs
 const value = ref<SearchItem | undefined>(undefined)
 
-// Computed
 const companies = computed((): Company[] => {
   return companyStore.companies
 })
@@ -90,12 +81,10 @@ const selectedSize = computed((): string => {
   }
 })
 
-// Methods
 function setValue() {
   value.value = companyItems.value.find((item) => item.value === props.modelValue)
 }
 
-// Lifecycle methods
 onMounted(async () => {
   if (companies.value.length === 0) await companyStore.getCompanies()
 

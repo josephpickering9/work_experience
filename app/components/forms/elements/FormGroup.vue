@@ -8,11 +8,9 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { computed } from 'vue'
 import type { ErrorObject } from '@vuelidate/core'
 
-// Props
 interface Props {
   errors?: ErrorObject[]
   name?: string | undefined
@@ -23,7 +21,6 @@ const props = withDefaults(defineProps<Props>(), {
   name: undefined,
 })
 
-// Computed
 const error = computed((): string | undefined => {
   if (!props.errors.length) return undefined
 

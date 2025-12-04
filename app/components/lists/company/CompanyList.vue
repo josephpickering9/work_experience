@@ -32,33 +32,25 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch, onMounted } from 'vue'
 import { isEmpty } from 'lodash-es'
 import { useRoute, useRouter } from 'vue-router'
-
-// Local imports
 import { useCompanyStore } from '../../../store/CompanyStore'
 import type { Company } from '../../../../api/models/Company'
 import useAuth from '../../../composables/useAuth'
-
-// Local component imports
 import Skeleton from '../../loading/Skeleton.vue'
 import TextInput from '../../forms/elements/TextInput.vue'
 import FormButton from '../../forms/elements/FormButton.vue'
 import CompanyListItem from './CompanyListItem.vue'
 
-// Composables
 const route = useRoute()
 const router = useRouter()
 const { isAuthenticated } = useAuth()
 const companyStore = useCompanyStore()
 
-// Refs
 const initialLoad = ref(true)
 const search = ref('')
 
-// Computed
 const companies = computed((): Company[] => {
   return companyStore.companies
 })
@@ -77,7 +69,6 @@ const filteredCompanies = computed((): Company[] => {
   return companiesFiltered
 })
 
-// Methods
 function setValues() {
   search.value = route.query.search?.toString() || search.value
 }
@@ -91,7 +82,6 @@ function updateQueryParams() {
   })
 }
 
-// Lifecycle methods
 onMounted(async () => {
   setValues()
   await companyStore.getCompanies()

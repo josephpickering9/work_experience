@@ -22,18 +22,12 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { computed } from 'vue'
-
-// Local imports
 import { useNotificationStore } from '../../store/NotificationStore'
 import type { Notification } from '../../../types/Notification'
 import { NotificationPosition } from '../../../types/NotificationPosition'
-
-// Local component imports
 import Toast from './Toast.vue'
 
-// Computed
 const notifications = computed((): Notification[] => {
   return useNotificationStore().notifications
 })
@@ -54,7 +48,6 @@ const notificationsBottomRight = computed((): Notification[] => {
   return getFilteredNotifications(NotificationPosition.BOTTOM_RIGHT)
 })
 
-// Methods
 function getFilteredNotifications(position: NotificationPosition): Notification[] {
   return notifications.value.filter((n) => n.position === position)
 }

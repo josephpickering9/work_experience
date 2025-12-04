@@ -13,18 +13,14 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, watch, defineAsyncComponent } from 'vue'
 import 'vue3-colorpicker/style.css'
-
-// Local component imports
 import FormElementContainer from './FormElementContainer.vue'
 
 const ColorPicker = defineAsyncComponent(() => {
   return import.meta.client ? import('vue3-colorpicker').then((m) => m.ColorPicker) : new Promise(() => {})
 })
 
-// Props
 interface Props {
   label?: string | null
   modelValue?: string
@@ -40,7 +36,6 @@ const emit = defineEmits<{
   'update:modelValue': [value: string]
 }>()
 
-// Refs
 const value = ref(props.modelValue ?? '')
 
 // Watch methods

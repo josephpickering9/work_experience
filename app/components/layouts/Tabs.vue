@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-// Props
 interface Props {
   tabs?: string[]
   activeTab?: number
@@ -35,7 +34,6 @@ const emit = defineEmits<{
   'update:activeTab': [value: number]
 }>()
 
-// Methods
 function setActiveTab(index: number) {
   emit('update:activeTab', index)
 }

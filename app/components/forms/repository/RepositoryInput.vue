@@ -33,22 +33,16 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, watch } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, url as urlValidator } from '@vuelidate/validators'
-
-// Local imports
 import type { CreateProjectRepository } from '../../../../api'
 import useValidation from '../../../composables/useValidation'
-
-// Local component imports
 import TextInput from '../elements/TextInput.vue'
 import FormButton from '../elements/FormButton.vue'
 import FormElementContainer from '../elements/FormElementContainer.vue'
 import FormGroup from '../elements/FormGroup.vue'
 
-// Props
 interface Props {
   label?: string | null
   modelValue?: CreateProjectRepository[]
@@ -66,10 +60,8 @@ const emit = defineEmits<{
   'update:modelValue': [value: CreateProjectRepository[]]
 }>()
 
-// Composables
 const validation = useValidation()
 
-// Refs
 const value = ref<CreateProjectRepository[]>([])
 const title = ref('')
 const url = ref('')
@@ -82,7 +74,6 @@ const rules = {
 
 const v$ = useVuelidate(rules, { title, url })
 
-// Methods
 async function addRepository() {
   const isValid = await validation.validate(v$)
   if (!isValid) return

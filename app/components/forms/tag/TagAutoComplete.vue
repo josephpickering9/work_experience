@@ -25,19 +25,13 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch, onMounted } from 'vue'
-
-// Local imports
 import type { SearchItem } from '../../../../types/SearchItem'
 import { TagType, type Tag as TagModel } from '../../../../api'
 import { useTagStore } from '../../../store/TagStore'
-
-// Local component imports
 import AutoComplete from '../elements/AutoComplete.vue'
 import Tag from '../../tags/Tag.vue'
 
-// Props
 interface Props {
   label?: string | null
   modelValue?: string[]
@@ -64,14 +58,11 @@ const emit = defineEmits<{
   'blur': []
 }>()
 
-// Composables
 const tagStore = useTagStore()
 
-// Refs
 const value = ref<string[]>([])
 const search = ref<string | undefined>(undefined)
 
-// Computed
 const tags = computed((): TagModel[] => {
   return tagStore.tags
 })
@@ -99,7 +90,6 @@ const convertedTags = computed((): TagModel[] => {
   })
 })
 
-// Methods
 function selectTag(tag: SearchItem) {
   value.value.push(tag.title)
   emit('update:modelValue', value.value)
@@ -119,7 +109,6 @@ function defaultTag(title: string): TagModel {
   }
 }
 
-// Lifecycle methods
 onMounted(async () => {
   if (tags.value.length === 0) await tagStore.getTags()
 })

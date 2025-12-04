@@ -8,13 +8,9 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { computed } from 'vue'
-
-// Local component imports
 import FormButtonInner from './FormButtonInner.vue'
 
-// Props
 interface Props {
   label?: string | null
   type?: string
@@ -38,7 +34,6 @@ const emit = defineEmits<{
   click: []
 }>()
 
-// Computed
 const buttonClass = computed(() => ({
   'btn-xs': props.size === 'xs',
   'btn-sm': props.size === 'sm',

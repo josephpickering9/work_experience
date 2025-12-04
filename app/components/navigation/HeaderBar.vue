@@ -150,18 +150,13 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useRuntimeConfig } from '#app'
-
-// Local imports
 import useAuth from '../../composables/useAuth'
 import { useProjectImageStore } from '../../store/ProjectImageStore'
 import { useNotificationStore } from '../../store/NotificationStore'
 import { NotificationPosition } from '../../../types/NotificationPosition'
-
-// Local component imports
 import ThemeController from '../theme/ThemeController.vue'
 import FormButton from '../forms/elements/FormButton.vue'
 import Spinner from '../loading/Spinner.vue'
@@ -177,18 +172,15 @@ interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>
 }
 
-// Composables
 const route = useRoute()
 const { isAuthenticated, login, logout } = useAuth()
 const projectImageStore = useProjectImageStore()
 const notificationStore = useNotificationStore()
 const runtimeConfig = useRuntimeConfig()
 
-// Refs
 const showMobileMenu = ref(false)
 const installPrompt = ref<BeforeInstallPromptEvent | undefined>(undefined)
 
-// Computed
 const linkedInUrl = computed((): string => {
   return runtimeConfig.public.linkedInUrl ?? 'https://www.linkedin.com/in/josephpickering'
 })
@@ -201,7 +193,6 @@ const optimiseError = computed((): string | undefined => {
   return projectImageStore.optimiseError
 })
 
-// Methods
 function toggleMobileMenu() {
   showMobileMenu.value = !showMobileMenu.value
 }
@@ -224,7 +215,6 @@ async function optimiseImages() {
   }
 }
 
-// Lifecycle methods
 onMounted(() => {
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault()

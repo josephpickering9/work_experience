@@ -21,23 +21,17 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-
-// Local imports
 import { useCompanyStore } from '../../../store/CompanyStore'
 import { useNotificationStore } from '../../../store/NotificationStore'
 import type { CreateCompany } from '../../../../api/models/CreateCompany'
 import type { Company } from '../../../../api/models/Company'
 import { getImageUrl } from '../../../utils/image-helper'
-
-// Local component imports
 import TextInput from '../elements/TextInput.vue'
 import FormButton from '../elements/FormButton.vue'
 import FileInput from '../elements/FileInput.vue'
 
-// Props
 interface Props {
   id?: number | null
 }
@@ -46,19 +40,16 @@ const props = withDefaults(defineProps<Props>(), {
   id: null,
 })
 
-// Composables
 const router = useRouter()
 const companyStore = useCompanyStore()
 const notificationStore = useNotificationStore()
 
-// Refs
 const name = ref('')
 const description = ref('')
 const logo = ref<FileList | null | undefined>(undefined)
 const logoUrl = ref<string | undefined>(undefined)
 const website = ref<string | undefined>(undefined)
 
-// Computed
 const isUpdate = computed((): boolean => {
   return props.id !== null
 })
@@ -88,7 +79,6 @@ const createCompanyValue = computed((): CreateCompany => {
   }
 })
 
-// Methods
 async function save() {
   let response: Company | undefined
 
@@ -119,7 +109,6 @@ async function remove() {
   }
 }
 
-// Lifecycle methods
 onMounted(async () => {
   if (isUpdate.value) {
     await companyStore.getCompany(props.id!)

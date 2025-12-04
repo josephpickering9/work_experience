@@ -25,20 +25,15 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useVuelidate } from '@vuelidate/core'
 import { cloneDeep } from 'lodash-es'
-
-// Local imports
 import { useProjectStore } from '../../../store/ProjectStore'
 import { useNotificationStore } from '../../../store/NotificationStore'
 import type { CreateProject } from '../../../../api/models/CreateProject'
 import type { Project } from '../../../../api/models/Project'
 import { defaultProjectForm } from '../../../../mocks/Defaults'
-
-// Local component imports
 import FormButton from '../elements/FormButton.vue'
 import Tabs from '../../layouts/Tabs.vue'
 import ProjectGeneralForm from './ProjectGeneralForm.vue'
@@ -46,7 +41,6 @@ import ProjectImagesForm from './ProjectImagesForm.vue'
 import ProjectRepositoriesForm from './ProjectRepositoriesForm.vue'
 import ProjectDescriptionForm from './ProjectDescriptionForm.vue'
 
-// Props
 interface Props {
   slug?: string | null
 }
@@ -55,12 +49,10 @@ const props = withDefaults(defineProps<Props>(), {
   slug: null,
 })
 
-// Composables
 const router = useRouter()
 const projectStore = useProjectStore()
 const notificationStore = useNotificationStore()
 
-// Refs
 const activeTab = ref(0)
 const form = ref<CreateProject>(cloneDeep(defaultProjectForm))
 const validated = ref(false)
@@ -74,7 +66,6 @@ const projectRepositoriesForm = ref<InstanceType<typeof ProjectRepositoriesForm>
 // Validation
 const v$ = useVuelidate()
 
-// Computed
 const isUpdate = computed((): boolean => {
   return props.slug !== null
 })
@@ -95,7 +86,6 @@ const error = computed((): string | undefined => {
   return projectStore.projectCreateError
 })
 
-// Methods
 async function validate(tab: number): Promise<boolean> {
   switch (tab) {
     case 0:
@@ -147,7 +137,6 @@ async function remove() {
   }
 }
 
-// Lifecycle methods
 onMounted(async () => {
   if (isUpdate.value) {
     await projectStore.getProjectBySlug(props.slug!)

@@ -22,21 +22,15 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { isEmpty } from 'lodash-es'
-
-// Local imports
 import { useProjectStore } from '../store/ProjectStore'
 import useMeta from '../composables/useMeta'
 import { notEmpty } from '../utils/array-helper'
-
-// Local component imports
 import ProjectList from '../components/lists/project/ProjectList.vue'
 import TagAutoComplete from '../components/forms/tag/TagAutoComplete.vue'
 
-// Composables
 const route = useRoute()
 const router = useRouter()
 const projectStore = useProjectStore()
@@ -45,17 +39,14 @@ const { updateMeta } = useMeta()
 // Meta
 updateMeta({ title: 'Work Experience', description: "Work experience portfolio for my life's work" })
 
-// Refs
 const isSearchActive = ref(false)
 const search = ref('')
 const tags = ref<string[]>([])
 
-// Computed
 const placeholder = computed((): string => {
   return isSearchActive.value ? 'Search by tag or keyword' : 'Search'
 })
 
-// Methods
 async function getProjects() {
   await projectStore.getProjects()
 }
@@ -90,7 +81,6 @@ function updateQueryParams() {
   })
 }
 
-// Lifecycle methods
 onMounted(() => {
   setValues()
 })

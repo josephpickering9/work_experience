@@ -9,18 +9,12 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { computed, type StyleValue } from 'vue'
-
-// Local imports
 import type { Tag } from '../../../api'
 import { TagType } from '../../../api'
 import { setTextColourForBackground } from '../../utils/colour-helper'
-
-// Library component imports
 import { Icon } from '#components'
 
-// Props
 interface Props {
   tag: Tag
   outline?: boolean
@@ -37,7 +31,6 @@ const emit = defineEmits<{
   remove: [tag: Tag]
 }>()
 
-// Computed
 const tagClass = computed(() => ({
   'badge-outline': props.outline,
   'badge-error': props.tag.type === TagType.BACKEND,

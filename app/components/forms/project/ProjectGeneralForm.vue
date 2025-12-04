@@ -26,26 +26,20 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, numeric, url } from '@vuelidate/validators'
 import { cloneDeep } from 'lodash-es'
-
-// Local imports
 import type { CreateProject, Project } from '../../../../api'
 import { useProjectStore } from '../../../store/ProjectStore'
 import useValidation from '../../../composables/useValidation'
 import { defaultProjectForm } from '../../../../mocks/Defaults'
-
-// Local component imports
 import FormGroup from '../elements/FormGroup.vue'
 import TextInput from '../elements/TextInput.vue'
 import YearSelectList from '../global/YearSelectList.vue'
 import CompanyAutoComplete from '../company/CompanyAutoComplete.vue'
 import TagAutoComplete from '../tag/TagAutoComplete.vue'
 
-// Props
 interface Props {
   modelValue?: CreateProject
 }
@@ -59,11 +53,9 @@ const emit = defineEmits<{
   'update:modelValue': [value: CreateProject]
 }>()
 
-// Composables
 const projectStore = useProjectStore()
 const validation = useValidation()
 
-// Refs
 const form = ref<CreateProject>(props.modelValue)
 
 // Validation
@@ -79,7 +71,6 @@ const rules = {
 
 const v$ = useVuelidate(rules, { form })
 
-// Computed
 const project = computed((): Project | undefined => {
   return projectStore.project
 })
@@ -88,7 +79,6 @@ const loading = computed((): boolean => {
   return projectStore.projectCreating || projectStore.projectLoading
 })
 
-// Methods
 async function validate(): Promise<boolean> {
   return await validation.validate(v$)
 }

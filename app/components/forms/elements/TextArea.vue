@@ -12,13 +12,9 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, watch } from 'vue'
-
-// Local component imports
 import FormElementContainer from './FormElementContainer.vue'
 
-// Props
 interface Props {
   label?: string | null
   modelValue?: string | null
@@ -42,7 +38,6 @@ const emit = defineEmits<{
   'update:modelValue': [value: string]
 }>()
 
-// Refs
 const value = ref(props.modelValue)
 
 // Watch methods

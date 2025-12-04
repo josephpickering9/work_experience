@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts">
-// Props
 interface Props {
   label?: string | null
   icon?: string | null

@@ -10,18 +10,12 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch } from 'vue'
-
-// Local imports
 import type { SearchItem } from '../../../../types/SearchItem'
 import { ListIcon } from '../../../assets/data/icons'
-
-// Local component imports
 import AutoComplete from '../elements/AutoComplete.vue'
 import IconListItem from '../../lists/icon/IconListItem.vue'
 
-// Props
 interface Props {
   label?: string | null
   modelValue?: string | null
@@ -37,10 +31,8 @@ const emit = defineEmits<{
   'update:modelValue': [value: string | undefined]
 }>()
 
-// Refs
 const value = ref<SearchItem | undefined>(undefined)
 
-// Computed
 const iconItems = computed((): SearchItem[] => {
   return ListIcon.map((icon) => ({
     title: icon,
@@ -48,7 +40,6 @@ const iconItems = computed((): SearchItem[] => {
   }))
 })
 
-// Methods
 function selectIcon(item?: SearchItem): void {
   emit('update:modelValue', item?.title)
 }

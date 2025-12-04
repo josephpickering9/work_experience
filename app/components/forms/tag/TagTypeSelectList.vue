@@ -11,19 +11,13 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch, onMounted } from 'vue'
-
-// Local imports
 import { TagType, type Tag } from '../../../../api'
 import { useTagStore } from '../../../store/TagStore'
 import type { SelectListItem } from '../../../../types/SelectListItem'
 import { enumToSelectListItem } from '../../../utils/enum-helper'
-
-// Local component imports
 import SelectList from '../elements/SelectList.vue'
 
-// Props
 interface Props {
   label?: string | null
   modelValue?: TagType | null
@@ -47,13 +41,10 @@ const emit = defineEmits<{
   'update:modelValue': [value: TagType]
 }>()
 
-// Composables
 const tagStore = useTagStore()
 
-// Refs
 const value = ref<TagType>(TagType.DEFAULT)
 
-// Computed
 const tags = computed((): Tag[] => {
   return tagStore.tags
 })
@@ -62,7 +53,6 @@ const tagTypes = computed((): SelectListItem[] => {
   return enumToSelectListItem(TagType)
 })
 
-// Lifecycle methods
 onMounted(async () => {
   if (!tags.value.length) await tagStore.getTags()
 })

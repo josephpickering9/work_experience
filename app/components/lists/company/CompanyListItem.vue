@@ -26,32 +26,22 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { computed } from 'vue'
 import { isEmpty } from 'lodash-es'
-
-// Local imports
 import type { Company as CompanyModel } from '../../../../api/models/Company'
 import { getImageUrl } from '../../../utils/image-helper'
 import useAuth from '../../../composables/useAuth'
-
-// Library component imports
 import { Icon } from '#components'
-
-// Local component imports
 import FormButton from '../../forms/elements/FormButton.vue'
 
-// Props
 interface Props {
   company: CompanyModel
 }
 
 const props = defineProps<Props>()
 
-// Composables
 const { isAuthenticated } = useAuth()
 
-// Computed
 const logo = computed((): string => {
   if (!props.company?.logo) return 'https://via.placeholder.com/320x200'
 

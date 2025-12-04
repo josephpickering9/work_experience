@@ -21,23 +21,17 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-
-// Local imports
 import { useTagStore } from '../../../store/TagStore'
 import { useNotificationStore } from '../../../store/NotificationStore'
 import { TagType, type CreateTag, type Tag } from '../../../../api'
-
-// Local component imports
 import TextInput from '../elements/TextInput.vue'
 import FormButton from '../elements/FormButton.vue'
 import ColourPicker from '../elements/ColourPicker.vue'
 import IconAutoComplete from '../global/IconAutoComplete.vue'
 import TagTypeSelectList from './TagTypeSelectList.vue'
 
-// Props
 interface Props {
   id?: number | null
 }
@@ -46,18 +40,15 @@ const props = withDefaults(defineProps<Props>(), {
   id: null,
 })
 
-// Composables
 const router = useRouter()
 const tagStore = useTagStore()
 const notificationStore = useNotificationStore()
 
-// Refs
 const title = ref('')
 const type = ref<TagType>(TagType.DEFAULT)
 const icon = ref<string | undefined>(undefined)
 const customColour = ref<string | undefined>(undefined)
 
-// Computed
 const isUpdate = computed((): boolean => {
   return props.id !== null
 })
@@ -87,7 +78,6 @@ const createTagValue = computed((): CreateTag => {
   }
 })
 
-// Methods
 async function save() {
   let response: Tag | undefined
 
@@ -118,7 +108,6 @@ async function remove() {
   }
 }
 
-// Lifecycle methods
 onMounted(async () => {
   if (isUpdate.value) {
     await tagStore.getTag(props.id!)

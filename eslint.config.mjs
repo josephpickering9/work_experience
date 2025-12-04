@@ -1,6 +1,7 @@
 // @ts-check
 import withNuxt from './.nuxt/eslint.config.mjs'
 import unusedImports from 'eslint-plugin-unused-imports'
+import stylistic from '@stylistic/eslint-plugin'
 
 export default withNuxt()
   // Add ignores
@@ -18,7 +19,8 @@ export default withNuxt()
   // Add plugins and rules
   .append({
     plugins: {
-      'unused-imports': unusedImports
+      'unused-imports': unusedImports,
+      '@stylistic': stylistic
     },
     rules: {
       // TypeScript specific rules
@@ -110,6 +112,17 @@ export default withNuxt()
       'unused-imports/no-unused-vars': [
         'warn',
         { vars: 'all', varsIgnorePattern: '^', args: 'after-used', argsIgnorePattern: '^' },
+      ],
+
+      // Import grouping rules
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        // No blank lines between imports
+        { blankLine: 'never', prev: 'import', next: 'import' },
+        // Always have a blank line after imports
+        { blankLine: 'always', prev: 'import', next: '*' },
+        // No blank line between import and another import (redundant but explicit)
+        { blankLine: 'never', prev: 'import', next: 'import' },
       ],
     }
   })

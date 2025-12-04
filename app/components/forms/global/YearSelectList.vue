@@ -3,16 +3,10 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch } from 'vue'
-
-// Local imports
 import type { SelectListItem } from '../../../../types/SelectListItem'
-
-// Local component imports
 import SelectList from '../elements/SelectList.vue'
 
-// Props
 interface Props {
   label?: string
   modelValue?: number | null
@@ -30,10 +24,8 @@ const emit = defineEmits<{
   'update:modelValue': [value: string | number]
 }>()
 
-// Refs
 const value = ref(props.modelValue)
 
-// Computed
 const options = computed((): SelectListItem[] => {
   return Array.from({ length: props.totalYears }, (_, i) => ({
     text: (new Date().getFullYear() - i).toString(),

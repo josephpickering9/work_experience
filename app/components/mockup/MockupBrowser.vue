@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-// Props
 interface Props {
   url: string
 }

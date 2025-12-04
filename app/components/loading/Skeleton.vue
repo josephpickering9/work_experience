@@ -18,10 +18,8 @@
 </template>
 
 <script setup lang="ts">
-// Local imports
 import { LoadingType } from '../../../types/LoadingType'
 
-// Props
 interface Props {
   type?: LoadingType
 }
@@ -30,7 +28,6 @@ withDefaults(defineProps<Props>(), {
   type: LoadingType.PROFILE,
 })
 
-// Refs (constants for template)
 const typeCard = LoadingType.CARD
 const typeProfile = LoadingType.PROFILE
 </script>

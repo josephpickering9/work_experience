@@ -108,15 +108,11 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-
-// Local component imports
 import FormElementContainer from './FormElementContainer.vue'
 
-// Props
 interface Props {
   label?: string | null
   modelValue: string
@@ -133,11 +129,9 @@ const emit = defineEmits<{
   'update:modelValue': [value: string]
 }>()
 
-// Refs
 const editor = ref<Editor | null>(null)
 const initialLoad = ref(true)
 
-// Lifecycle methods
 onMounted(() => {
   // @ts-ignore
   editor.value = new Editor({

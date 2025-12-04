@@ -58,27 +58,21 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch, onMounted } from 'vue'
 import type { StyleValue } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { cloneDeep, sortBy } from 'lodash-es'
-
-// Local imports
 import { ImageType } from '../../../../api'
 import type { CreateProject, CreateProjectImage, Project } from '../../../../api'
 import { useProjectStore } from '../../../store/ProjectStore'
 import useValidation from '../../../composables/useValidation'
 import { getImageUrl } from '../../../utils/image-helper'
 import { defaultProjectForm } from '../../../../mocks/Defaults'
-
-// Local component imports
 import FormGroup from '../elements/FormGroup.vue'
 import FileInput from '../elements/FileInput.vue'
 import FileInputList from '../elements/FileInputList.vue'
 import Toggle from '../elements/Toggle.vue'
 
-// Props
 interface Props {
   modelValue?: CreateProject
 }
@@ -92,11 +86,9 @@ const emit = defineEmits<{
   'update:modelValue': [value: CreateProject]
 }>()
 
-// Composables
 const projectStore = useProjectStore()
 const validation = useValidation()
 
-// Refs
 const form = ref<CreateProject>(props.modelValue)
 const desktop = ref<FileList | null>(null)
 const mobile = ref<FileList | null>(null)
@@ -113,7 +105,6 @@ const showMockup = ref(false)
 // Validation
 const v$ = useVuelidate()
 
-// Computed
 const project = computed((): Project | undefined => {
   return projectStore.project
 })
@@ -188,7 +179,6 @@ const createProjectImageValue = computed((): CreateProjectImage[] => {
   return images
 })
 
-// Methods
 async function validate(): Promise<boolean> {
   return await validation.validate(v$)
 }
@@ -198,7 +188,6 @@ defineExpose({
   validate,
 })
 
-// Lifecycle methods
 onMounted(() => {
   if (project.value) {
     form.value.images = project.value.images.map((image) => {

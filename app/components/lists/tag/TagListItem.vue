@@ -12,22 +12,17 @@
 </template>
 
 <script setup lang="ts">
-// Local imports
 import type { Tag as TagModel } from '../../../../api/models/Tag'
 import useAuth from '../../../composables/useAuth'
-
-// Local component imports
 import Tag from '../../tags/Tag.vue'
 import FormButton from '../../forms/elements/FormButton.vue'
 
-// Props
 interface Props {
   tag: TagModel
 }
 
 defineProps<Props>()
 
-// Composables
 const { isAuthenticated } = useAuth()
 </script>
 ../../../api/models/Tag../../../composables/useAuth

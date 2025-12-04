@@ -31,37 +31,29 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch, onMounted } from 'vue'
 import { isEmpty } from 'lodash-es'
 import { useRoute, useRouter } from 'vue-router'
-
-// Local imports
 import { useTagStore } from '../../../store/TagStore'
 import type { Tag } from '../../../../api/models/Tag'
 import { TagType } from '../../../../api/models/TagType'
 import useAuth from '../../../composables/useAuth'
 import { getEnumValue } from '../../../utils/enum-helper'
-
-// Local component imports
 import Skeleton from '../../loading/Skeleton.vue'
 import TextInput from '../../forms/elements/TextInput.vue'
 import FormButton from '../../forms/elements/FormButton.vue'
 import TagTypeSelectList from '../../forms/tag/TagTypeSelectList.vue'
 import TagListItem from './TagListItem.vue'
 
-// Composables
 const route = useRoute()
 const router = useRouter()
 const { isAuthenticated } = useAuth()
 const tagStore = useTagStore()
 
-// Refs
 const initialLoad = ref(true)
 const search = ref('')
 const tagType = ref<TagType | undefined>(undefined)
 
-// Computed
 const tags = computed((): Tag[] => {
   return tagStore.tags
 })
@@ -97,7 +89,6 @@ const filteredTags = computed((): Record<string, Tag[]> => {
   return sortedGroupedTags
 })
 
-// Methods
 function setValues() {
   search.value = route.query.search?.toString() || search.value
   tagType.value = (route.query.type ? getEnumValue(TagType, route.query.type.toString()) : undefined) || tagType.value
@@ -113,7 +104,6 @@ function updateQueryParams() {
   })
 }
 
-// Lifecycle methods
 onMounted(async () => {
   setValues()
   await tagStore.getTags()

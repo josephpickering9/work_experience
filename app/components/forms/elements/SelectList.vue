@@ -19,16 +19,10 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch } from 'vue'
-
-// Local imports
 import type { SelectListItem } from '../../../../types/SelectListItem'
-
-// Local component imports
 import FormElementContainer from './FormElementContainer.vue'
 
-// Props
 interface Props {
   label?: string | null
   modelValue?: string | number | null
@@ -56,10 +50,8 @@ const emit = defineEmits<{
   'update:modelValue': [value: string | number | null]
 }>()
 
-// Refs
 const value = ref<string | number | null>(props.modelValue)
 
-// Computed
 const selectClass = computed(() => ({
   'select-sm': props.size === 'sm',
   'select-md': props.size === 'md',

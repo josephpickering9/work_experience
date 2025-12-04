@@ -20,16 +20,10 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, watch } from 'vue'
-
-// Library component imports
 import { Icon } from '#components'
-
-// Local component imports
 import FormElementContainer from './FormElementContainer.vue'
 
-// Props
 interface Props {
   label?: string | null
   modelValue?: FileList | null
@@ -55,12 +49,10 @@ const emit = defineEmits<{
   'update:imageUrl': [value: string | undefined]
 }>()
 
-// Refs
 const file = ref<HTMLInputElement | null>(null)
 const image = ref<string | undefined>(props.imageUrl ?? undefined)
 const previousImageUrl = ref<string | undefined>(props.imageUrl ?? undefined)
 
-// Methods
 function inputChange() {
   if (file.value) {
     emit('update:file', file.value.files)

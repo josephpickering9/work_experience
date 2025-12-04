@@ -61,17 +61,11 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { debounce, type DebouncedFunc, isEmpty } from 'lodash-es'
-
-// Local imports
 import type { SearchItem } from '../../../../types/SearchItem'
-
-// Local component imports
 import FormElementContainer from './FormElementContainer.vue'
 
-// Props
 interface Props {
   label?: string
   modelValue?: SearchItem | undefined
@@ -113,7 +107,6 @@ const emit = defineEmits<{
   'keyup.enter': []
 }>()
 
-// Refs
 const input = ref<HTMLInputElement | null>(null)
 const results = ref<HTMLElement | null>(null)
 const item = ref<HTMLElement[]>([])
@@ -124,7 +117,6 @@ const inputPosition = ref({ top: 0, height: 0 })
 const showResultsAbove = ref(false)
 const highlighted = ref(-1)
 
-// Computed
 const searchResults = computed((): SearchItem[] => {
   const results = isEmpty(search.value)
     ? props.data
@@ -153,7 +145,6 @@ const inputClass = computed(() => ({
   'input-lg': props.size === 'lg',
 }))
 
-// Methods
 function handleInput() {
   emit('search', search.value)
   showOptions.value = true
@@ -287,7 +278,6 @@ function close() {
   showOptions.value = false
 }
 
-// Lifecycle methods
 onMounted(() => {
   calculateInputPosition()
   window.addEventListener('resize', calculateInputPosition)

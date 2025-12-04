@@ -115,20 +115,15 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 import { sortBy } from 'lodash-es'
-
-// Local imports
 import { ImageType, type Tag as TagModel } from '../../../../api'
 import { useProjectStore } from '../../../store/ProjectStore'
 import { useCompanyStore } from '../../../store/CompanyStore'
 import useMeta from '../../../composables/useMeta'
 import { getImageUrl } from '../../../utils/image-helper'
 import useAuth from '../../../composables/useAuth'
-
-// Local component imports
 import Skeleton from '../../../components/loading/Skeleton.vue'
 import Tag from '../../../components/tags/Tag.vue'
 import IconLink from '../../../components/navigation/IconLink.vue'
@@ -138,14 +133,12 @@ import CompanyItem from '../../../components/forms/company/CompanyItem.vue'
 import Carousel from '../../../components/layouts/Carousel.vue'
 import ProjectList from '../../../components/lists/project/ProjectList.vue'
 
-// Composables
 const route = useRoute()
 const { isAuthenticated } = useAuth()
 const projectStore = useProjectStore()
 const companyStore = useCompanyStore()
 const { updateMeta } = useMeta()
 
-// Computed
 const slug = computed(() => route.params.slug as string)
 
 const project = computed(() => projectStore.project)
@@ -207,7 +200,6 @@ const headerClass = computed(() => {
   }
 })
 
-// Lifecycle methods
 onMounted(async () => {
   if (!slug.value) return
 

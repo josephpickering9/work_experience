@@ -14,18 +14,12 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { computed } from 'vue'
 import { isEmpty } from 'lodash-es'
-
-// Local imports
 import type { Company } from '../../../../api'
 import { getImageUrl } from '../../../utils/image-helper'
-
-// Library component imports
 import { Icon } from '#components'
 
-// Props
 interface Props {
   company?: Company | null
   showLink?: boolean
@@ -38,7 +32,6 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'lg',
 })
 
-// Computed
 const imageUrl = computed((): string => {
   if (!props.company?.logo) return ''
 

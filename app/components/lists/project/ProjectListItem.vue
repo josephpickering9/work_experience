@@ -23,24 +23,17 @@
 </template>
 
 <script setup lang="ts">
-// Library imports
 import { computed } from 'vue'
-
-// Local imports
 import type { Project } from '../../../../api/models/Project'
 import { getImageUrl } from '../../../utils/image-helper'
-
-// Local component imports
 import Tag from '../../tags/Tag.vue'
 
-// Props
 interface Props {
   project: Project
 }
 
 const props = defineProps<Props>()
 
-// Computed
 const image = computed((): string => {
   if (!props.project?.logoUrl) return 'https://via.placeholder.com/320x200'
 
