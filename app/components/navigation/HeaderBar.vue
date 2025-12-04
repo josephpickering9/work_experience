@@ -19,63 +19,16 @@
         <li><NuxtLink to="/tags">Tags</NuxtLink></li>
       </ul>
       <ThemeController />
-      <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="avatar btn btn-circle btn-ghost">
-          <div class="w-10 rounded-full">
-            <img alt="Profile" src="~/assets/img/joe.png" >
-          </div>
-        </div>
-        <ClientOnly>
-          <ul
-            tabindex="0"
-            class="menu dropdown-content menu-sm z-[1] w-52 gap-1 rounded-box border border-gray-600 bg-base-100 p-2 shadow"
-          >
-            <li>
-              <a
-                :href="linkedInUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn btn-sm justify-start bg-[#2682BE] text-black"
-              >
-                <Icon name="mdi:linkedin" size="1.5em" />
-                LinkedIn
-              </a>
-            </li>
-            <li>
-              <a
-                href="/Joseph Pickering CV.pdf"
-                download="Joseph-Pickering-CV"
-                class="btn btn-sm justify-start bg-[#F84C4D] text-black"
-              >
-                <Icon name="mdi:file-pdf" size="1.5em" />
-                Download CV
-              </a>
-            </li>
-            <li>
-              <button type="button" class="btn btn-success btn-sm justify-start" @click="installPwa">
-                <Icon name="ic:round-install-desktop" size="1.5em" />
-                Install PWA
-              </button>
-            </li>
-            <li v-if="isAuthenticated">
-              <button type="button" class="btn btn-secondary btn-sm justify-start" @click="optimiseImages">
-                <Spinner v-if="optimising" />
-                <span v-else>
-                  <Icon name="mdi:file-image-box" size="1.5em" />
-                  Optimise Images
-                </span>
-              </button>
-            </li>
-            <li class="w-full"><div class="divider m-0 flex items-center" /></li>
-            <li v-if="!isAuthenticated">
-              <FormButton type="primary" size="sm" label="Login" @click="login" />
-            </li>
-            <li v-else>
-              <FormButton type="accent" label="Logout" size="sm" @click="logout" />
-            </li>
-          </ul>
-        </ClientOnly>
-      </div>
+      <UserDropdown
+        :linked-in-url="linkedInUrl"
+        :is-authenticated="isAuthenticated"
+        :optimising="optimising"
+        :optimise-error="optimiseError"
+        @login="login"
+        @logout="logout"
+        @install-pwa="installPwa"
+        @optimise-images="optimiseImages"
+      />
     </div>
     <div class="flex-none md:hidden">
       <button class="btn-square" @click="toggleMobileMenu">
@@ -84,68 +37,18 @@
       </button>
     </div>
 
-    <div v-if="showMobileMenu" class="mobile-menu fixed left-0 top-16 z-50 flex w-full flex-col overflow-y-auto bg-base-100 md:hidden">
-      <div class="flex flex-1 flex-col items-center px-4">
-        <ul class="menu flex w-full flex-col items-center justify-start p-4 pt-0 text-xl">
-          <li><ThemeController /></li>
-          <li><NuxtLink to="/projects" @click="toggleMobileMenu">Projects</NuxtLink></li>
-          <li><NuxtLink to="/companies" @click="toggleMobileMenu">Companies</NuxtLink></li>
-          <li><NuxtLink to="/tags" @click="toggleMobileMenu">Tags</NuxtLink></li>
-          <li class="w-full"><div class="divider" /></li>
-          <li>
-            <a
-              :href="linkedInUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-wide bg-[#2682BE] text-lg text-black"
-            >
-              <Icon name="mdi:linkedin" size="1.5em" />
-              <span>LinkedIn</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/Joseph Pickering CV.pdf"
-              download="Joseph-Pickering-CV"
-              class="btn btn-wide mt-4 bg-[#F84C4D] text-lg text-black"
-            >
-              <Icon name="mdi:file-pdf" size="1.5em" />
-              Download CV
-            </a>
-          </li>
-          <li>
-            <button type="button" class="btn btn-success btn-wide mt-4 text-lg" @click="installPwa">
-              <Icon name="ic:round-install-desktop" size="1.5em" />
-              Install PWA
-            </button>
-          </li>
-          <ClientOnly>
-            <li v-if="isAuthenticated">
-              <button type="button" class="btn btn-secondary btn-wide mt-4 text-lg" @click="optimiseImages">
-                <Spinner v-if="optimising" />
-                <span v-else>
-                  <Icon name="mdi:file-image-box" size="1.5em" />
-                  Optimise Images
-                </span>
-              </button>
-            </li>
-            <li class="w-full"><div class="divider" /></li>
-            <li v-if="!isAuthenticated">
-              <FormButton type="primary" size="sm" label="Login" @click="login" />
-            </li>
-            <li v-else>
-              <FormButton type="accent" label="Logout" size="sm" @click="logout" />
-            </li>
-          </ClientOnly>
-        </ul>
-        <div class="mt-auto flex flex-col gap-4">
-          <div class="w-20 overflow-hidden rounded-full">
-            <img alt="Profile" src="~/assets/img/joe.png" >
-          </div>
-        </div>
-      </div>
-      <FooterBar />
-    </div>
+    <MobileMenu
+      v-if="showMobileMenu"
+      :linked-in-url="linkedInUrl"
+      :is-authenticated="isAuthenticated"
+      :optimising="optimising"
+      :optimise-error="optimiseError"
+      @close="toggleMobileMenu"
+      @login="login"
+      @logout="logout"
+      @install-pwa="installPwa"
+      @optimise-images="optimiseImages"
+    />
   </header>
 </template>
 
@@ -157,9 +60,8 @@ import { useProjectImageStore } from '~/app/store/ProjectImageStore'
 import { useNotificationStore } from '~/app/store/NotificationStore'
 import { NotificationPosition } from '~/types/NotificationPosition'
 import ThemeController from '~/app/components/theme/ThemeController.vue'
-import FormButton from '~/app/components/forms/elements/FormButton.vue'
-import Spinner from '~/app/components/loading/Spinner.vue'
-import FooterBar from '~/app/components/navigation/FooterBar.vue'
+import UserDropdown from '~/app/components/navigation/UserDropdown.vue'
+import MobileMenu from '~/app/components/navigation/MobileMenu.vue'
 
 // Interfaces
 interface BeforeInstallPromptEvent extends Event {
@@ -234,10 +136,3 @@ watch(showMobileMenu, (newValue) => {
   }
 })
 </script>
-
-<style scoped>
-.mobile-menu {
-  height: calc(100% - 64px);
-  transition: top 0.3s;
-}
-</style>
