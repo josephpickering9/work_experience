@@ -5,20 +5,20 @@
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class MediaService {
+export class VertexIngestService {
     /**
-     * @param fileName
+     * @param tenantId
      * @returns any OK
      * @throws ApiError
      */
-    public static getMediaUploads(
-        fileName: string,
+    public static postVertexIngest(
+        tenantId?: string,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/media/uploads/{fileName}',
-            path: {
-                'fileName': fileName,
+            method: 'POST',
+            url: '/vertex/ingest',
+            query: {
+                'tenantId': tenantId,
             },
         });
     }
