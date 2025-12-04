@@ -13,7 +13,7 @@ import { cloneDeep } from 'lodash-es'
 import type { CreateProject, Project } from '@api'
 import { useProjectStore } from '~/store/ProjectStore'
 import useValidation from '~/composables/useValidation'
-import { defaultProjectForm } from '@mocks/Defaults'
+import { defaultProjectForm } from '~/utils/default-helper'
 import FormGroup from '~/components/ui/form/FormGroup.vue'
 import TextEditor from '~/components/ui/input/TextEditor.vue'
 
