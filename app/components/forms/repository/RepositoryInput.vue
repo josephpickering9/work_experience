@@ -36,12 +36,12 @@
 import { ref, watch } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, url as urlValidator } from '@vuelidate/validators'
-import type { CreateProjectRepository } from '~/api'
-import useValidation from '~/app/composables/useValidation'
-import TextInput from '~/app/components/forms/elements/TextInput.vue'
-import FormButton from '~/app/components/forms/elements/FormButton.vue'
-import FormElementContainer from '~/app/components/forms/elements/FormElementContainer.vue'
-import FormGroup from '~/app/components/forms/elements/FormGroup.vue'
+import type { CreateProjectRepository } from '@api'
+import useValidation from '~/composables/useValidation'
+import TextInput from '~/components/forms/elements/TextInput.vue'
+import FormButton from '~/components/forms/elements/FormButton.vue'
+import FormElementContainer from '~/components/forms/elements/FormElementContainer.vue'
+import FormGroup from '~/components/forms/elements/FormGroup.vue'
 
 interface Props {
   label?: string | null

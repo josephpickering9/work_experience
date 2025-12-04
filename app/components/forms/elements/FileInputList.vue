@@ -26,8 +26,8 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import Carousel from '~/app/components/layouts/Carousel.vue'
-import FormElementContainer from '~/app/components/forms/elements/FormElementContainer.vue'
+import Carousel from '~/components/layouts/Carousel.vue'
+import FormElementContainer from '~/components/forms/elements/FormElementContainer.vue'
 
 interface Props {
   label?: string | null

@@ -23,10 +23,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useNotificationStore } from '~/app/store/NotificationStore'
-import type { Notification } from '~/types/Notification'
-import { NotificationPosition } from '~/types/NotificationPosition'
-import Toast from '~/app/components/notification/Toast.vue'
+import { useNotificationStore } from '~/store/NotificationStore'
+import type { Notification } from '@types/Notification'
+import { NotificationPosition } from '@types/NotificationPosition'
+import Toast from '~/components/notification/Toast.vue'
 
 const notifications = computed((): Notification[] => {
   return useNotificationStore().notifications

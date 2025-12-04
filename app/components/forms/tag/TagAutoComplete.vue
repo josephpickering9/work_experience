@@ -26,11 +26,11 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
-import type { SearchItem } from '~/types/SearchItem'
-import { TagType, type Tag as TagModel } from '~/api'
-import { useTagStore } from '~/app/store/TagStore'
-import AutoComplete from '~/app/components/forms/elements/AutoComplete.vue'
-import Tag from '~/app/components/tags/Tag.vue'
+import type { SearchItem } from '@types/SearchItem'
+import { TagType, type Tag as TagModel } from '@api'
+import { useTagStore } from '~/store/TagStore'
+import AutoComplete from '~/components/forms/elements/AutoComplete.vue'
+import Tag from '~/components/tags/Tag.vue'
 
 interface Props {
   label?: string | undefined

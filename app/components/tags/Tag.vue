@@ -10,9 +10,9 @@
 
 <script setup lang="ts">
 import { computed, type StyleValue } from 'vue'
-import type { Tag } from '~/api'
-import { TagType } from '~/api'
-import { setTextColourForBackground } from '~/app/utils/colour-helper'
+import type { Tag } from '@api'
+import { TagType } from '@api'
+import { setTextColourForBackground } from '~/utils/colour-helper'
 
 interface Props {
   tag: Tag

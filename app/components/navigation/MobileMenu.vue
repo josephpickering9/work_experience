@@ -64,10 +64,10 @@
 </template>
 
 <script setup lang="ts">
-import ThemeController from '~/app/components/theme/ThemeController.vue'
-import FormButton from '~/app/components/forms/elements/FormButton.vue'
-import Spinner from '~/app/components/loading/Spinner.vue'
-import FooterBar from '~/app/components/navigation/FooterBar.vue'
+import ThemeController from '~/components/theme/ThemeController.vue'
+import FormButton from '~/components/forms/elements/FormButton.vue'
+import Spinner from '~/components/loading/Spinner.vue'
+import FooterBar from '~/components/navigation/FooterBar.vue'
 
 defineProps<{
   linkedInUrl: string

@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import FormElementContainer from '~/app/components/forms/elements/FormElementContainer.vue'
+import FormElementContainer from '~/components/forms/elements/FormElementContainer.vue'
 
 interface Props {
   modelValue?: string | undefined

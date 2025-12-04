@@ -28,10 +28,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { isEmpty } from 'lodash-es'
-import type { Company as CompanyModel } from '~/api/models/Company'
-import { getImageUrl } from '~/app/utils/image-helper'
-import useAuth from '~/app/composables/useAuth'
-import FormButton from '~/app/components/forms/elements/FormButton.vue'
+import type { Company as CompanyModel } from '@api/models/Company'
+import { getImageUrl } from '~/utils/image-helper'
+import useAuth from '~/composables/useAuth'
+import FormButton from '~/components/forms/elements/FormButton.vue'
 
 interface Props {
   company: CompanyModel

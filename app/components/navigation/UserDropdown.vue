@@ -59,8 +59,8 @@
 </template>
 
 <script setup lang="ts">
-import FormButton from '~/app/components/forms/elements/FormButton.vue'
-import Spinner from '~/app/components/loading/Spinner.vue'
+import FormButton from '~/components/forms/elements/FormButton.vue'
+import Spinner from '~/components/loading/Spinner.vue'
 
 defineProps<{
   linkedInUrl: string

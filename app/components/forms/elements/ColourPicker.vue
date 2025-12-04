@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { ref, watch, defineAsyncComponent } from 'vue'
 import 'vue3-colorpicker/style.css'
-import FormElementContainer from '~/app/components/forms/elements/FormElementContainer.vue'
+import FormElementContainer from '~/components/forms/elements/FormElementContainer.vue'
 
 const ColorPicker = defineAsyncComponent(() => {
   return import.meta.client ? import('vue3-colorpicker').then((m) => m.ColorPicker) : new Promise(() => {})

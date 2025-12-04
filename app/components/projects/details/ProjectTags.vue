@@ -11,8 +11,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Tag as TagModel } from '~/api'
-import Tag from '~/app/components/tags/Tag.vue'
+import type { Tag as TagModel } from '@api'
+import Tag from '~/components/tags/Tag.vue'
 
 const props = defineProps<{
   tags: TagModel[]

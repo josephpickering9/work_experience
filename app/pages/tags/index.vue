@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import useMeta from '~/app/composables/useMeta'
-import TagList from '~/app/components/lists/tag/TagList.vue'
+import useMeta from '~/composables/useMeta'
+import TagList from '~/components/lists/tag/TagList.vue'
 
 const { updateMeta } = useMeta()
 

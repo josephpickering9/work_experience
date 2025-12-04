@@ -35,9 +35,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Project } from '~/api'
-import { getImageUrl } from '~/app/utils/image-helper'
-import useAuth from '~/app/composables/useAuth'
+import type { Project } from '@api'
+import { getImageUrl } from '~/utils/image-helper'
+import useAuth from '~/composables/useAuth'
 
 const props = defineProps<{
   project: Project

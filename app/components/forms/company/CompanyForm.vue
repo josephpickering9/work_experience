@@ -23,14 +23,14 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useCompanyStore } from '~/app/store/CompanyStore'
-import { useNotificationStore } from '~/app/store/NotificationStore'
-import type { CreateCompany } from '~/api/models/CreateCompany'
-import type { Company } from '~/api/models/Company'
-import { getImageUrl } from '~/app/utils/image-helper'
-import TextInput from '~/app/components/forms/elements/TextInput.vue'
-import FormButton from '~/app/components/forms/elements/FormButton.vue'
-import FileInput from '~/app/components/forms/elements/FileInput.vue'
+import { useCompanyStore } from '~/store/CompanyStore'
+import { useNotificationStore } from '~/store/NotificationStore'
+import type { CreateCompany } from '@api/models/CreateCompany'
+import type { Company } from '@api/models/Company'
+import { getImageUrl } from '~/utils/image-helper'
+import TextInput from '~/components/forms/elements/TextInput.vue'
+import FormButton from '~/components/forms/elements/FormButton.vue'
+import FileInput from '~/components/forms/elements/FileInput.vue'
 
 interface Props {
   id?: number | null

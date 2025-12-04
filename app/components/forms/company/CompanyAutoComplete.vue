@@ -18,10 +18,10 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
-import type { SearchItem } from '~/types/SearchItem'
-import type { Company } from '~/api'
-import { useCompanyStore } from '~/app/store/CompanyStore'
-import AutoComplete from '~/app/components/forms/elements/AutoComplete.vue'
+import type { SearchItem } from '@types/SearchItem'
+import type { Company } from '@api'
+import { useCompanyStore } from '~/store/CompanyStore'
+import AutoComplete from '~/components/forms/elements/AutoComplete.vue'
 import CompanyItem from './CompanyItem.vue'
 
 interface Props {

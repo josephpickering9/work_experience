@@ -35,12 +35,12 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { isEmpty } from 'lodash-es'
 import { useRoute, useRouter } from 'vue-router'
-import { useCompanyStore } from '~/app/store/CompanyStore'
-import type { Company } from '~/api/models/Company'
-import useAuth from '~/app/composables/useAuth'
-import Skeleton from '~/app/components/loading/Skeleton.vue'
-import TextInput from '~/app/components/forms/elements/TextInput.vue'
-import FormButton from '~/app/components/forms/elements/FormButton.vue'
+import { useCompanyStore } from '~/store/CompanyStore'
+import type { Company } from '@api/models/Company'
+import useAuth from '~/composables/useAuth'
+import Skeleton from '~/components/loading/Skeleton.vue'
+import TextInput from '~/components/forms/elements/TextInput.vue'
+import FormButton from '~/components/forms/elements/FormButton.vue'
 import CompanyListItem from './CompanyListItem.vue'
 
 const route = useRoute()

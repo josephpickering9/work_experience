@@ -25,9 +25,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Project, Company } from '~/api'
-import IconLink from '~/app/components/navigation/IconLink.vue'
-import CompanyItem from '~/app/components/forms/company/CompanyItem.vue'
+import type { Project, Company } from '@api'
+import IconLink from '~/components/navigation/IconLink.vue'
+import CompanyItem from '~/components/forms/company/CompanyItem.vue'
 
 defineProps<{
   project: Project

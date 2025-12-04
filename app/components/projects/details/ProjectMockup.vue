@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import MockupBrowser from '~/app/components/mockup/MockupBrowser.vue'
-import MockupPhone from '~/app/components/mockup/MockupPhone.vue'
+import MockupBrowser from '~/components/mockup/MockupBrowser.vue'
+import MockupPhone from '~/components/mockup/MockupPhone.vue'
 
 defineProps<{
   websiteUrl?: string

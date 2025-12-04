@@ -10,8 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Project } from '~/api'
-import ProjectList from '~/app/components/lists/project/ProjectList.vue'
+import type { Project } from '@api'
+import ProjectList from '~/components/lists/project/ProjectList.vue'
 
 defineProps<{
   projects: Project[]

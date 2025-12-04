@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import Carousel from '~/app/components/layouts/Carousel.vue'
+import Carousel from '~/components/layouts/Carousel.vue'
 
 defineProps<{
   desktopImages: string[]

@@ -12,10 +12,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Tag as TagModel } from '~/api/models/Tag'
-import useAuth from '~/app/composables/useAuth'
-import Tag from '~/app/components/tags/Tag.vue'
-import FormButton from '~/app/components/forms/elements/FormButton.vue'
+import type { Tag as TagModel } from '@api/models/Tag'
+import useAuth from '~/composables/useAuth'
+import Tag from '~/components/tags/Tag.vue'
+import FormButton from '~/components/forms/elements/FormButton.vue'
 
 interface Props {
   tag: TagModel

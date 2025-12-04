@@ -55,13 +55,13 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import useAuth from '~/app/composables/useAuth'
-import { useProjectImageStore } from '~/app/store/ProjectImageStore'
-import { useNotificationStore } from '~/app/store/NotificationStore'
-import { NotificationPosition } from '~/types/NotificationPosition'
-import ThemeController from '~/app/components/theme/ThemeController.vue'
-import UserDropdown from '~/app/components/navigation/UserDropdown.vue'
-import MobileMenu from '~/app/components/navigation/MobileMenu.vue'
+import useAuth from '~/composables/useAuth'
+import { useProjectImageStore } from '~/store/ProjectImageStore'
+import { useNotificationStore } from '~/store/NotificationStore'
+import { NotificationPosition } from '@types/NotificationPosition'
+import ThemeController from '~/components/theme/ThemeController.vue'
+import UserDropdown from '~/components/navigation/UserDropdown.vue'
+import MobileMenu from '~/components/navigation/MobileMenu.vue'
 
 // Interfaces
 interface BeforeInstallPromptEvent extends Event {

@@ -111,7 +111,7 @@
 import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-import FormElementContainer from '~/app/components/forms/elements/FormElementContainer.vue'
+import FormElementContainer from '~/components/forms/elements/FormElementContainer.vue'
 
 interface Props {
   label?: string | null
