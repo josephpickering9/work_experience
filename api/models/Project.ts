@@ -1,11 +1,12 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
-/* eslint-disable */
+ 
 import type { Company } from './Company';
 import type { ProjectImage } from './ProjectImage';
 import type { ProjectRepository } from './ProjectRepository';
 import type { Tag } from './Tag';
+
 export type Project = {
     id: number;
     title: string;
