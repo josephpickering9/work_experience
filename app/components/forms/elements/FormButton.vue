@@ -21,12 +21,12 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  label: null,
+  label: undefined,
   type: 'submit',
   disabled: false,
   size: null,
   href: null,
-  icon: null,
+  icon: undefined,
 })
 
 // Emits

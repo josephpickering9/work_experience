@@ -152,7 +152,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { useRuntimeConfig } from '#app'
 import useAuth from '../../composables/useAuth'
 import { useProjectImageStore } from '../../store/ProjectImageStore'
 import { useNotificationStore } from '../../store/NotificationStore'

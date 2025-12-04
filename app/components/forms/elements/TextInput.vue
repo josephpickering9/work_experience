@@ -23,23 +23,23 @@ import { ref, computed, watch } from 'vue'
 import FormElementContainer from './FormElementContainer.vue'
 
 interface Props {
-  modelValue?: string | null | undefined
-  label?: string | null
-  placeholder?: string | null
+  modelValue?: string | undefined
+  label?: string | undefined
+  placeholder?: string | undefined
   type?: string
   required?: boolean
   disabled?: boolean
-  size?: string | null
+  size?: string | undefined
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: null,
-  label: null,
-  placeholder: null,
+  modelValue: undefined,
+  label: undefined,
+  placeholder: undefined,
   type: 'text',
   required: false,
   disabled: false,
-  size: null,
+  size: undefined,
 })
 
 // Emits

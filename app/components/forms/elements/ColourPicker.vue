@@ -27,7 +27,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  label: null,
+  label: undefined,
   modelValue: '',
 })
 

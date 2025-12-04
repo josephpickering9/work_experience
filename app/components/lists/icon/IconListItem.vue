@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from '#components'
 
 interface Props {
   icon?: string | null

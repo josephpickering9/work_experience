@@ -16,6 +16,6 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  label: null,
+  label: undefined,
 })
 </script>

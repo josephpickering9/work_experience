@@ -120,8 +120,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  label: null,
-  placeholder: null,
+  label: undefined,
+  placeholder: undefined,
 })
 
 // Emits

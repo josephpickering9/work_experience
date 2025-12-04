@@ -33,19 +33,19 @@ import AutoComplete from '../elements/AutoComplete.vue'
 import Tag from '../../tags/Tag.vue'
 
 interface Props {
-  label?: string | null
+  label?: string | undefined
   modelValue?: string[]
   modelSearch?: string
-  placeholder?: string | null
+  placeholder?: string | undefined
   showEmptyMessage?: boolean
   openOnFocus?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  label: null,
+  label: undefined,
   modelValue: () => [],
   modelSearch: '',
-  placeholder: null,
+  placeholder: undefined,
   showEmptyMessage: true,
   openOnFocus: true,
 })
@@ -84,13 +84,16 @@ const convertedTags = computed((): TagModel[] => {
     return {
       id: 0,
       title,
+      slug: title.toLowerCase().replace(/\s+/g, '-'),
       type: TagType.DEFAULT,
-      projects: [],
+      icon: undefined,
+      customColour: undefined,
     }
   })
 })
 
-function selectTag(tag: SearchItem) {
+function selectTag(tag: SearchItem | undefined) {
+  if (!tag) return
   value.value.push(tag.title)
   emit('update:modelValue', value.value)
 }
@@ -104,8 +107,10 @@ function defaultTag(title: string): TagModel {
   return {
     id: 0,
     title,
+    slug: title.toLowerCase().replace(/\s+/g, '-'),
     type: TagType.DEFAULT,
-    projects: [],
+    icon: undefined,
+    customColour: undefined,
   }
 }
 

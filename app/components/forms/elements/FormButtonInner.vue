@@ -12,7 +12,7 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  label: null,
-  icon: null,
+  label: undefined,
+  icon: undefined,
 })
 </script>

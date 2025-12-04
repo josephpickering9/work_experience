@@ -15,7 +15,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   label: 'Year',
-  modelValue: null,
+  modelValue: undefined,
   totalYears: 15,
 })
 

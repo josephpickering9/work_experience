@@ -1,6 +1,6 @@
 <template>
   <div v-if="company" class="flex items-center gap-2">
-    <img :src="imageUrl" :alt="`${company.title} Logo`" class="m-0 rounded-full" :class="imageClass" >
+    <img :src="imageUrl" :alt="`${company.name} Logo`" class="m-0 rounded-full" :class="imageClass" >
     <span v-if="!showLink || isEmpty(company.website) || company.website === '#'" class="m-0" :class="textClass">
       {{ company.name }}
     </span>
@@ -18,7 +18,6 @@ import { computed } from 'vue'
 import { isEmpty } from 'lodash-es'
 import type { Company } from '../../../../api'
 import { getImageUrl } from '../../../utils/image-helper'
-import { Icon } from '#components'
 
 interface Props {
   company?: Company | null

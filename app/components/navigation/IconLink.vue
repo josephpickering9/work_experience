@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from '#components'
 
 interface Props {
   to: string

@@ -51,7 +51,6 @@
 import { ref, computed } from 'vue'
 import Draggable from 'vuedraggable'
 import { getImageUrl } from '../../utils/image-helper'
-import { Icon } from '#components'
 
 interface Props {
   modelValue?: string[]

@@ -21,7 +21,6 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { Icon } from '#components'
 import FormElementContainer from './FormElementContainer.vue'
 
 interface Props {
@@ -34,11 +33,11 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  label: null,
-  modelValue: null,
+  label: undefined,
+  modelValue: undefined,
   required: false,
   disabled: false,
-  imageUrl: null,
+  imageUrl: undefined,
   multiple: false,
 })
 
