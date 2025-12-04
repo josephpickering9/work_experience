@@ -8,7 +8,7 @@ export type CreateProject = {
     title: string;
     shortDescription: string;
     description: string;
-    companyId?: number | null;
+    companyId?: string | null;
     year: number;
     website?: string | null;
     showMockup: boolean;

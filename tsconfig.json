@@ -4,6 +4,7 @@
     "checkUnknownSlotNames": true
   },
   "compilerOptions": {
+    "baseUrl": ".",
     "strict": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
@@ -18,9 +19,6 @@
     "noUncheckedIndexedAccess": true,
     "noPropertyAccessFromIndexSignature": true,
     "exactOptionalPropertyTypes": false,
-    "types": [
-      "@nuxt/types",
-      "@nuxtjs/firebase"
-    ],
+    "types": [],
   }
 }

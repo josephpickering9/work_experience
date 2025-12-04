@@ -4,11 +4,11 @@
 /* eslint-disable */
 import type { ImageType } from './ImageType';
 export type ProjectImage = {
-    id: number;
+    id: string;
     image: string;
     type: ImageType;
     order?: number | null;
     isOptimised?: boolean;
-    projectId?: number | null;
+    projectId?: string;
 };
 

@@ -4,7 +4,7 @@
 /* eslint-disable */
 import type { ImageType } from './ImageType';
 export type CreateProjectImage = {
-    id?: number | null;
+    id?: string | null;
     image?: Blob | null;
     type: ImageType;
     order?: number | null;
