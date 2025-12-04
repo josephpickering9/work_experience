@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import useMeta from '~/composables/useMeta'
-import TagForm from '~/components/forms/tag/TagForm.vue'
+import TagForm from '~/components/tag/form/TagForm.vue'
 
 definePageMeta({ middleware: 'auth' })
 

@@ -13,6 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import HeaderBar from '~/components/navigation/HeaderBar.vue'
-import FooterBar from '~/components/navigation/FooterBar.vue'
+import HeaderBar from '~/components/layout/navigation/HeaderBar.vue'
+import FooterBar from '~/components/layout/navigation/FooterBar.vue'
 </script>

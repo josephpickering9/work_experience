@@ -8,7 +8,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import useMeta from '~/composables/useMeta'
-import ProjectForm from '~/components/forms/project/ProjectForm.vue'
+import ProjectForm from '~/components/project/forms/ProjectForm.vue'
 
 definePageMeta({ middleware: 'auth' })
 

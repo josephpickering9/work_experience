@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import ProjectList from '~/components/lists/project/ProjectList.vue'
+import ProjectList from '~/components/project/list/ProjectList.vue'
 import useMeta from '~/composables/useMeta'
 
 const { updateMeta } = useMeta()
