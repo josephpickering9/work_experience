@@ -12,16 +12,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import HeaderBar from '../components/navigation/HeaderBar.vue'
 import FooterBar from '../components/navigation/FooterBar.vue'
-
-export default defineComponent({
-  name: 'Default',
-  components: {
-    HeaderBar,
-    FooterBar,
-  },
-})
 </script>

@@ -12,47 +12,44 @@
   </FormElementContainer>
 </template>
 
-<script lang="ts">
-import { defineComponent, defineAsyncComponent } from 'vue'
+<script setup lang="ts">
+// Library imports
+import { ref, watch, defineAsyncComponent } from 'vue'
 import 'vue3-colorpicker/style.css'
+
+// Local component imports
 import FormElementContainer from './FormElementContainer.vue'
 
-interface Data {
-  value: string
+const ColorPicker = defineAsyncComponent(() => {
+  return import.meta.client ? import('vue3-colorpicker').then((m) => m.ColorPicker) : new Promise(() => {})
+})
+
+// Props
+interface Props {
+  label?: string | null
+  modelValue?: string
 }
 
-export default defineComponent({
-  name: 'ColourPicker',
-  components: {
-    FormElementContainer,
-    ColorPicker: defineAsyncComponent(() => {
-      return import.meta.client ? import('vue3-colorpicker').then((m) => m.ColorPicker) : new Promise(() => {})
-    }),
-  },
-  props: {
-    label: {
-      type: String,
-      default: null,
-    },
-    modelValue: {
-      type: String,
-      default: '',
-    },
-  },
-  emits: ['update:modelValue'],
-  data(): Data {
-    return {
-      value: this.modelValue ?? '',
-    }
-  },
-  watch: {
-    modelValue() {
-      this.value = this.modelValue ?? ''
-    },
-    value() {
-      this.$emit('update:modelValue', this.value)
-    },
-  },
+const props = withDefaults(defineProps<Props>(), {
+  label: null,
+  modelValue: '',
+})
+
+// Emits
+const emit = defineEmits<{
+  'update:modelValue': [value: string]
+}>()
+
+// Refs
+const value = ref(props.modelValue ?? '')
+
+// Watch methods
+watch(() => props.modelValue, (newValue) => {
+  value.value = newValue ?? ''
+})
+
+watch(value, (newValue) => {
+  emit('update:modelValue', newValue)
 })
 </script>
 

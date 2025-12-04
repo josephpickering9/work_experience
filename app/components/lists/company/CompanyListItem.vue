@@ -25,40 +25,36 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+<script setup lang="ts">
+// Library imports
+import { computed } from 'vue'
 import { isEmpty } from 'lodash-es'
+
+// Local imports
 import type { Company as CompanyModel } from '../../../../api/models/Company'
 import { getImageUrl } from '../../../utils/image-helper'
-import FormButton from '../../forms/elements/FormButton.vue'
 import useAuth from '../../../composables/useAuth'
+
+// Library component imports
 import { Icon } from '#components'
 
-export default defineComponent({
-  name: 'CompanyListItem',
-  components: { FormButton, Icon },
-  props: {
-    company: {
-      type: Object as PropType<CompanyModel>,
-      required: true,
-    },
-  },
-  setup() {
-    const { isAuthenticated } = useAuth()
+// Local component imports
+import FormButton from '../../forms/elements/FormButton.vue'
 
-    return {
-      isAuthenticated,
-    }
-  },
-  computed: {
-    logo(): string {
-      if (!this.company?.logo) return 'https://via.placeholder.com/320x200'
+// Props
+interface Props {
+  company: CompanyModel
+}
 
-      return getImageUrl(this.company.logo)
-    },
-  },
-  methods: {
-    isEmpty,
-  },
+const props = defineProps<Props>()
+
+// Composables
+const { isAuthenticated } = useAuth()
+
+// Computed
+const logo = computed((): string => {
+  if (!props.company?.logo) return 'https://via.placeholder.com/320x200'
+
+  return getImageUrl(props.company.logo)
 })
 </script>

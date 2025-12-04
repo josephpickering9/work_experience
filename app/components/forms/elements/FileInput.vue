@@ -19,74 +19,68 @@
   </FormElementContainer>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import FormElementContainer from './FormElementContainer.vue'
+<script setup lang="ts">
+// Library imports
+import { ref, watch } from 'vue'
+
+// Library component imports
 import { Icon } from '#components'
 
-interface Data {
-  image?: string
-  previousImageUrl?: string
+// Local component imports
+import FormElementContainer from './FormElementContainer.vue'
+
+// Props
+interface Props {
+  label?: string | null
+  modelValue?: FileList | null
+  required?: boolean
+  disabled?: boolean
+  imageUrl?: string | null
+  multiple?: boolean
 }
 
-export default defineComponent({
-  name: 'FileInput',
-  components: { FormElementContainer, Icon },
-  props: {
-    label: {
-      type: String,
-      default: null,
-    },
-    modelValue: {
-      type: import.meta.server ? Object : FileList,
-      default: null,
-    },
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    imageUrl: {
-      type: String,
-      default: null,
-    },
-    multiple: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['update:modelValue', 'update:file', 'update:imageUrl'],
-  data(): Data {
-    return {
-      image: this.imageUrl,
-      previousImageUrl: this.imageUrl,
-    }
-  },
-  methods: {
-    inputChange() {
-      if (this.$refs.file) {
-        const input = this.$refs.file as HTMLInputElement
-        this.$emit('update:file', input.files)
-        this.$emit('update:modelValue', input.files)
-      }
-    },
-    reset() {
-      this.image = this.previousImageUrl
-      if (this.$refs.file) (this.$refs.file as HTMLInputElement).value = ''
-    },
-  },
-  watch: {
-    imageUrl() {
-      this.image = this.imageUrl
-    },
-    image(newValue: string, oldValue: string) {
-      if (oldValue) this.previousImageUrl = oldValue
+const props = withDefaults(defineProps<Props>(), {
+  label: null,
+  modelValue: null,
+  required: false,
+  disabled: false,
+  imageUrl: null,
+  multiple: false,
+})
 
-      this.$emit('update:imageUrl', this.image)
-    },
-  },
+// Emits
+const emit = defineEmits<{
+  'update:modelValue': [value: FileList | null]
+  'update:file': [value: FileList | null]
+  'update:imageUrl': [value: string | undefined]
+}>()
+
+// Refs
+const file = ref<HTMLInputElement | null>(null)
+const image = ref<string | undefined>(props.imageUrl ?? undefined)
+const previousImageUrl = ref<string | undefined>(props.imageUrl ?? undefined)
+
+// Methods
+function inputChange() {
+  if (file.value) {
+    emit('update:file', file.value.files)
+    emit('update:modelValue', file.value.files)
+  }
+}
+
+function reset() {
+  image.value = previousImageUrl.value
+  if (file.value) file.value.value = ''
+}
+
+// Watch methods
+watch(() => props.imageUrl, (newValue) => {
+  image.value = newValue ?? undefined
+})
+
+watch(image, (newValue, oldValue) => {
+  if (oldValue) previousImageUrl.value = oldValue
+
+  emit('update:imageUrl', image.value)
 })
 </script>

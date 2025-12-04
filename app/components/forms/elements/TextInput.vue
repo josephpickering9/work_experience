@@ -18,73 +18,62 @@
   </FormElementContainer>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+// Library imports
+import { ref, computed, watch } from 'vue'
+
+// Local component imports
 import FormElementContainer from './FormElementContainer.vue'
 
-interface Data {
-  value: string
+// Props
+interface Props {
+  modelValue?: string | null | undefined
+  label?: string | null
+  placeholder?: string | null
+  type?: string
+  required?: boolean
+  disabled?: boolean
+  size?: string | null
 }
 
-export default defineComponent({
-  name: 'TextInput',
-  components: { FormElementContainer },
-  props: {
-    modelValue: {
-      type: String as () => string | null | undefined,
-      default: null,
-    },
-    label: {
-      type: String,
-      default: null,
-    },
-    placeholder: {
-      type: String,
-      default: null,
-    },
-    type: {
-      type: String,
-      default: 'text',
-    },
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    size: {
-      type: String,
-      default: null,
-    },
-  },
-  emits: ['update:modelValue', 'focus', 'blur', 'keyup.enter'],
-  data(): Data {
-    return {
-      value: this.modelValue,
-    }
-  },
-  computed: {
-    inputClass(): object {
-      return {
-        'input-sm': this.size === 'sm',
-        'input-lg': this.size === 'lg',
-      }
-    },
-  },
-  methods: {
-    clear() {
-      this.value = ''
-    },
-  },
-  watch: {
-    modelValue() {
-      this.value = this.modelValue
-    },
-    value() {
-      this.$emit('update:modelValue', this.value)
-    },
-  },
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: null,
+  label: null,
+  placeholder: null,
+  type: 'text',
+  required: false,
+  disabled: false,
+  size: null,
+})
+
+// Emits
+const emit = defineEmits<{
+  'update:modelValue': [value: string]
+  'focus': []
+  'blur': []
+  'keyup.enter': []
+}>()
+
+// Refs
+const value = ref(props.modelValue)
+
+// Computed
+const inputClass = computed(() => ({
+  'input-sm': props.size === 'sm',
+  'input-lg': props.size === 'lg',
+}))
+
+// Methods
+function clear() {
+  value.value = ''
+}
+
+// Watch methods
+watch(() => props.modelValue, (newValue) => {
+  value.value = newValue
+})
+
+watch(value, (newValue) => {
+  emit('update:modelValue', newValue ?? '')
 })
 </script>

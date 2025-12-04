@@ -107,71 +107,64 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+// Library imports
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+
+// Local component imports
 import FormElementContainer from './FormElementContainer.vue'
 
-interface Data {
-  editor: Editor | null
-  initialLoad: boolean
+// Props
+interface Props {
+  label?: string | null
+  modelValue: string
+  placeholder?: string | null
 }
 
-export default defineComponent({
-  name: 'TextEditor',
-  components: {
-    EditorContent,
-    FormElementContainer,
-  },
-  props: {
-    label: {
-      type: String,
-      default: null,
-    },
-    modelValue: {
-      type: String,
-      required: true,
-    },
-    placeholder: {
-      type: String,
-      default: null,
-    },
-  },
-  emits: ['update:modelValue'],
-  data(): Data {
-    return {
-      editor: null,
-      initialLoad: true,
-    }
-  },
-  mounted() {
-    // @ts-ignore
-    this.editor = new Editor({
-      content: this.modelValue,
-      extensions: [StarterKit],
-      onUpdate: ({ editor }) => {
-        this.$emit('update:modelValue', editor.getHTML())
-      },
-    })
-  },
-  beforeUnmount() {
-    if (this.editor) {
-      this.editor.destroy()
-      this.editor = null
-      this.initialLoad = true
-    }
-  },
-  watch: {
-    modelValue(value) {
-      if (!this.initialLoad) return
+const props = withDefaults(defineProps<Props>(), {
+  label: null,
+  placeholder: null,
+})
 
-      if (this.editor && !this.editor.isFocused) {
-        this.editor.commands.setContent(value)
-        this.initialLoad = false
-      }
+// Emits
+const emit = defineEmits<{
+  'update:modelValue': [value: string]
+}>()
+
+// Refs
+const editor = ref<Editor | null>(null)
+const initialLoad = ref(true)
+
+// Lifecycle methods
+onMounted(() => {
+  // @ts-ignore
+  editor.value = new Editor({
+    content: props.modelValue,
+    extensions: [StarterKit],
+    onUpdate: ({ editor }) => {
+      emit('update:modelValue', editor.getHTML())
     },
-  },
+  })
+})
+
+onBeforeUnmount(() => {
+  if (editor.value) {
+    editor.value.destroy()
+    editor.value = null
+    initialLoad.value = true
+  }
+})
+
+// Watch methods
+watch(() => props.modelValue, (value) => {
+  if (!initialLoad.value) return
+
+  if (editor.value && !editor.value.isFocused) {
+    editor.value.commands.setContent(value)
+    initialLoad.value = false
+  }
 })
 </script>
 

@@ -4,24 +4,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import useMeta from '../../../composables/useMeta'
 import TagForm from '../../../components/forms/tag/TagForm.vue'
 
-export default defineComponent({
-  // eslint-disable-next-line vue/match-component-file-name
-  name: 'UpdateTag',
-  components: {
-    TagForm,
-  },
-  setup() {
-    const { updateMeta } = useMeta()
+definePageMeta({ middleware: 'auth' })
 
-    updateMeta({ title: 'Update Tag', description: 'Update an existing tag' })
+const { updateMeta } = useMeta()
 
-     
-    definePageMeta({ middleware: 'auth' })
-  },
-})
+updateMeta({ title: 'Update Tag', description: 'Update an existing tag' })
 </script>

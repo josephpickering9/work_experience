@@ -5,18 +5,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+// Library component imports
 import { Icon } from '#components'
 
-export default defineComponent({
-  name: 'IconListItem',
-  components: { Icon },
-  props: {
-    icon: {
-      type: String,
-      default: null,
-    },
-  },
+// Props
+interface Props {
+  icon?: string | null
+}
+
+withDefaults(defineProps<Props>(), {
+  icon: null,
 })
 </script>

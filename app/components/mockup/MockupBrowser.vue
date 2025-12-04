@@ -9,16 +9,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+// Props
+interface Props {
+  url: string
+}
 
-export default defineComponent({
-  name: 'MockupBrowser',
-  props: {
-    url: {
-      type: String,
-      required: true,
-    },
-  },
-})
+defineProps<Props>()
 </script>

@@ -18,26 +18,25 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+<script setup lang="ts">
+// Props
+interface Props {
+  tabs?: string[]
+  activeTab?: number
+}
 
-export default defineComponent({
-  name: 'Tabs',
-  props: {
-    tabs: {
-      type: Array as PropType<string[]>,
-      default: () => [],
-    },
-    activeTab: {
-      type: Number,
-      default: 0,
-    },
-  },
-  emits: ['update:activeTab'],
-  methods: {
-    setActiveTab(index: number) {
-      this.$emit('update:activeTab', index)
-    },
-  },
+withDefaults(defineProps<Props>(), {
+  tabs: () => [],
+  activeTab: 0,
 })
+
+// Emits
+const emit = defineEmits<{
+  'update:activeTab': [value: number]
+}>()
+
+// Methods
+function setActiveTab(index: number) {
+  emit('update:activeTab', index)
+}
 </script>

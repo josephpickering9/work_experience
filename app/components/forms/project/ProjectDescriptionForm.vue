@@ -6,65 +6,71 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+<script setup lang="ts">
+// Library imports
+import { ref, computed, watch } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { cloneDeep } from 'lodash-es'
+
+// Local imports
 import type { CreateProject, Project } from '../../../../api'
 import { useProjectStore } from '../../../store/ProjectStore'
-import FormGroup from '../elements/FormGroup.vue'
-import TextEditor from '../elements/TextEditor.vue'
 import useValidation from '../../../composables/useValidation'
 import { defaultProjectForm } from '../../../../mocks/Defaults'
 
-interface Data {
-  form: CreateProject
+// Local component imports
+import FormGroup from '../elements/FormGroup.vue'
+import TextEditor from '../elements/TextEditor.vue'
+
+// Props
+interface Props {
+  modelValue?: CreateProject
 }
 
-export default defineComponent({
-  name: 'ProjectDescriptionForm',
-  components: { FormGroup, TextEditor },
-  props: {
-    modelValue: {
-      type: Object as PropType<CreateProject>,
-      default: () => cloneDeep(defaultProjectForm),
-    },
-  },
-  emits: ['update:modelValue'],
-  setup() {
-    return { v$: useVuelidate() }
-  },
-  data(): Data {
-    return {
-      form: this.modelValue,
-    }
-  },
-  computed: {
-    project(): Project | undefined {
-      return useProjectStore().project
-    },
-    loading(): boolean {
-      return useProjectStore().projectCreating || useProjectStore().projectLoading
-    },
-  },
-  methods: {
-    async validate(): Promise<boolean> {
-      return await useValidation().validate(this.v$)
-    },
-  },
-  watch: {
-    modelValue: {
-      handler(value: CreateProject) {
-        this.form = value
-      },
-      immediate: true,
-    },
-    form: {
-      handler(value: CreateProject) {
-        this.$emit('update:modelValue', value)
-      },
-      deep: true,
-    },
-  },
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: () => cloneDeep(defaultProjectForm),
 })
+
+// Emits
+const emit = defineEmits<{
+  'update:modelValue': [value: CreateProject]
+}>()
+
+// Composables
+const projectStore = useProjectStore()
+const validation = useValidation()
+
+// Refs
+const form = ref<CreateProject>(props.modelValue)
+
+// Validation
+const v$ = useVuelidate()
+
+// Computed
+const project = computed((): Project | undefined => {
+  return projectStore.project
+})
+
+const loading = computed((): boolean => {
+  return projectStore.projectCreating || projectStore.projectLoading
+})
+
+// Methods
+async function validate(): Promise<boolean> {
+  return await validation.validate(v$)
+}
+
+// Expose methods for parent component
+defineExpose({
+  validate,
+})
+
+// Watch methods
+watch(() => props.modelValue, (newValue) => {
+  form.value = newValue
+}, { immediate: true })
+
+watch(form, (newValue) => {
+  emit('update:modelValue', newValue)
+}, { deep: true })
 </script>

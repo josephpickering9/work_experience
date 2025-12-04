@@ -13,56 +13,49 @@
   </div>
 </template>
 
-<script lang="ts">
-import type { PropType } from 'vue'
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+// Library imports
+import { computed } from 'vue'
 import { isEmpty } from 'lodash-es'
+
+// Local imports
 import type { Company } from '../../../../api'
 import { getImageUrl } from '../../../utils/image-helper'
+
+// Library component imports
 import { Icon } from '#components'
 
-export default defineComponent({
-  name: 'CompanyItem',
-  components: { Icon },
-  props: {
-    company: {
-      type: Object as PropType<Company>,
-      default: () => null,
-    },
-    showLink: {
-      type: Boolean,
-      default: false,
-    },
-    size: {
-      type: String,
-      default: 'lg',
-    },
-  },
-  computed: {
-    imageUrl(): string {
-      if (!this.company.logo) return ''
+// Props
+interface Props {
+  company?: Company | null
+  showLink?: boolean
+  size?: string
+}
 
-      return getImageUrl(this.company.logo) ?? ''
-    },
-    textClass(): object {
-      return {
-        'text-xs': this.size === 'xs',
-        'text-sm': this.size === 'sm',
-        'text-md': this.size === 'md',
-        'text-lg': this.size === 'lg',
-      }
-    },
-    imageClass(): object {
-      return {
-        'w-3 h-3': this.size === 'xs',
-        'w-4 h-4': this.size === 'sm',
-        'w-5 h-5': this.size === 'md',
-        'w-6 h-6': this.size === 'lg',
-      }
-    },
-  },
-  methods: {
-    isEmpty,
-  },
+const props = withDefaults(defineProps<Props>(), {
+  company: null,
+  showLink: false,
+  size: 'lg',
 })
+
+// Computed
+const imageUrl = computed((): string => {
+  if (!props.company?.logo) return ''
+
+  return getImageUrl(props.company.logo) ?? ''
+})
+
+const textClass = computed(() => ({
+  'text-xs': props.size === 'xs',
+  'text-sm': props.size === 'sm',
+  'text-md': props.size === 'md',
+  'text-lg': props.size === 'lg',
+}))
+
+const imageClass = computed(() => ({
+  'w-3 h-3': props.size === 'xs',
+  'w-4 h-4': props.size === 'sm',
+  'w-5 h-5': props.size === 'md',
+  'w-6 h-6': props.size === 'lg',
+}))
 </script>

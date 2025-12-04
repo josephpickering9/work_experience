@@ -11,29 +11,23 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+<script setup lang="ts">
+// Local imports
 import type { Tag as TagModel } from '../../../../api/models/Tag'
-import Tag from '../../tags/Tag.vue'
-import FormButton from '../../forms/elements/FormButton.vue'
 import useAuth from '../../../composables/useAuth'
 
-export default defineComponent({
-  name: 'TagListItem',
-  components: { Tag, FormButton },
-  props: {
-    tag: {
-      type: Object as PropType<TagModel>,
-      required: true,
-    },
-  },
-  setup() {
-    const { isAuthenticated } = useAuth()
+// Local component imports
+import Tag from '../../tags/Tag.vue'
+import FormButton from '../../forms/elements/FormButton.vue'
 
-    return {
-      isAuthenticated,
-    }
-  },
-})
+// Props
+interface Props {
+  tag: TagModel
+}
+
+defineProps<Props>()
+
+// Composables
+const { isAuthenticated } = useAuth()
 </script>
 ../../../api/models/Tag../../../composables/useAuth

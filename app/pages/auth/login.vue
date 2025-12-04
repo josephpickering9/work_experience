@@ -2,16 +2,10 @@
   <p>Login</p>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import useAuth from '../../composables/useAuth'
 
-export default defineComponent({
-  name: 'Login',
-  setup() {
-    const { login } = useAuth()
+const { login } = useAuth()
 
-    if (login) login()
-  },
-})
+if (login) login()
 </script>

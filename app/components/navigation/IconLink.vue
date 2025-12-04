@@ -10,34 +10,22 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+// Library component imports
 import { Icon } from '#components'
 
-export default defineComponent({
-  name: 'IconLink',
-  components: { Icon },
-  props: {
-    to: {
-      type: String,
-      required: true,
-    },
-    label: {
-      type: String,
-      required: true,
-    },
-    icon: {
-      type: String,
-      default: null,
-    },
-    iconSize: {
-      type: String,
-      default: '1em',
-    },
-    target: {
-      type: String,
-      default: '_blank',
-    },
-  },
+// Props
+interface Props {
+  to: string
+  label: string
+  icon?: string | null
+  iconSize?: string
+  target?: string
+}
+
+withDefaults(defineProps<Props>(), {
+  icon: null,
+  iconSize: '1em',
+  target: '_blank',
 })
 </script>

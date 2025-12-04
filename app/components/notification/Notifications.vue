@@ -21,39 +21,43 @@
   </Transition>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+// Library imports
+import { computed } from 'vue'
+
+// Local imports
 import { useNotificationStore } from '../../store/NotificationStore'
 import type { Notification } from '../../../types/Notification'
 import { NotificationPosition } from '../../../types/NotificationPosition'
+
+// Local component imports
 import Toast from './Toast.vue'
 
-export default defineComponent({
-  name: 'Notifications',
-  components: { Toast },
-  computed: {
-    notifications(): Notification[] {
-      return useNotificationStore().notifications
-    },
-    notificationsTopLeft(): Notification[] {
-      return this.getFilteredNotifications(NotificationPosition.TOP_LEFT)
-    },
-    notificationsTopRight(): Notification[] {
-      return this.getFilteredNotifications(NotificationPosition.TOP_RIGHT)
-    },
-    notificationsBottomLeft(): Notification[] {
-      return this.getFilteredNotifications(NotificationPosition.BOTTOM_LEFT)
-    },
-    notificationsBottomRight(): Notification[] {
-      return this.getFilteredNotifications(NotificationPosition.BOTTOM_RIGHT)
-    },
-  },
-  methods: {
-    getFilteredNotifications(position: NotificationPosition): Notification[] {
-      return this.notifications.filter((n) => n.position === position)
-    },
-  },
+// Computed
+const notifications = computed((): Notification[] => {
+  return useNotificationStore().notifications
 })
+
+const notificationsTopLeft = computed((): Notification[] => {
+  return getFilteredNotifications(NotificationPosition.TOP_LEFT)
+})
+
+const notificationsTopRight = computed((): Notification[] => {
+  return getFilteredNotifications(NotificationPosition.TOP_RIGHT)
+})
+
+const notificationsBottomLeft = computed((): Notification[] => {
+  return getFilteredNotifications(NotificationPosition.BOTTOM_LEFT)
+})
+
+const notificationsBottomRight = computed((): Notification[] => {
+  return getFilteredNotifications(NotificationPosition.BOTTOM_RIGHT)
+})
+
+// Methods
+function getFilteredNotifications(position: NotificationPosition): Notification[] {
+  return notifications.value.filter((n) => n.position === position)
+}
 </script>
 
 <style scoped>

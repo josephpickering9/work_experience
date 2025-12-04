@@ -4,19 +4,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import ProjectList from '../../components/lists/project/ProjectList.vue'
 import useMeta from '../../composables/useMeta'
 
-export default defineComponent({
-  // eslint-disable-next-line vue/match-component-file-name
-  name: 'Projects',
-  components: { ProjectList },
-  setup() {
-    const { updateMeta } = useMeta()
+const { updateMeta } = useMeta()
 
-    updateMeta({ title: 'Projects', description: "All of the projects that I've been involved in" })
-  },
-})
+updateMeta({ title: 'Projects', description: "All of the projects that I've been involved in" })
 </script>
