@@ -36,7 +36,6 @@ const router = useRouter()
 const projectStore = useProjectStore()
 const { updateMeta } = useMeta()
 
-// Meta
 updateMeta({ title: 'Work Experience', description: "Work experience portfolio for my life's work" })
 
 const isSearchActive = ref(false)
@@ -85,7 +84,6 @@ onMounted(() => {
   setValues()
 })
 
-// Watch methods
 watch(tags, () => {
   nextTick(() => {
     updateQueryParams()
