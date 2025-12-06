@@ -51,7 +51,8 @@ const tags = computed((): Tag[] => {
 const tagTypes = computed((): SelectListItem[] => {
   return enumToSelectListItem(TagType).map(item => ({
     ...item,
-    icon: getIconForTagType(item.value as TagType)
+    icon: getIconForTagType(item.value as TagType),
+    iconClass: getColorForTagType(item.value as TagType)
   }))
 })
 
@@ -70,9 +71,32 @@ function getIconForTagType(type: TagType): string {
     case TagType.CMS:
       return 'heroicons:document-text'
     case TagType.DEFAULT:
+    case TagType.OTHER:
       return 'heroicons:tag'
     default:
       return 'heroicons:tag'
+  }
+}
+
+function getColorForTagType(type: TagType): string {
+  switch (type) {
+    case TagType.BACKEND:
+      return 'text-red-500 dark:text-red-400'
+    case TagType.FRONTEND:
+      return 'text-blue-500 dark:text-blue-400'
+    case TagType.DEV_OPS:
+      return 'text-green-500 dark:text-green-400'
+    case TagType.MOBILE:
+      return 'text-purple-500 dark:text-purple-400'
+    case TagType.DATA:
+      return 'text-yellow-500 dark:text-yellow-400'
+    case TagType.CMS:
+      return 'text-pink-500 dark:text-pink-400'
+    case TagType.DEFAULT:
+    case TagType.OTHER:
+      return 'text-gray-500 dark:text-gray-400'
+    default:
+      return 'text-gray-500 dark:text-gray-400'
   }
 }
 
