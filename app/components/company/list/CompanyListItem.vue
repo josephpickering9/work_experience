@@ -3,7 +3,7 @@
     <div class="flex w-full flex-col space-y-4">
       <div class="flex items-center gap-2">
         <img v-if="company.logo" :src="logo" :alt="`${company.name} Logo`" class="m-0 h-6 w-6" >
-        <h2 v-if="isEmpty(company.website) || company.website === '#'" class="m-0">
+        <h2 v-if="isEmpty(company.website) || company.website === '#'" class="card-title m-0">
           {{ company.name }}
         </h2>
         <div v-else class="flex items-center gap-1">
