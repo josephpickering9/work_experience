@@ -57,7 +57,7 @@ onMounted(async () => {
   if (!tags.value.length) await tagStore.getTags()
 })
 
-// Watch methods
+
 watch(() => props.modelValue, (newValue: TagType | null) => {
   if (newValue) value.value = newValue
 }, { immediate: true })

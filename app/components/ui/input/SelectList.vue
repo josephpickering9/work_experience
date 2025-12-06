@@ -59,7 +59,7 @@ const selectClass = computed(() => ({
   'bg-none': value.value && props.clearable,
 }))
 
-// Watch methods
+
 watch(() => props.modelValue, (newValue) => {
   value.value = newValue
 })

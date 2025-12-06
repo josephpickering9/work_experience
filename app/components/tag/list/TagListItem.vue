@@ -52,4 +52,3 @@ defineProps<Props>()
 
 const { isAuthenticated } = useAuth()
 </script>
-../../../api/models/Tag../../../composables/useAuth

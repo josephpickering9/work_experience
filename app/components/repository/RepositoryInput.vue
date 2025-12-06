@@ -88,7 +88,7 @@ function removeRepository(index: number) {
   value.value.splice(index, 1)
 }
 
-// Watch methods
+
 watch(() => props.modelValue, (newValue) => {
   value.value = newValue
 }, { immediate: true })

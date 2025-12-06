@@ -91,7 +91,7 @@ onMounted(async () => {
   if (props.modelValue) setValue()
 })
 
-// Watch methods
+
 watch(() => props.modelValue, () => {
   if (value.value?.value === props.modelValue) return
 

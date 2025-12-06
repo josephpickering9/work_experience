@@ -141,8 +141,8 @@ const filteredTags = computed((): Record<string, Tag[]> => {
 })
 
 function setValues() {
-  search.value = route.query.search?.toString() || search.value
-  tagType.value = (route.query.type ? getEnumValue(TagType, route.query.type.toString()) : undefined) || tagType.value
+  search.value = route.query['search']?.toString() || search.value
+  tagType.value = (route.query['type'] ? getEnumValue(TagType, route.query['type'].toString()) : undefined) || tagType.value
 }
 
 function updateQueryParams() {
@@ -160,7 +160,6 @@ onMounted(async () => {
   await tagStore.getTags()
 })
 
-// Watch methods
 watch(tags, () => {
   initialLoad.value = false
 })
@@ -177,4 +176,4 @@ watch(tagType, () => {
   updateQueryParams()
 })
 </script>
-../../../store/TagStore../../../api/models/Tag../../../api/models/TagType../../../composables/useAuth../../../utils/enum-helper
+

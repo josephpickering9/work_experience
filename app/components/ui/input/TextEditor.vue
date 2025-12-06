@@ -151,7 +151,7 @@ onBeforeUnmount(() => {
   }
 })
 
-// Watch methods
+
 watch(() => props.modelValue, (value) => {
   if (!initialLoad.value) return
 

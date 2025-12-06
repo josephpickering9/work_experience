@@ -33,7 +33,7 @@ const options = computed((): SelectListItem[] => {
   }))
 })
 
-// Watch methods
+
 watch(() => props.modelValue, (newValue) => {
   value.value = newValue
 })

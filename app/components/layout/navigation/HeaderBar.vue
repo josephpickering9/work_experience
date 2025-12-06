@@ -123,7 +123,7 @@ onMounted(() => {
   })
 })
 
-// Watch methods
+
 watch(() => route.path, () => {
   showMobileMenu.value = false
 })

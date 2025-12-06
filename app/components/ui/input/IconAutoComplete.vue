@@ -44,7 +44,7 @@ function selectIcon(item?: SearchItem): void {
   emit('update:modelValue', item?.title)
 }
 
-// Watch methods
+
 watch(() => props.modelValue, (newValue) => {
   value.value = newValue ? { title: newValue, value: newValue } : undefined
 })

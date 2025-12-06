@@ -167,7 +167,7 @@ onMounted(async () => {
   if (props.setProjects.length === 0) await projectStore.getProjects()
 })
 
-// Watch methods
+
 watch(projects, () => {
   initialLoad.value = false
 })

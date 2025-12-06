@@ -38,7 +38,7 @@ const emit = defineEmits<{
 
 const value = ref(props.modelValue ?? '')
 
-// Watch methods
+
 watch(() => props.modelValue, (newValue) => {
   value.value = newValue ?? ''
 })

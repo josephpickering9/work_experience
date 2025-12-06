@@ -287,7 +287,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', calculateInputPosition)
 })
 
-// Watch methods
+
 watch(() => props.modelValue, (newValue) => {
   if (value.value?.value === newValue?.value) return
 

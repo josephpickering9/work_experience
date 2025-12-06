@@ -61,7 +61,7 @@ function clear() {
   value.value = ''
 }
 
-// Watch methods
+
 watch(() => props.modelValue, (newValue) => {
   value.value = newValue
 })

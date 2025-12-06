@@ -68,7 +68,7 @@ function removeImage(url: string) {
   images.value = images.value.filter((image) => image !== url)
 }
 
-// Watch methods
+
 watch(() => props.imageUrls, (newValue) => {
   images.value = newValue ?? []
 })

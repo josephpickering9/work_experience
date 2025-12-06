@@ -64,7 +64,7 @@ function reset() {
   if (file.value) file.value.value = ''
 }
 
-// Watch methods
+
 watch(() => props.imageUrl, (newValue) => {
   image.value = newValue ?? undefined
 })
