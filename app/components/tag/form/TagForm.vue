@@ -2,45 +2,49 @@
   <div class="w-full max-w-5xl">
     <div class="mb-8">
       <h1>
-        <span v-if="initialLoad" class="skeleton h-10 w-48 block rounded-lg bg-gray-200 dark:bg-gray-800"></span>
-        <span v-else>{{ isUpdate ? 'Update' : 'Create' }} Tag</span>
+        <span v-if="initialLoad" class="skeleton block h-10 w-48 rounded-lg"></span>
+        <span v-else class="text-4xl font-extrabold text-primary">{{ isUpdate ? 'Update' : 'Create' }} Tag</span>
       </h1>
-      <p v-if="initialLoad" class="mt-2 skeleton h-5 w-64 rounded bg-gray-200 dark:bg-gray-800"></p>
-      <p v-else class="text-gray-500 dark:text-gray-400">
+      <p v-if="initialLoad" class="skeleton mt-2 h-5 w-64 rounded"></p>
+      <p v-else class="text-base-content/60">
         {{ isUpdate ? 'Modify existing tag details' : 'Add a new tag to the collection' }}
       </p>
     </div>
 
+    <!-- Skeleton Loading State -->
     <div v-if="initialLoad" class="grid gap-8 lg:grid-cols-2">
-      <div class="flex flex-col gap-6 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md dark:bg-gray-900/40">
-        <div class="space-y-4">
-          <div class="skeleton h-4 w-16 rounded bg-gray-200 dark:bg-gray-700"></div>
-          <div class="skeleton h-10 w-full rounded-lg bg-gray-200 dark:bg-gray-700"></div>
-        </div>
-        <div class="space-y-4">
-          <div class="skeleton h-4 w-16 rounded bg-gray-200 dark:bg-gray-700"></div>
-          <div class="skeleton h-10 w-full rounded-lg bg-gray-200 dark:bg-gray-700"></div>
-        </div>
-        <div class="space-y-4">
-          <div class="skeleton h-4 w-16 rounded bg-gray-200 dark:bg-gray-700"></div>
-          <div class="skeleton h-10 w-full rounded-lg bg-gray-200 dark:bg-gray-700"></div>
-        </div>
-        <div class="space-y-4">
-          <div class="skeleton h-4 w-28 rounded bg-gray-200 dark:bg-gray-700"></div>
-          <div class="skeleton h-10 w-full rounded-lg bg-gray-200 dark:bg-gray-700"></div>
-        </div>
-        <div class="flex justify-end gap-3 pt-4">
-          <div class="skeleton h-10 w-24 rounded-lg bg-gray-200 dark:bg-gray-700"></div>
-          <div class="skeleton h-10 w-32 rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+      <!-- Form Skeleton -->
+      <div class="card bg-base-100 p-8 shadow-xl">
+        <div class="flex flex-col gap-6">
+          <div class="space-y-4">
+            <div class="skeleton h-4 w-16 rounded"></div>
+            <div class="skeleton h-10 w-full rounded-lg"></div>
+          </div>
+          <div class="space-y-4">
+            <div class="skeleton h-4 w-16 rounded"></div>
+            <div class="skeleton h-10 w-full rounded-lg"></div>
+          </div>
+          <div class="space-y-4">
+            <div class="skeleton h-4 w-16 rounded"></div>
+            <div class="skeleton h-10 w-full rounded-lg"></div>
+          </div>
+          <div class="space-y-4">
+            <div class="skeleton h-4 w-28 rounded"></div>
+            <div class="skeleton h-10 w-full rounded-lg"></div>
+          </div>
+          <div class="flex justify-end gap-3 pt-4">
+            <div class="skeleton h-10 w-24 rounded-lg"></div>
+            <div class="skeleton h-10 w-32 rounded-lg"></div>
+          </div>
         </div>
       </div>
 
       <!-- Preview Skeleton -->
       <div class="flex flex-col space-y-4">
-        <div class="skeleton h-4 w-24 rounded bg-gray-200 dark:bg-gray-700"></div>
+        <div class="skeleton h-4 w-24 rounded"></div>
         <div class="sticky top-24 space-y-8">
-          <div class="skeleton h-48 w-full rounded-xl bg-gray-200 dark:bg-gray-700"></div>
-          <div class="skeleton h-24 w-full rounded-xl bg-gray-200 dark:bg-gray-700"></div>
+          <div class="skeleton h-48 w-full rounded-xl"></div>
+          <div class="skeleton h-24 w-full rounded-xl"></div>
         </div>
       </div>
     </div>
@@ -48,39 +52,41 @@
     <!-- Actual Content -->
     <div v-else class="grid gap-8 lg:grid-cols-2">
       <!-- Form Section -->
-      <div class="flex flex-col gap-6 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md dark:bg-gray-900/40">
-        <TextInput v-model="title" label="Title" placeholder="e.g. Vue.js" :disabled="loading" />
-        <TagTypeSelectList v-model="type" label="Type" :disabled="loading" />
-        <IconAutoComplete v-model="icon" label="Icon" :disabled="loading" />
-        <ColourPicker v-model="customColour" label="Custom Colour" :disabled="loading" />
+      <div class="card bg-base-100 p-8 shadow-xl">
+        <div class="flex flex-col gap-6">
+          <TextInput v-model="title" label="Title" placeholder="e.g. Vue.js" :disabled="loading" />
+          <TagTypeSelectList v-model="type" label="Type" :disabled="loading" />
+          <IconAutoComplete v-model="icon" label="Icon" :disabled="loading" />
+          <ColourPicker v-model="customColour" label="Custom Colour" :disabled="loading" />
 
-        <div class="flex items-center justify-between space-x-3 pt-4">
-           <FormButton
-            v-if="isUpdate"
-            label="Delete"
-            type="error"
-            size="md"
-            icon="material-symbols:delete"
-            :disabled="loading"
-            variant="ghost"
-            @click="remove"
-          />
-          <FormButton label="Save Tag" type="primary" size="md" :loading="loading" icon="heroicons:check" @click="save" />
+          <div class="flex items-center justify-between space-x-3 pt-4">
+             <FormButton
+              v-if="isUpdate"
+              label="Delete"
+              type="error"
+              size="md"
+              icon="material-symbols:delete"
+              :disabled="loading"
+              variant="ghost"
+              @click="remove"
+            />
+            <FormButton label="Save Tag" type="primary" size="md" :loading="loading" icon="heroicons:check" @click="save" />
+          </div>
         </div>
       </div>
 
       <!-- Preview Section -->
       <div class="flex flex-col space-y-4">
-        <h3 class="ml-1 text-sm font-medium uppercase tracking-wider text-gray-500">Live Preview</h3>
+        <h3 class="ml-1 text-sm font-medium uppercase tracking-wider text-base-content/60">Live Preview</h3>
         <div class="sticky top-24">
           <TagListItem :tag="previewTag" preview />
           
-          <div class="mt-8 rounded-xl bg-blue-50/50 p-6 text-sm text-blue-800 backdrop-blur-sm dark:bg-blue-900/20 dark:text-blue-200">
-            <div class="mb-2 flex items-center font-bold">
-              <Icon name="heroicons:information-circle" class="mr-2 h-5 w-5" />
-              Pro Tip
+          <div class="alert alert-info mt-8">
+            <Icon name="heroicons:information-circle" class="mr-2 h-5 w-5" />
+            <div>
+              <h3 class="font-bold">Pro Tip</h3>
+              <div class="text-xs">Tags are used to categorize projects. Selecting the correct type ensures it appears in the right section.</div>
             </div>
-            Tags are used to categorize projects. Selecting the correct type ensures it appears in the right section on the Tags page.
           </div>
         </div>
       </div>

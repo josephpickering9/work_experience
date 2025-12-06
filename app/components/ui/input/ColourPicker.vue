@@ -2,8 +2,8 @@
   <FormElementContainer :label="label">
     <div class="space-y-3">
       <!-- Helper Text / Current Selection -->
-      <div v-if="value" class="flex items-center gap-2 text-xs font-medium text-gray-500 dark:text-gray-400">
-        <div class="h-4 w-4 rounded-full border border-gray-200 shadow-sm dark:border-gray-700" :style="{ backgroundColor: value }" />
+      <div v-if="value" class="flex items-center gap-2 text-xs font-medium text-base-content/60">
+        <div class="h-4 w-4 rounded-full border border-base-300 shadow-sm" :style="{ backgroundColor: value }" />
         <span>{{ value.toUpperCase() }}</span>
       </div>
 
@@ -13,7 +13,7 @@
           v-for="color in presets"
           :key="color"
           type="button"
-          class="group relative h-8 w-8 rounded-full border border-gray-200 shadow-sm transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:border-gray-700 dark:focus:ring-offset-gray-900"
+          class="group relative h-8 w-8 rounded-full border border-base-200 shadow-sm transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           :style="{ backgroundColor: color }"
           :aria-label="`Select color ${color}`"
           @click="updateValue(color)"
@@ -29,7 +29,7 @@
         <div class="relative">
           <button
             type="button"
-            class="flex h-8 w-8 items-center justify-center rounded-full border border-dashed border-gray-400 bg-transparent text-gray-500 transition-colors hover:border-primary-500 hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:border-gray-600 dark:text-gray-400 dark:hover:border-primary-400 dark:hover:text-primary-400"
+            class="flex h-8 w-8 items-center justify-center rounded-full border border-dashed border-base-content/30 bg-transparent text-base-content/50 transition-colors hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             title="Custom Color"
             @click="showCustomPicker = !showCustomPicker"
           >
@@ -39,11 +39,11 @@
           <!-- Custom Picker Popover -->
           <div
             v-if="showCustomPicker"
-            class="absolute left-0 top-full z-50 mt-2 rounded-lg border border-gray-200 bg-white p-2 shadow-xl dark:border-gray-700 dark:bg-gray-800"
+            class="absolute left-0 top-full z-50 mt-2 rounded-lg border border-base-200 bg-base-100 p-2 shadow-xl"
           >
-            <div class="mb-2 flex items-center justify-between border-b border-gray-100 pb-2 dark:border-gray-700">
-              <span class="text-xs font-semibold text-gray-600 dark:text-gray-300">Custom Color</span>
-              <button type="button" class="text-gray-400 hover:text-gray-600" @click="showCustomPicker = false">
+            <div class="mb-2 flex items-center justify-between border-b border-base-200 pb-2">
+              <span class="text-xs font-semibold text-base-content">Custom Color</span>
+              <button type="button" class="text-base-content/50 hover:text-base-content" @click="showCustomPicker = false">
                 <Icon name="heroicons:x-mark" class="h-4 w-4" />
               </button>
             </div>
@@ -68,11 +68,11 @@
           v-model="value"
           type="text"
           placeholder="#000000"
-          class="w-32 rounded-lg border border-gray-300 bg-transparent px-3 py-1.5 text-sm placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
+          class="w-32 rounded-lg border border-base-300 bg-base-100 px-3 py-1.5 text-sm placeholder-base-content/40 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary text-base-content"
            @input="(e) => updateValue((e.target as HTMLInputElement).value)"
         />
         <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-           <Icon name="heroicons:hashtag" class="h-4 w-4 text-gray-400" />
+           <Icon name="heroicons:hashtag" class="h-4 w-4 text-base-content/40" />
         </div>
       </div>
     </div>
