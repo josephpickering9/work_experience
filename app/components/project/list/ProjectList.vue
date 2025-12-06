@@ -1,42 +1,50 @@
 <template>
-  <div class="projects w-full space-y-8" :class="wrapperClass">
-    <div v-if="showHeader" class="prose flex max-w-full flex-col items-center justify-between gap-4 md:flex-row">
-      <h1 class="m-0">Projects</h1>
-      <div class="flex items-center gap-4">
-        <TextInput v-model="search" class="w-full md:w-48" size="sm" placeholder="Search" :disabled="loading" />
-        <CompanyAutoComplete
-          v-model="companyId"
-          class="w-full md:w-48"
-          placeholder="Company"
+  <ListLayout
+    v-if="showHeader"
+    title="Projects"
+    :loading="loading"
+    :is-empty="filteredProjects.length === 0"
+    empty-title="No projects found"
+    :max-width="maxWidth"
+  >
+    <template #actions>
+      <TextInput v-model="search" class="w-full md:w-48" size="sm" placeholder="Search" :disabled="loading" />
+      <CompanyAutoComplete
+        v-model="companyId"
+        class="w-full md:w-48"
+        placeholder="Company"
+        size="sm"
+        :disabled="loading"
+      />
+      <TagTypeSelectList v-model="tagType" class="w-full md:w-48" placeholder="Type" size="sm" :disabled="loading" />
+      <ClientOnly>
+        <FormButton
+          v-if="isAuthenticated"
+          label="Add Project"
+          type="primary"
           size="sm"
+          href="/projects/new"
           :disabled="loading"
         />
-        <TagTypeSelectList v-model="tagType" class="w-full md:w-48" placeholder="Type" size="sm" :disabled="loading" />
-        <ClientOnly>
-          <FormButton
-            v-if="isAuthenticated"
-            label="Add Project"
-            type="primary"
-            size="sm"
-            href="/projects/new"
-            :disabled="loading"
-          />
-        </ClientOnly>
-      </div>
+      </ClientOnly>
+    </template>
+
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <ProjectListItem v-for="project in filteredProjects" :key="project.id" :project="project" />
     </div>
-    <div v-if="loading" class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+  </ListLayout>
+
+  <!-- Fallback for generic list usage without filters/header (if needed for widgets) -->
+  <div v-else class="projects w-full space-y-8" :class="wrapperClass">
+     <div v-if="loading" class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <Skeleton :type="loadingTypeCard" />
       <Skeleton :type="loadingTypeCard" />
       <Skeleton :type="loadingTypeCard" />
-      <Skeleton :type="loadingTypeCard" />
-      <Skeleton :type="loadingTypeCard" />
-      <Skeleton :type="loadingTypeCard" />
-    </div>
-    <div v-else-if="filteredProjects.length === 0" class="flex flex-col justify-start space-y-4">
-      <h2>No projects found</h2>
-      <div class="text-lg">Try searching for something else</div>
-    </div>
-    <div v-else class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+     </div>
+     <div v-else-if="filteredProjects.length === 0" class="flex flex-col justify-start space-y-4">
+       <h2>No projects found</h2>
+     </div>
+     <div v-else class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <ProjectListItem v-for="project in filteredProjects" :key="project.id" :project="project" />
     </div>
   </div>
@@ -52,6 +60,7 @@ import { TagType } from '@api'
 import { LoadingType } from '@types/LoadingType'
 import useAuth from '~/composables/useAuth'
 import { getEnumValue } from '~/utils/enum-helper'
+import ListLayout from '~/components/ui/layout/ListLayout.vue'
 import Skeleton from '~/components/feedback/loading/Skeleton.vue'
 import TextInput from '~/components/ui/input/TextInput.vue'
 import FormButton from '~/components/ui/form/FormButton.vue'
