@@ -29,14 +29,17 @@
       </ClientOnly>
     </template>
 
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <TransitionGroup 
+      name="list" 
+      tag="div" 
+      class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+    >
       <ProjectListItem v-for="project in filteredProjects" :key="project.id" :project="project" />
-    </div>
+    </TransitionGroup>
   </ListLayout>
 
-  <!-- Fallback for generic list usage without filters/header (if needed for widgets) -->
   <div v-else class="projects w-full space-y-8" :class="wrapperClass">
-     <div v-if="loading" class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+     <div v-if="loading" class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <Skeleton :type="loadingTypeCard" />
       <Skeleton :type="loadingTypeCard" />
       <Skeleton :type="loadingTypeCard" />
@@ -44,7 +47,7 @@
      <div v-else-if="filteredProjects.length === 0" class="flex flex-col justify-start space-y-4">
        <h2>No projects found</h2>
      </div>
-     <div v-else class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+     <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <ProjectListItem v-for="project in filteredProjects" :key="project.id" :project="project" />
     </div>
   </div>
@@ -213,4 +216,25 @@ watch(tagType, () => {
 watch(tagId, () => {
   updateQueryParams()
 })
+
+
 </script>
+
+<style scoped>
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.list-leave-active {
+  position: absolute;
+}
+</style>
+
