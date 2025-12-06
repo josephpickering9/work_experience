@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full" ref="containerRef">
+  <div ref="containerRef" class="relative w-full">
     <FormElementContainer :label="label">
       <div class="relative">
         <button

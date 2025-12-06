@@ -1,21 +1,50 @@
 <template>
-  <div class="prose w-full max-w-xl space-y-5 rounded-md border border-gray-600 px-6 py-4">
-    <h1>{{ isUpdate ? 'Update' : 'New' }} Tag</h1>
-    <TextInput v-model="title" label="Title" :disabled="loading" />
-    <TagTypeSelectList v-model="type" label="Type" :disabled="loading" />
-    <IconAutoComplete v-model="icon" label="Icon" :disabled="loading" />
-    <ColourPicker v-model="customColour" label="Custom Colour" :disabled="loading" />
-    <div class="flex items-center justify-between space-x-2">
-      <FormButton label="Save" type="primary" size="sm" :disabled="loading" @click="save" />
-      <FormButton
-        v-if="isUpdate"
-        label="Delete"
-        type="error"
-        size="sm"
-        icon="material-symbols:delete"
-        :disabled="loading"
-        @click="remove"
-      />
+  <div class="w-full max-w-5xl">
+    <div class="mb-8">
+      <h1>
+        {{ isUpdate ? 'Update' : 'Create' }} Tag
+      </h1>
+      <p class="text-gray-500 dark:text-gray-400">
+        {{ isUpdate ? 'Modify existing tag details' : 'Add a new tag to the collection' }}
+      </p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-2">
+      <div class="flex flex-col gap-6 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md dark:bg-gray-900/40">
+        <TextInput v-model="title" label="Title" placeholder="e.g. Vue.js" :disabled="loading" />
+        <TagTypeSelectList v-model="type" label="Type" :disabled="loading" />
+        <IconAutoComplete v-model="icon" label="Icon" :disabled="loading" />
+        <ColourPicker v-model="customColour" label="Custom Colour" :disabled="loading" />
+
+        <div class="flex items-center justify-between space-x-3 pt-4">
+           <FormButton
+            v-if="isUpdate"
+            label="Delete"
+            type="error"
+            size="md"
+            icon="material-symbols:delete"
+            :disabled="loading"
+            variant="ghost"
+            @click="remove"
+          />
+          <FormButton label="Save Tag" type="primary" size="md" :loading="loading" icon="heroicons:check" @click="save" />
+        </div>
+      </div>
+
+      <div class="flex flex-col space-y-4">
+        <h3 class="ml-1 text-sm font-medium uppercase tracking-wider text-gray-500">Live Preview</h3>
+        <div class="sticky top-24">
+          <TagListItem :tag="previewTag" preview />
+          
+          <div class="mt-8 rounded-xl bg-blue-50/50 p-6 text-sm text-blue-800 backdrop-blur-sm dark:bg-blue-900/20 dark:text-blue-200">
+            <div class="mb-2 flex items-center font-bold">
+              <Icon name="heroicons:information-circle" class="mr-2 h-5 w-5" />
+              Pro Tip
+            </div>
+            Tags are used to categorize projects. Selecting the correct type ensures it appears in the right section on the Tags page.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -30,14 +59,15 @@ import TextInput from '~/components/ui/input/TextInput.vue'
 import FormButton from '~/components/ui/form/FormButton.vue'
 import ColourPicker from '~/components/ui/input/ColourPicker.vue'
 import IconAutoComplete from '~/components/ui/input/IconAutoComplete.vue'
+import TagListItem from '~/components/tag/list/TagListItem.vue'
 import TagTypeSelectList from './TagTypeSelectList.vue'
 
 interface Props {
-  id?: number | null
+  id?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  id: null,
+  id: undefined,
 })
 
 const router = useRouter()
@@ -50,7 +80,7 @@ const icon = ref<string | undefined>(undefined)
 const customColour = ref<string | undefined>(undefined)
 
 const isUpdate = computed((): boolean => {
-  return props.id !== null
+  return props.id != null
 })
 
 const tag = computed((): Tag | undefined => {
@@ -78,11 +108,22 @@ const createTagValue = computed((): CreateTag => {
   }
 })
 
+const previewTag = computed((): Tag => {
+  return {
+    id: 'preview',
+    title: title.value || 'New Tag',
+    type: type.value,
+    icon: icon.value,
+    customColour: customColour.value,
+    slug: 'preview-slug'
+  }
+})
+
 async function save() {
   let response: Tag | undefined
 
-  if (isUpdate.value) {
-    response = await tagStore.updateTag(props.id!, createTagValue.value)
+  if (isUpdate.value && props.id) {
+    response = await tagStore.updateTag(props.id, createTagValue.value)
   } else {
     response = await tagStore.createTag(createTagValue.value)
   }
@@ -96,8 +137,8 @@ async function save() {
 }
 
 async function remove() {
-  if (isUpdate.value) {
-    await tagStore.deleteTag(props.id!)
+  if (isUpdate.value && props.id) {
+    await tagStore.deleteTag(props.id)
 
     if (!error.value) {
       router.push(`/tags`)
@@ -109,8 +150,8 @@ async function remove() {
 }
 
 onMounted(async () => {
-  if (isUpdate.value) {
-    await tagStore.getTag(props.id!)
+  if (isUpdate.value && props.id) {
+    await tagStore.getTag(props.id)
 
     if (!tagError.value && tag.value) {
       title.value = tag.value.title
