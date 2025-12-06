@@ -10,7 +10,7 @@
       :style="{ backgroundColor: tag.customColour || 'currentColor' }"
     />
 
-    <div class="z-10 flex items-start justify-between">
+    <div class="z-10 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <div
           class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-xl shadow-inner backdrop-blur-sm"
@@ -24,19 +24,16 @@
           <span class="text-xs text-gray-500 dark:text-gray-400">{{ tag.type }}</span>
         </div>
       </div>
-    </div>
-
-    <div class="mt-6 flex items-center justify-end border-t border-white/5 pt-4">
       <FormButton
-        v-if="isAuthenticated"
-        size="xs"
-        label="Edit"
-        icon="material-symbols:edit"
-        :href="`/tags/${tag.id}/update`"
-        class="opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-        variant="ghost"
-        @click.stop.prevent
-      />
+          v-if="isAuthenticated"
+          size="xs"
+          label="Edit"
+          icon="material-symbols:edit"
+          :href="`/tags/${tag.id}/update`"
+          class="opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+          variant="ghost"
+          @click.stop.prevent
+        />
     </div>
   </NuxtLink>
 </template>
