@@ -14,7 +14,7 @@
         </div>
       </div>
       <p v-if="dateRange" class="text-xs italic text-base-content/60">{{ dateRange }}</p>
-      <p class="pb-2 text-sm italic">{{ company.description }}</p>
+      <div class="pb-2 text-sm italic" v-html="company.description" />
     </div>
     <FormButton
       v-if="isAuthenticated"

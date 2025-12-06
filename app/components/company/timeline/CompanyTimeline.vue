@@ -22,7 +22,7 @@
                 <span v-else>{{ company.name }}</span>
              </h3>
           </div>
-          <p class="text-sm text-base-content/80">{{ company.description }}</p>
+          <div class="text-sm" v-html="company.description" />
 
           <div v-if="getCompanyProjects(company.id).length" class="mt-2 flex flex-wrap gap-2" :class="{ 'justify-end': index % 2 === 0 }">
              <NuxtLink 
