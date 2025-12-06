@@ -25,8 +25,8 @@ import AutoComplete from '~/components/ui/input/AutoComplete.vue'
 import CompanyItem from './CompanyItem.vue'
 
 interface Props {
-  modelValue?: number | null | undefined
-  label?: string | null
+  modelValue?: string | undefined
+  label?: string
   disabled?: boolean
   placeholder?: string | undefined
   size?: string
@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 
 const emit = defineEmits<{
-  'update:modelValue': [value: number | undefined]
+  'update:modelValue': [value: string | undefined]
 }>()
 
 const companyStore = useCompanyStore()
@@ -99,6 +99,6 @@ watch(() => props.modelValue, () => {
 })
 
 watch(value, () => {
-  emit('update:modelValue', value.value?.value as number | undefined)
+  emit('update:modelValue', value.value?.value as string | undefined)
 })
 </script>

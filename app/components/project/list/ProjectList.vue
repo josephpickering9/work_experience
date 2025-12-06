@@ -82,8 +82,8 @@ const projectStore = useProjectStore()
 
 const initialLoad = ref(props.setProjects.length === 0)
 const search = ref<string | undefined>(undefined)
-const companyId = ref<number | undefined>(undefined)
-const tagId = ref<number | undefined>(undefined)
+const companyId = ref<string | undefined>(undefined)
+const tagId = ref<string | undefined>(undefined)
 const tagType = ref<TagType | undefined>(undefined)
 const loadingTypeCard = ref(LoadingType.CARD)
 
@@ -134,7 +134,7 @@ const filteredProjects = computed((): Project[] => {
 
   if (tagId.value) {
     projectsFiltered = projectsFiltered.filter((project) => {
-      return project.tags.some((tag) => parseInt(tag.id) === tagId.value)
+      return project.tags.some((tag) => tag.id === tagId.value)
     })
   }
 
@@ -155,7 +155,7 @@ function setValues() {
   search.value = route.query['search']?.toString() || search.value
   companyId.value = route.query['company'] ? parseInt(route.query['company'].toString()) : undefined
   tagType.value = route.query['type'] ? getEnumValue(TagType, route.query['type'].toString()) : undefined
-  tagId.value = route.query['tag'] ? parseInt(route.query['tag'].toString()) : undefined
+  tagId.value = route.query['tag']?.toString()
 }
 
 function updateQueryParams() {
