@@ -83,6 +83,7 @@ const projectStore = useProjectStore()
 const initialLoad = ref(props.setProjects.length === 0)
 const search = ref<string | undefined>(undefined)
 const companyId = ref<number | undefined>(undefined)
+const tagId = ref<number | undefined>(undefined)
 const tagType = ref<TagType | undefined>(undefined)
 const loadingTypeCard = ref(LoadingType.CARD)
 
@@ -131,6 +132,12 @@ const filteredProjects = computed((): Project[] => {
     })
   }
 
+  if (tagId.value) {
+    projectsFiltered = projectsFiltered.filter((project) => {
+      return project.tags.some((tag) => parseInt(tag.id) === tagId.value)
+    })
+  }
+
   if (props.tags.length > 0) {
     projectsFiltered = projectsFiltered.filter((project) => {
       return project.tags.some((tag) => props.tags.includes(tag.title))
@@ -145,9 +152,10 @@ const wrapperClass = computed(() => ({
 }))
 
 function setValues() {
-  search.value = route.query.search?.toString() || search.value
-  companyId.value = route.query.company ? parseInt(route.query.company.toString()) : undefined
-  tagType.value = route.query.type ? getEnumValue(TagType, route.query.type.toString()) : undefined
+  search.value = route.query['search']?.toString() || search.value
+  companyId.value = route.query['company'] ? parseInt(route.query['company'].toString()) : undefined
+  tagType.value = route.query['type'] ? getEnumValue(TagType, route.query['type'].toString()) : undefined
+  tagId.value = route.query['tag'] ? parseInt(route.query['tag'].toString()) : undefined
 }
 
 function updateQueryParams() {
@@ -157,6 +165,7 @@ function updateQueryParams() {
       search: !isEmpty(search.value) ? search.value : undefined,
       company: companyId.value ? companyId.value : undefined,
       type: tagType.value ? tagType.value : undefined,
+      tag: tagId.value ? tagId.value : undefined,
     },
   })
 }
@@ -189,6 +198,10 @@ watch(companyId, () => {
 })
 
 watch(tagType, () => {
+  updateQueryParams()
+})
+
+watch(tagId, () => {
   updateQueryParams()
 })
 </script>

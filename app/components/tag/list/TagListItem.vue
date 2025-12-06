@@ -1,6 +1,7 @@
 <template>
-  <div
+  <NuxtLink
     v-if="tag"
+    :to="`/projects?tag=${tag.id}`"
     class="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-xl dark:border-gray-800 dark:bg-gray-900/40 dark:hover:border-gray-700 dark:hover:bg-gray-800/60"
   >
     <!-- Background Glow -->
@@ -34,9 +35,10 @@
         :href="`/tags/${tag.id}/update`"
         class="opacity-0 transition-opacity duration-200 group-hover:opacity-100"
         variant="ghost"
+        @click.stop.prevent
       />
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <script setup lang="ts">
