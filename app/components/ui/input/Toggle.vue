@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
 })
 
-// Emits
+
 const emit = defineEmits<{
   'update:modelValue': [value: boolean]
 }>()

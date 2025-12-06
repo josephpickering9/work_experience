@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
 })
 
-// Emits
+
 const emit = defineEmits<{
   'update:modelValue': [value: string]
 }>()

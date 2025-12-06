@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   clearable: false,
 })
 
-// Emits
+
 const emit = defineEmits<{
   remove: [tag: Tag]
 }>()

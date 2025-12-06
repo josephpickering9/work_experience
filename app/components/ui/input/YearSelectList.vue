@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
   totalYears: 15,
 })
 
-// Emits
+
 const emit = defineEmits<{
   'update:modelValue': [value: string | number]
 }>()

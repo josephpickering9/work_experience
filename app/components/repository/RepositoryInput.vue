@@ -55,7 +55,7 @@ const props = withDefaults(defineProps<Props>(), {
   showEmptyMessage: true,
 })
 
-// Emits
+
 const emit = defineEmits<{
   'update:modelValue': [value: CreateProjectRepository[]]
 }>()

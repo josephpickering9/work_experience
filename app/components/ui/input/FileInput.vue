@@ -41,7 +41,7 @@ const props = withDefaults(defineProps<Props>(), {
   multiple: false,
 })
 
-// Emits
+
 const emit = defineEmits<{
   'update:modelValue': [value: FileList | null]
   'update:file': [value: FileList | null]

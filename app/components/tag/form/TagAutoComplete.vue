@@ -50,7 +50,7 @@ const props = withDefaults(defineProps<Props>(), {
   openOnFocus: true,
 })
 
-// Emits
+
 const emit = defineEmits<{
   'update:modelValue': [value: string[]]
   'update:modelSearch': [value: string | undefined]

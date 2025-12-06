@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
   size: undefined,
 })
 
-// Emits
+
 const emit = defineEmits<{
   'update:modelValue': [value: string]
   'focus': []

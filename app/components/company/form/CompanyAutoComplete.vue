@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'md',
 })
 
-// Emits
+
 const emit = defineEmits<{
   'update:modelValue': [value: number | undefined]
 }>()

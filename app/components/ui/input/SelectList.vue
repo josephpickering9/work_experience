@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<Props>(), {
   clearable: false,
 })
 
-// Emits
+
 const emit = defineEmits<{
   'update:modelValue': [value: string | number | null]
 }>()
@@ -68,4 +68,3 @@ watch(value, (newValue) => {
   emit('update:modelValue', newValue)
 })
 </script>
-../../../types/SelectListItem
