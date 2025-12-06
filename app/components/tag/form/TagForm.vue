@@ -2,14 +2,52 @@
   <div class="w-full max-w-5xl">
     <div class="mb-8">
       <h1>
-        {{ isUpdate ? 'Update' : 'Create' }} Tag
+        <span v-if="initialLoad" class="skeleton h-10 w-48 block rounded-lg bg-gray-200 dark:bg-gray-800"></span>
+        <span v-else>{{ isUpdate ? 'Update' : 'Create' }} Tag</span>
       </h1>
-      <p class="text-gray-500 dark:text-gray-400">
+      <p v-if="initialLoad" class="mt-2 skeleton h-5 w-64 rounded bg-gray-200 dark:bg-gray-800"></p>
+      <p v-else class="text-gray-500 dark:text-gray-400">
         {{ isUpdate ? 'Modify existing tag details' : 'Add a new tag to the collection' }}
       </p>
     </div>
 
-    <div class="grid gap-8 lg:grid-cols-2">
+    <div v-if="initialLoad" class="grid gap-8 lg:grid-cols-2">
+      <div class="flex flex-col gap-6 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md dark:bg-gray-900/40">
+        <div class="space-y-4">
+          <div class="skeleton h-4 w-16 rounded bg-gray-200 dark:bg-gray-700"></div>
+          <div class="skeleton h-10 w-full rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+        </div>
+        <div class="space-y-4">
+          <div class="skeleton h-4 w-16 rounded bg-gray-200 dark:bg-gray-700"></div>
+          <div class="skeleton h-10 w-full rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+        </div>
+        <div class="space-y-4">
+          <div class="skeleton h-4 w-16 rounded bg-gray-200 dark:bg-gray-700"></div>
+          <div class="skeleton h-10 w-full rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+        </div>
+        <div class="space-y-4">
+          <div class="skeleton h-4 w-28 rounded bg-gray-200 dark:bg-gray-700"></div>
+          <div class="skeleton h-10 w-full rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+        </div>
+        <div class="flex justify-end gap-3 pt-4">
+          <div class="skeleton h-10 w-24 rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+          <div class="skeleton h-10 w-32 rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+        </div>
+      </div>
+
+      <!-- Preview Skeleton -->
+      <div class="flex flex-col space-y-4">
+        <div class="skeleton h-4 w-24 rounded bg-gray-200 dark:bg-gray-700"></div>
+        <div class="sticky top-24 space-y-8">
+          <div class="skeleton h-48 w-full rounded-xl bg-gray-200 dark:bg-gray-700"></div>
+          <div class="skeleton h-24 w-full rounded-xl bg-gray-200 dark:bg-gray-700"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actual Content -->
+    <div v-else class="grid gap-8 lg:grid-cols-2">
+      <!-- Form Section -->
       <div class="flex flex-col gap-6 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md dark:bg-gray-900/40">
         <TextInput v-model="title" label="Title" placeholder="e.g. Vue.js" :disabled="loading" />
         <TagTypeSelectList v-model="type" label="Type" :disabled="loading" />
@@ -31,6 +69,7 @@
         </div>
       </div>
 
+      <!-- Preview Section -->
       <div class="flex flex-col space-y-4">
         <h3 class="ml-1 text-sm font-medium uppercase tracking-wider text-gray-500">Live Preview</h3>
         <div class="sticky top-24">
@@ -78,6 +117,7 @@ const title = ref('')
 const type = ref<TagType>(TagType.DEFAULT)
 const icon = ref<string | undefined>(undefined)
 const customColour = ref<string | undefined>(undefined)
+const initialLoad = ref(!!props.id)
 
 const isUpdate = computed((): boolean => {
   return props.id != null
@@ -151,6 +191,7 @@ async function remove() {
 
 onMounted(async () => {
   if (isUpdate.value && props.id) {
+    // initialLoad is already true
     await tagStore.getTag(props.id)
 
     if (!tagError.value && tag.value) {
@@ -161,6 +202,9 @@ onMounted(async () => {
     } else {
       notificationStore.displayErrorNotification(tagError.value || 'An error occurred')
     }
+    initialLoad.value = false
+  } else {
+    initialLoad.value = false
   }
 })
 </script>
