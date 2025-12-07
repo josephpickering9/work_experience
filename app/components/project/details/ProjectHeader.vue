@@ -15,7 +15,7 @@
             :alt="`${project.title} Logo`"
             class="h-16 w-16 rounded-full shadow-sm ring-1 ring-base-content/10"
           >
-          <div>
+          <div class="flex flex-col gap-2">
             <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl">{{ project.title }}</h1>
             <p class="text-lg font-medium text-base-content/60">{{ dateRange }}</p>
           </div>

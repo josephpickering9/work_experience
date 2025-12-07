@@ -52,7 +52,7 @@
               'text-base-content': !isSelected(day) && !isToday(day),
               'text-primary font-bold': isToday(day) && !isSelected(day)
             }"
-            @click.stop="selectDate(day)"
+            @click.stop.prevent="selectDate(day)"
           >
             {{ format(day, 'd') }}
           </button>
