@@ -210,10 +210,9 @@ const createProjectImageValue = computed((): CreateProjectImage[] => {
 })
 
 async function validate(): Promise<boolean> {
-  return await validation.validate(v$)
+  return await validation.validate(v$.value)
 }
 
-// Expose methods for parent component
 defineExpose({
   validate,
 })
@@ -229,7 +228,6 @@ onMounted(() => {
     })
   }
 })
-
 
 watch(project, () => {
   if (!project.value) return
@@ -259,6 +257,3 @@ watch([logo, banner, card, desktop, mobile, desktopUrls, mobileUrls], () => {
   form.value.images = createProjectImageValue.value
 })
 </script>
-
-<style scoped>
-</style>

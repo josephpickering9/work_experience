@@ -8,10 +8,10 @@
     
     <div class="flex flex-col gap-4 md:flex-row">
       <FormGroup :errors="v$['form']?.startDate?.$errors" name="Start Date" class="md:w-1/2">
-        <TextInput v-model="form.startDate" type="date" label="Start Date" :disabled="loading" />
+        <DatePicker v-model="form.startDate" label="Start Date" :disabled="loading" />
       </FormGroup>
       <FormGroup :errors="v$['form']?.endDate?.$errors" name="End Date" class="md:w-1/2">
-        <TextInput v-model="form.endDate" type="date" label="End Date" :disabled="loading" />
+        <DatePicker v-model="form.endDate" label="End Date" :disabled="loading" />
       </FormGroup>
     </div>
 
@@ -43,6 +43,7 @@ import useValidation from '~/composables/useValidation'
 import { defaultProjectForm } from '~/utils/default-helper'
 import FormGroup from '~/components/ui/form/FormGroup.vue'
 import TextInput from '~/components/ui/input/TextInput.vue'
+import DatePicker from '~/components/ui/input/DatePicker.vue'
 import CompanyAutoComplete from '~/components/company/form/CompanyAutoComplete.vue'
 import TagAutoComplete from '~/components/tag/form/TagAutoComplete.vue'
 
@@ -64,7 +65,6 @@ const validation = useValidation()
 
 const form = ref<CreateProject>(props.modelValue)
 
-
 const rules = {
   form: {
     title: { required },
@@ -82,7 +82,7 @@ const loading = computed((): boolean => {
 })
 
 async function validate(): Promise<boolean> {
-  return await validation.validate(v$)
+  return await validation.validate(v$.value)
 }
 
 defineExpose({
