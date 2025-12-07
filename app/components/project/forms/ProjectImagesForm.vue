@@ -1,85 +1,88 @@
 <template>
-  <div v-if="form" class="flex flex-col gap-10 pb-4">
-    <div class="flex flex-col gap-4">
-      <h3 class="text-lg font-bold opacity-70">Banner Image</h3>
-      <div
-        class="relative h-64 w-full overflow-hidden rounded-xl bg-base-200 shadow-sm"
-        :style="bannerStyle"
-      >
-        <div v-if="!bannerUrl" class="flex h-full items-center justify-center text-base-content/30">
-          <Icon name="material-symbols:image" size="4em" />
+  <div v-if="form" class="flex flex-col gap-4 pb-4">
+    <Tabs v-model:active-tab="activeTab" :tabs="tabs">
+      <template #default="{ index }">
+        <!-- Banner Tab -->
+        <div v-if="index === 0" class="flex flex-col gap-4">
+          <div
+            class="relative h-64 w-full overflow-hidden rounded-xl bg-base-200 shadow-sm"
+            :style="bannerStyle"
+          >
+            <div v-if="!bannerUrl" class="flex h-full items-center justify-center text-base-content/30">
+              <Icon name="material-symbols:image" size="4em" />
+            </div>
+          </div>
+          <FormGroup :errors="v$.banner?.$errors">
+            <FileInput v-model:image-url="bannerUrl" label="Select Banner" :disabled="loading" @update:file="banner = $event" />
+          </FormGroup>
         </div>
-      </div>
-      <FormGroup :errors="v$.banner?.$errors">
-        <FileInput v-model:image-url="bannerUrl" label="Select Banner" :disabled="loading" @update:file="banner = $event" />
-      </FormGroup>
-    </div>
 
-    <div class="grid gap-10 md:grid-cols-2">
-      <div class="flex flex-col gap-4">
-        <h3 class="text-lg font-bold opacity-70">Logo</h3>
-        <div class="flex items-center gap-6">
-           <div class="relative flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-base-200 shadow-sm ring-1 ring-base-content/10">
+        <!-- Logo Tab -->
+        <div v-if="index === 1" class="flex flex-col gap-4">
+          <div class="flex items-center gap-6">
+            <div class="relative flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-base-200 shadow-sm ring-1 ring-base-content/10">
               <img v-if="logoUrl" :src="logoUrl" alt="Logo Preview" class="h-full w-full object-cover">
               <Icon v-else name="material-symbols:image" size="2em" class="text-base-content/30" />
-           </div>
-           <div class="flex-grow">
+            </div>
+            <div class="flex-grow">
               <FormGroup :errors="v$.logo?.$errors">
                 <FileInput v-model:image-url="logoUrl" label="Select Logo" :disabled="loading" @update:file="logo = $event" />
               </FormGroup>
-           </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="flex flex-col gap-4">
-        <h3 class="text-lg font-bold opacity-70">Card Image</h3>
-         <div class="card card-compact card-bordered w-full bg-base-100 shadow-sm transition-all hover:shadow-md">
+        <!-- Card Tab -->
+        <div v-if="index === 2" class="flex flex-col gap-4">
+          <div class="card card-compact card-bordered w-full bg-base-100 shadow-sm transition-all hover:shadow-md">
             <figure class="m-0 aspect-video w-full bg-base-200">
-               <img v-if="cardUrl" :src="cardUrl" alt="Card Preview" class="h-full w-full object-cover">
-               <div v-else class="flex h-full items-center justify-center text-base-content/30">
-                  <Icon name="material-symbols:image" size="3em" />
-               </div>
+              <img v-if="cardUrl" :src="cardUrl" alt="Card Preview" class="h-full w-full object-cover">
+              <div v-else class="flex h-full items-center justify-center text-base-content/30">
+                <Icon name="material-symbols:image" size="3em" />
+              </div>
             </figure>
             <div class="card-body">
-               <strong class="card-title text-sm">{{ form.title || 'Project Title' }}</strong>
-               <p class="text-xs text-base-content/60 line-clamp-2">{{ form.shortDescription || 'Short description preview will appear here...' }}</p>
+              <strong class="card-title text-sm">{{ form.title || 'Project Title' }}</strong>
+              <p class="text-xs text-base-content/60 line-clamp-2">{{ form.shortDescription || 'Short description preview will appear here...' }}</p>
             </div>
-         </div>
+          </div>
           <FormGroup :errors="v$.card?.$errors">
             <FileInput v-model:image-url="cardUrl" label="Select Card Image" :disabled="loading" @update:file="card = $event" />
           </FormGroup>
-      </div>
-    </div>
+        </div>
 
-    <div class="divider text-sm font-bold opacity-50 uppercase tracking-widest">Screenshots</div>
+        <!-- Gallery Tab -->
+        <div v-if="index === 3" class="flex flex-col gap-10">
+          <div class="grid gap-10 md:grid-cols-2">
+            <FormGroup :errors="v$.desktop?.$errors" name="Desktop Screenshots">
+              <FileInputList
+                v-model:image-urls="desktopUrls"
+                label="Desktop Images"
+                :disabled="loading"
+                :multiple="true"
+                @update:file="desktop = $event"
+              />
+            </FormGroup>
 
-    <div class="grid gap-10 md:grid-cols-2">
-      <FormGroup :errors="v$.desktop?.$errors" name="Desktop Screenshots">
-        <FileInputList
-          v-model:image-urls="desktopUrls"
-          label="Desktop Images"
-          :disabled="loading"
-          :multiple="true"
-          @update:file="desktop = $event"
-        />
-      </FormGroup>
+            <FormGroup :errors="v$.mobile?.$errors" name="Mobile Screenshots">
+              <FileInputList
+                v-model:image-urls="mobileUrls"
+                label="Mobile Images"
+                :disabled="loading"
+                :multiple="true"
+                @update:file="mobile = $event"
+              />
+            </FormGroup>
+          </div>
 
-      <FormGroup :errors="v$.mobile?.$errors" name="Mobile Screenshots">
-        <FileInputList
-          v-model:image-urls="mobileUrls"
-          label="Mobile Images"
-          :disabled="loading"
-          :multiple="true"
-          @update:file="mobile = $event"
-        />
-      </FormGroup>
-    </div>
-
-    <div class="rounded-lg bg-base-200/50 p-6">
-      <FormGroup :errors="v$.showMockup?.$errors" name="Display Options">
-        <Toggle v-model="showMockup" label="Show Device Mockup on Details Page" :disabled="loading" />
-      </FormGroup>
-    </div>
+          <div class="rounded-lg bg-base-200/50 p-6">
+            <FormGroup :errors="v$.showMockup?.$errors" name="Display Options">
+              <Toggle v-model="showMockup" label="Show Device Mockup on Details Page" :disabled="loading" />
+            </FormGroup>
+          </div>
+        </div>
+      </template>
+    </Tabs>
   </div>
 </template>
 
@@ -98,6 +101,7 @@ import FormGroup from '~/components/ui/form/FormGroup.vue'
 import FileInput from '~/components/ui/input/FileInput.vue'
 import FileInputList from '~/components/ui/input/FileInputList.vue'
 import Toggle from '~/components/ui/input/Toggle.vue'
+import Tabs from '~/components/layout/Tabs.vue'
 import { Icon } from '#components'
 
 interface Props {
@@ -117,6 +121,8 @@ const projectStore = useProjectStore()
 const validation = useValidation()
 const v$ = useVuelidate()
 
+const tabs = ['Banner', 'Logo', 'Card', 'Gallery']
+const activeTab = ref(0)
 const form = ref<CreateProject>(props.modelValue)
 const desktop = ref<FileList | null>(null)
 const mobile = ref<FileList | null>(null)
