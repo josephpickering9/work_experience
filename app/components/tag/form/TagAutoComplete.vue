@@ -15,7 +15,7 @@
         <Tag :tag="tags.find((tag) => tag.title === item.title) ?? defaultTag(item.title)" />
       </template>
     </AutoComplete>
-    <div class="flex min-h-8 items-center px-4">
+    <div class="flex min-h-8 items-center">
       <div v-if="convertedTags && convertedTags.length" class="flex flex-wrap items-center gap-2">
         <Tag v-for="(tag, index) in convertedTags" :key="index" :tag="tag" clearable @remove="removeTag" />
       </div>

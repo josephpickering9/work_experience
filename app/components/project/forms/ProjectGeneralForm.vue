@@ -58,7 +58,7 @@ const validation = useValidation()
 
 const form = ref<CreateProject>(props.modelValue)
 
-// Validation
+
 const rules = {
   form: {
     title: { required },

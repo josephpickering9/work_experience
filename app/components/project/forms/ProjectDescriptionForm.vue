@@ -35,7 +35,7 @@ const validation = useValidation()
 
 const form = ref<CreateProject>(props.modelValue)
 
-// Validation
+
 const v$ = useVuelidate()
 
 const project = computed((): Project | undefined => {

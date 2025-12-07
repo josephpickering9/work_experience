@@ -1,57 +1,83 @@
 <template>
-  <div v-if="form" class="relative flex flex-col gap-8 pb-4">
-    <div class="header-container header-container-dark" :style="headerStyle" />
-
-    <div class="flex gap-6 md:flex-row">
-      <div class="flex flex-col md:w-1/2 md:gap-20">
-        <FormGroup :errors="v$.banner?.$errors" name="Banner">
-          <FileInput v-model:image-url="bannerUrl" label="Banner" :disabled="loading" @update:file="banner = $event" />
-        </FormGroup>
-        <FormGroup :errors="v$.logo?.$errors" name="Logo">
-          <FileInput v-model:image-url="logoUrl" label="Logo" :disabled="loading" @update:file="logo = $event" />
-        </FormGroup>
-      </div>
-      <div class="card card-bordered w-full bg-base-100 shadow-xl md:w-1/2">
-        <figure class="m-0">
-          <img
-            v-if="project"
-            :src="cardUrl ?? 'https://via.placeholder.com/320x200'"
-            :alt="`${project.title} Card Image`"
-            class="h-[230px] w-full object-cover"
-          >
-        </figure>
-        <div class="card-body px-6 py-6">
-          <FormGroup :errors="v$.card?.$errors" name="Card">
-            <FileInput v-model:image-url="cardUrl" label="Card" :disabled="loading" @update:file="card = $event" />
-          </FormGroup>
+  <div v-if="form" class="flex flex-col gap-10 pb-4">
+    <div class="flex flex-col gap-4">
+      <h3 class="text-lg font-bold opacity-70">Banner Image</h3>
+      <div
+        class="relative h-64 w-full overflow-hidden rounded-xl bg-base-200 shadow-sm"
+        :style="bannerStyle"
+      >
+        <div v-if="!bannerUrl" class="flex h-full items-center justify-center text-base-content/30">
+          <Icon name="material-symbols:image" size="4em" />
         </div>
       </div>
+      <FormGroup :errors="v$.banner?.$errors">
+        <FileInput v-model:image-url="bannerUrl" label="Select Banner" :disabled="loading" @update:file="banner = $event" />
+      </FormGroup>
     </div>
-    <div class="flex gap-4 md:flex-row">
-      <FormGroup :errors="v$.desktop?.$errors" name="Desktop">
+
+    <div class="grid gap-10 md:grid-cols-2">
+      <div class="flex flex-col gap-4">
+        <h3 class="text-lg font-bold opacity-70">Logo</h3>
+        <div class="flex items-center gap-6">
+           <div class="relative flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-base-200 shadow-sm ring-1 ring-base-content/10">
+              <img v-if="logoUrl" :src="logoUrl" alt="Logo Preview" class="h-full w-full object-cover">
+              <Icon v-else name="material-symbols:image" size="2em" class="text-base-content/30" />
+           </div>
+           <div class="flex-grow">
+              <FormGroup :errors="v$.logo?.$errors">
+                <FileInput v-model:image-url="logoUrl" label="Select Logo" :disabled="loading" @update:file="logo = $event" />
+              </FormGroup>
+           </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <h3 class="text-lg font-bold opacity-70">Card Image</h3>
+         <div class="card card-compact card-bordered w-full bg-base-100 shadow-sm transition-all hover:shadow-md">
+            <figure class="m-0 aspect-video w-full bg-base-200">
+               <img v-if="cardUrl" :src="cardUrl" alt="Card Preview" class="h-full w-full object-cover">
+               <div v-else class="flex h-full items-center justify-center text-base-content/30">
+                  <Icon name="material-symbols:image" size="3em" />
+               </div>
+            </figure>
+            <div class="card-body">
+               <strong class="card-title text-sm">{{ form.title || 'Project Title' }}</strong>
+               <p class="text-xs text-base-content/60 line-clamp-2">{{ form.shortDescription || 'Short description preview will appear here...' }}</p>
+            </div>
+         </div>
+          <FormGroup :errors="v$.card?.$errors">
+            <FileInput v-model:image-url="cardUrl" label="Select Card Image" :disabled="loading" @update:file="card = $event" />
+          </FormGroup>
+      </div>
+    </div>
+
+    <div class="divider text-sm font-bold opacity-50 uppercase tracking-widest">Screenshots</div>
+
+    <div class="grid gap-10 md:grid-cols-2">
+      <FormGroup :errors="v$.desktop?.$errors" name="Desktop Screenshots">
         <FileInputList
           v-model:image-urls="desktopUrls"
-          label="Desktop"
+          label="Desktop Images"
           :disabled="loading"
           :multiple="true"
           @update:file="desktop = $event"
         />
       </FormGroup>
-    </div>
-    <div class="flex gap-4 md:flex-row">
-      <FormGroup :errors="v$.mobile?.$errors" name="Mobile">
+
+      <FormGroup :errors="v$.mobile?.$errors" name="Mobile Screenshots">
         <FileInputList
           v-model:image-urls="mobileUrls"
-          label="Mobile"
+          label="Mobile Images"
           :disabled="loading"
           :multiple="true"
           @update:file="mobile = $event"
         />
       </FormGroup>
     </div>
-    <div class="flex">
-      <FormGroup :errors="v$.showMockup?.$errors" name="Show Mockup">
-        <Toggle v-model="showMockup" label="Show Mockup" :disabled="loading" />
+
+    <div class="rounded-lg bg-base-200/50 p-6">
+      <FormGroup :errors="v$.showMockup?.$errors" name="Display Options">
+        <Toggle v-model="showMockup" label="Show Device Mockup on Details Page" :disabled="loading" />
       </FormGroup>
     </div>
   </div>
@@ -72,6 +98,7 @@ import FormGroup from '~/components/ui/form/FormGroup.vue'
 import FileInput from '~/components/ui/input/FileInput.vue'
 import FileInputList from '~/components/ui/input/FileInputList.vue'
 import Toggle from '~/components/ui/input/Toggle.vue'
+import { Icon } from '#components'
 
 interface Props {
   modelValue?: CreateProject
@@ -88,6 +115,7 @@ const emit = defineEmits<{
 
 const projectStore = useProjectStore()
 const validation = useValidation()
+const v$ = useVuelidate()
 
 const form = ref<CreateProject>(props.modelValue)
 const desktop = ref<FileList | null>(null)
@@ -102,9 +130,6 @@ const desktopUrls = ref<string[]>([])
 const mobileUrls = ref<string[]>([])
 const showMockup = ref(false)
 
-// Validation
-const v$ = useVuelidate()
-
 const project = computed((): Project | undefined => {
   return projectStore.project
 })
@@ -113,9 +138,12 @@ const loading = computed((): boolean => {
   return projectStore.projectCreating || projectStore.projectLoading
 })
 
-const headerStyle = computed((): StyleValue => {
+const bannerStyle = computed((): StyleValue => {
+  if (!bannerUrl.value) return {}
   return {
-    backgroundImage: `url(${bannerUrl.value ?? 'https://via.placeholder.com/1500x300'})`,
+    backgroundImage: `url(${bannerUrl.value})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
   }
 })
 
@@ -231,44 +259,4 @@ watch([logo, banner, card, desktop, mobile, desktopUrls, mobileUrls], () => {
 </script>
 
 <style scoped>
-.header-container {
-  position: relative;
-  margin-left: -1.5rem;
-  margin-right: -1.5rem;
-  margin-top: -1.5rem;
-  display: flex;
-  height: 10rem;
-  flex-direction: column;
-  justify-content: flex-end;
-  background-size: cover;
-  background-position: center;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-.header-container::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-  height: 100%;
-  width: 100%;
-  background-image: linear-gradient(to bottom, transparent, var(--fallback-b1, oklch(var(--b1))));
-}
-
-.header-container-light::after {
-  --tw-gradient-to: rgb(156 163 175);
-}
-
-.header-container-dark::after {
-  --tw-gradient-to: rgb(0 0 0);
-}
-
-.title {
-  position: relative;
-  margin: 0;
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
 </style>
