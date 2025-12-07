@@ -2,7 +2,6 @@
   <div v-if="form" class="flex flex-col gap-4 pb-4">
     <Tabs v-model:active-tab="activeTab" :tabs="tabs">
       <template #default="{ index }">
-        <!-- Banner Tab -->
         <div v-if="index === 0" class="flex flex-col gap-4">
           <div
             class="relative h-64 w-full overflow-hidden rounded-xl bg-base-200 shadow-sm"
@@ -12,12 +11,11 @@
               <Icon name="material-symbols:image" size="4em" />
             </div>
           </div>
-          <FormGroup :errors="v$.banner?.$errors">
+          <FormGroup :errors="v$['banner']?.$errors">
             <FileInput v-model:image-url="bannerUrl" label="Select Banner" :disabled="loading" @update:file="banner = $event" />
           </FormGroup>
         </div>
 
-        <!-- Logo Tab -->
         <div v-if="index === 1" class="flex flex-col gap-4">
           <div class="flex items-center gap-6">
             <div class="relative flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-base-200 shadow-sm ring-1 ring-base-content/10">
@@ -25,14 +23,13 @@
               <Icon v-else name="material-symbols:image" size="2em" class="text-base-content/30" />
             </div>
             <div class="flex-grow">
-              <FormGroup :errors="v$.logo?.$errors">
+              <FormGroup :errors="v$['logo']?.$errors">
                 <FileInput v-model:image-url="logoUrl" label="Select Logo" :disabled="loading" @update:file="logo = $event" />
               </FormGroup>
             </div>
           </div>
         </div>
 
-        <!-- Card Tab -->
         <div v-if="index === 2" class="flex flex-col gap-4">
           <div class="card card-compact card-bordered w-full bg-base-100 shadow-sm transition-all hover:shadow-md">
             <figure class="m-0 aspect-video w-full bg-base-200">
@@ -46,15 +43,14 @@
               <p class="text-xs text-base-content/60 line-clamp-2">{{ form.shortDescription || 'Short description preview will appear here...' }}</p>
             </div>
           </div>
-          <FormGroup :errors="v$.card?.$errors">
+          <FormGroup :errors="v$['card']?.$errors">
             <FileInput v-model:image-url="cardUrl" label="Select Card Image" :disabled="loading" @update:file="card = $event" />
           </FormGroup>
         </div>
 
-        <!-- Gallery Tab -->
         <div v-if="index === 3" class="flex flex-col gap-10">
           <div class="grid gap-10 md:grid-cols-2">
-            <FormGroup :errors="v$.desktop?.$errors" name="Desktop Screenshots">
+            <FormGroup :errors="v$['desktop']?.$errors" name="Desktop Screenshots">
               <FileInputList
                 v-model:image-urls="desktopUrls"
                 label="Desktop Images"
@@ -64,7 +60,7 @@
               />
             </FormGroup>
 
-            <FormGroup :errors="v$.mobile?.$errors" name="Mobile Screenshots">
+            <FormGroup :errors="v$['mobile']?.$errors" name="Mobile Screenshots">
               <FileInputList
                 v-model:image-urls="mobileUrls"
                 label="Mobile Images"
@@ -76,7 +72,7 @@
           </div>
 
           <div class="rounded-lg bg-base-200/50 p-6">
-            <FormGroup :errors="v$.showMockup?.$errors" name="Display Options">
+            <FormGroup :errors="v$['showMockup']?.$errors" name="Display Options">
               <Toggle v-model="showMockup" label="Show Device Mockup on Details Page" :disabled="loading" />
             </FormGroup>
           </div>

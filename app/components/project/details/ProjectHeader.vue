@@ -17,7 +17,7 @@
           >
           <div>
             <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl">{{ project.title }}</h1>
-            <p class="text-lg font-medium text-base-content/60">{{ project.year }}</p>
+            <p class="text-lg font-medium text-base-content/60">{{ dateRange }}</p>
           </div>
         </div>
 
@@ -41,6 +41,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { format } from 'date-fns'
 import type { Company, Project } from '@api'
 import { getImageUrl } from '~/utils/image-helper'
 import useAuth from '~/composables/useAuth'
@@ -58,5 +59,16 @@ const bannerStyle = computed(() => {
   return {
     backgroundImage: `url(${getImageUrl(props.project.bannerUrl)})`,
   }
+})
+
+const dateRange = computed(() => {
+  if (!props.project.startDate) return ''
+  
+  const start = format(new Date(props.project.startDate), 'MMM yyyy')
+  const end = props.project.endDate 
+    ? format(new Date(props.project.endDate), 'MMM yyyy') 
+    : 'Present'
+    
+  return `${start} - ${end}`
 })
 </script>
