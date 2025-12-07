@@ -16,7 +16,7 @@
             class="h-16 w-16 rounded-full shadow-sm ring-1 ring-base-content/10"
           >
           <div>
-            <h1 class="text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl">{{ project.title }}</h1>
+            <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl">{{ project.title }}</h1>
             <p class="text-lg font-medium text-base-content/60">{{ project.year }}</p>
           </div>
         </div>
