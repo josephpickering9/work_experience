@@ -97,7 +97,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { debounce, type DebouncedFunc, isEmpty } from 'lodash-es'
-import type { SearchItem } from '@types/SearchItem'
+import type { SearchItem } from '~/types/SearchItem'
 import FormElementContainer from '~/components/ui/form/FormElementContainer.vue'
 
 interface Props {

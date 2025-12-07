@@ -8,15 +8,7 @@
     :max-width="maxWidth"
   >
     <template #actions>
-      <TextInput v-model="search" class="w-full md:w-48" size="sm" placeholder="Search" :disabled="loading" />
-      <CompanyAutoComplete
-        v-model="companyId"
-        class="w-full md:w-48"
-        placeholder="Company"
-        size="sm"
-        :disabled="loading"
-      />
-      <TagTypeSelectList v-model="tagType" class="w-full md:w-48" placeholder="Type" size="sm" :disabled="loading" />
+      <FilterBar v-model:filters="filters" />
       <ClientOnly>
         <FormButton
           v-if="isAuthenticated"
@@ -59,17 +51,17 @@ import { isEmpty } from 'lodash-es'
 import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '~/store/ProjectStore'
 import type { Project } from '@api/models/Project'
-import { TagType } from '@api'
-import { LoadingType } from '@types/LoadingType'
+import { TagType, type Company } from '@api'
+import { LoadingType } from '~/types/LoadingType'
 import useAuth from '~/composables/useAuth'
 import { getEnumValue } from '~/utils/enum-helper'
 import ListLayout from '~/components/ui/layout/ListLayout.vue'
 import Skeleton from '~/components/feedback/loading/Skeleton.vue'
-import TextInput from '~/components/ui/input/TextInput.vue'
 import FormButton from '~/components/ui/form/FormButton.vue'
-import TagTypeSelectList from '~/components/tag/form/TagTypeSelectList.vue'
-import CompanyAutoComplete from '~/components/company/form/CompanyAutoComplete.vue'
+import FilterBar from '~/components/ui/filter/FilterBar.vue'
 import ProjectListItem from './ProjectListItem.vue'
+import type {Filter } from '~/types/Filter'
+import { useCompanyStore } from '~/store/CompanyStore'
 
 interface Props {
   showHeader?: boolean
@@ -91,12 +83,10 @@ const route = useRoute()
 const router = useRouter()
 const { isAuthenticated } = useAuth()
 const projectStore = useProjectStore()
+const companyStore = useCompanyStore()
 
 const initialLoad = ref(props.setProjects.length === 0)
-const search = ref<string | undefined>(undefined)
-const companyId = ref<string | undefined>(undefined)
-const tagId = ref<string | undefined>(undefined)
-const tagType = ref<TagType | undefined>(undefined)
+const filters = ref<Filter[]>([])
 const loadingTypeCard = ref(LoadingType.CARD)
 
 const projects = computed((): Project[] => {
@@ -107,20 +97,32 @@ const loading = computed((): boolean => {
   return projectStore.projectsLoading || initialLoad.value
 })
 
+const companies = computed((): Company[] => companyStore.companies)
+
 const filteredProjects = computed((): Project[] => {
   let projectsFiltered: Project[] = props.setProjects.length ? [...props.setProjects] : [...projects.value]
 
-  if (!isEmpty(search.value)) {
-    projectsFiltered = projectsFiltered.filter((project) => {
-      if (!search.value) return true
-
-      return (
-        project.title.toLowerCase().includes(search.value.toLowerCase()) ||
-        project.shortDescription.toLowerCase().includes(search.value.toLowerCase()) ||
-        project.description.toLowerCase().includes(search.value.toLowerCase())
-      )
-    })
-  }
+  filters.value.forEach(filter => {
+    if (filter.type === 'search' && !isEmpty(filter.value)) {
+      projectsFiltered = projectsFiltered.filter((project) => {
+        return (
+          project.title.toLowerCase().includes(filter.value.toLowerCase()) ||
+          project.shortDescription.toLowerCase().includes(filter.value.toLowerCase()) ||
+          project.description.toLowerCase().includes(filter.value.toLowerCase())
+        )
+      })
+    } else if (filter.type === 'company') {
+      projectsFiltered = projectsFiltered.filter((project) => project.companyId === filter.value)
+    } else if (filter.type === 'tagType') {
+      projectsFiltered = projectsFiltered.filter((project) => {
+        return project.tags.some((tag) => tag.type === filter.value)
+      })
+    } else if (filter.type === 'tag') {
+      projectsFiltered = projectsFiltered.filter((project) => {
+        return project.tags.some((tag) => tag.title === filter.value)
+      })
+    }
+  })
 
   if (!isEmpty(props.modelSearch) && (props.modelSearch?.length ?? 0) > 3) {
     projectsFiltered = projectsFiltered.filter((project) => {
@@ -131,22 +133,6 @@ const filteredProjects = computed((): Project[] => {
         project.shortDescription.toLowerCase().includes(props.modelSearch.toLowerCase()) ||
         project.description.toLowerCase().includes(props.modelSearch.toLowerCase())
       )
-    })
-  }
-
-  if (companyId.value) {
-    projectsFiltered = projectsFiltered.filter((project) => project.companyId === companyId.value)
-  }
-
-  if (tagType.value) {
-    projectsFiltered = projectsFiltered.filter((project) => {
-      return project.tags.some((tag) => tag.type === tagType.value)
-    })
-  }
-
-  if (tagId.value) {
-    projectsFiltered = projectsFiltered.filter((project) => {
-      return project.tags.some((tag) => tag.id === tagId.value)
     })
   }
 
@@ -163,34 +149,104 @@ const wrapperClass = computed(() => ({
   [props.maxWidth]: true,
 }))
 
-function setValues() {
-  search.value = route.query['search']?.toString() || search.value
-  companyId.value = route.query['company']?.toString()
-  tagType.value = route.query['type'] ? getEnumValue(TagType, route.query['type'].toString()) : undefined
-  tagId.value = route.query['tag']?.toString()
+function loadFiltersFromQuery() {
+  const newFilters: Filter[] = []
+
+  const search = route.query['search']?.toString()
+  if (search) {
+    newFilters.push({
+      type: 'search',
+      value: search,
+      label: 'Search',
+    })
+  }
+
+  const company = route.query['company']?.toString()
+  if (company) {
+    const companyObj = companies.value.find(c => c.id === company)
+    newFilters.push({
+      type: 'company',
+      value: company,
+      label: 'Company',
+      displayValue: companyObj?.name,
+    })
+  }
+
+  const tagType = route.query['type']?.toString()
+  if (tagType) {
+    const enumValue = getEnumValue(TagType, tagType)
+    if (enumValue) {
+      newFilters.push({
+        type: 'tagType',
+        value: enumValue,
+        label: 'Tag Type',
+        displayValue: tagType,
+      })
+    }
+  }
+
+  const tag = route.query['tag']?.toString()
+  if (tag) {
+    newFilters.push({
+      type: 'tag',
+      value: tag,
+      label: 'Tag',
+      displayValue: tag,
+    })
+  }
+
+  filters.value = newFilters
 }
 
 function updateQueryParams() {
+  const query: Record<string, string | undefined> = {}
+
+  filters.value.forEach(filter => {
+    if (filter.type === 'search') {
+      query['search'] = filter.value
+    } else if (filter.type === 'company') {
+      query['company'] = filter.value
+    } else if (filter.type === 'tagType') {
+      query['type'] = filter.displayValue || filter.value
+    } else if (filter.type === 'tag') {
+      query['tag'] = filter.value
+    }
+  })
+
   router.push({
     path: route.path,
-    query: {
-      search: !isEmpty(search.value) ? search.value : undefined,
-      company: companyId.value ? companyId.value : undefined,
-      type: tagType.value ? tagType.value : undefined,
-      tag: tagId.value ? tagId.value : undefined,
-    },
+    query,
   })
 }
 
 onMounted(async () => {
-  setValues()
-
+  loadFiltersFromQuery()
+  if (companies.value.length === 0) await companyStore.getCompanies()
   if (props.setProjects.length === 0) await projectStore.getProjects()
 })
 
+watch(
+  () => projects.value,
+  () => {
+    initialLoad.value = false
+  }
+)
 
-watch(projects, () => {
-  initialLoad.value = false
+watch(companies, () => {  
+  const updatedFilters = filters.value.map(filter => {
+    if (filter.type === 'company' && !filter.displayValue) {
+      const companyObj = companies.value.find(p => p.id === filter.value)
+      if (companyObj) {
+        return {
+          ...filter,
+          displayValue: companyObj.name,
+        }
+      }
+    }
+    return filter
+  })
+  
+  filters.value = updatedFilters
 })
 
 watch(() => props.setProjects, () => {
@@ -198,26 +254,12 @@ watch(() => props.setProjects, () => {
 })
 
 watch(() => route.query, () => {
-  setValues()
+  loadFiltersFromQuery()
 })
 
-watch(search, () => {
+watch(filters, () => {
   updateQueryParams()
-})
-
-watch(companyId, () => {
-  updateQueryParams()
-})
-
-watch(tagType, () => {
-  updateQueryParams()
-})
-
-watch(tagId, () => {
-  updateQueryParams()
-})
-
-
+}, { deep: true })
 </script>
 
 <style scoped>
@@ -237,4 +279,3 @@ watch(tagId, () => {
   position: absolute;
 }
 </style>
-

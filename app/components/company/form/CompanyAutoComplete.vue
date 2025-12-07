@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
-import type { SearchItem } from '@types/SearchItem'
+import type { SearchItem } from '~/types/SearchItem'
 import type { Company } from '@api'
 import { useCompanyStore } from '~/store/CompanyStore'
 import AutoComplete from '~/components/ui/input/AutoComplete.vue'
