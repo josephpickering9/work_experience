@@ -1,9 +1,15 @@
 <template>
-  <div class="flex flex-col max-h-64 overflow-y-auto">
-    <TextInput
-      v-model="searchQuery"
-      placeholder="Search tags..."
-    />
+  <div class="flex flex-col max-h-64 gap-1 overflow-y-auto">
+    <div class="px-2 pt-1 pb-2">
+      <TextInput
+        v-model="searchQuery"
+        placeholder="Search tags..."
+        size="sm"
+      />
+    </div>
+
+    <div class="divider my-0" />  
+
     <button
       v-for="tag in filteredTags"
       :key="tag.id"
@@ -29,6 +35,7 @@ import { useTagStore } from '~/store/TagStore'
 import { useProjectStore } from '~/store/ProjectStore'
 import { isEmpty } from 'lodash-es'
 import Tag from '../Tag.vue'
+import TextInput from '~/components/ui/input/TextInput.vue'
 
 const emit = defineEmits<{
   'select': [tagTitle: string]
@@ -79,14 +86,8 @@ function selectTag(tagTitle: string) {
 }
 
 onMounted(() => {
-  // Fetch tags if not already loaded
-  if (tagStore.tags.length === 0) {
-    tagStore.getTags()
-  }
-  // Fetch projects if not already loaded
-  if (projectStore.projects.length === 0) {
-    projectStore.getProjects()
-  }
+  if (tagStore.tags.length === 0) tagStore.getTags()
+  if (projectStore.projects.length === 0) projectStore.getProjects()
 })
 </script>
 
