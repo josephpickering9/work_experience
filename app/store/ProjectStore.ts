@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { ProjectService } from '@api/services/ProjectService'
+import { getProject, getProjectById, getProjectBySlug, postProject, putProjectById, deleteProjectById, getProjectByIdRelated } from '@api'
 import { asyncForm, tryCatchFinally } from '~/utils/async-helper'
-import type { Project } from '@api/models/Project'
-import type { CreateProject } from '@api/models/CreateProject'
+import type { Project, CreateProject } from '@api'
 
 export const useProjectStore = defineStore('projectStore', {
   state: () => ({
@@ -28,37 +27,37 @@ export const useProjectStore = defineStore('projectStore', {
     async getProjects(search?: string): Promise<Project[]> {
       if (this.projectsForm.loading) return []
 
-      return await tryCatchFinally(ref(this.projectsForm), () => ProjectService.getProject(search)) || []
+      return await tryCatchFinally(ref(this.projectsForm), () => getProject({ query: { search } })) || []
     },
     async getProject(id: number): Promise<void> {
       if (!id || this.projectForm.loading) return
 
-      await tryCatchFinally(ref(this.projectForm), () => ProjectService.getProject1(id.toString()))
+      await tryCatchFinally(ref(this.projectForm), () => getProjectById({ path: { id: id.toString() } }))
     },
     async getProjectBySlug(slug: string): Promise<void> {
       if (!slug || this.projectForm.loading) return
 
-      await tryCatchFinally(ref(this.projectForm), () => ProjectService.getProject2(slug))
+      await tryCatchFinally(ref(this.projectForm), () => getProjectBySlug({ path: { slug } }))
     },
     async getRelatedProjects(id: number): Promise<Project[]> {
       if (!id || this.relatedProjectsForm.loading) return []
 
-      return await tryCatchFinally(ref(this.relatedProjectsForm), () => ProjectService.getProjectRelated(id.toString())) || []
+      return await tryCatchFinally(ref(this.relatedProjectsForm), () => getProjectByIdRelated({ path: { id: id.toString() } })) || []
     },
     async createProject(project: CreateProject): Promise<Project | undefined> {
       if (!project || this.projectCreateForm.loading) return
 
-      return await tryCatchFinally(ref(this.projectCreateForm), () => ProjectService.postProject(project))
+      return await tryCatchFinally(ref(this.projectCreateForm), () => postProject({ body: { createProject: project } }))
     },
     async updateProject(id: number, project: CreateProject): Promise<Project | undefined> {
       if (!project || this.projectCreateForm.loading) return
 
-      return await tryCatchFinally(ref(this.projectCreateForm), () => ProjectService.putProject(id.toString(), project))
+      return await tryCatchFinally(ref(this.projectCreateForm), () => putProjectById({ path: { id: id.toString() }, body: { createProject: project } }))
     },
     async deleteProject(id: number): Promise<void> {
       if (!id || this.projectCreateForm.loading) return
 
-      await tryCatchFinally(ref(this.projectCreateForm), () => ProjectService.deleteProject(id.toString()))
+      await tryCatchFinally(ref(this.projectCreateForm), () => deleteProjectById({ path: { id: id.toString() } }))
     },
   },
 })
