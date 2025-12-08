@@ -18,28 +18,33 @@
         <span>{{ filters.length > 0 ? 'Add Filter' : 'Filter' }}</span>
       </button>
 
-      <div v-if="isOpen" class="dropdown-content z-[1] mt-2 w-56 rounded-box bg-base-100 p-2 shadow-xl ring-1 ring-base-content/10" @click.stop>
+      <div v-if="isOpen" class="dropdown-content z-[1] mt-2 w-56 rounded-box bg-base-100 p-2 shadow-xl ring-1 ring-base-content/10" @click.stop @keydown="handleMainMenuKeydown">
         <div class="flex flex-col gap-1">
           <div class="px-2 py-1">
             <TextInput
+              ref="searchInputRef"
               v-model="searchValue"
               placeholder="Search projects..."
               size="sm"
+              @keydown="handleSearchKeydown"
             />
           </div>
 
           <div class="divider my-0" />
 
           <div
-            v-for="filterType in filterTypes.filter(ft => ft.value !== FilterType.SEARCH)"
+            v-for="(filterType, index) in availableFilterTypes"
             :key="filterType.value"
             class="relative"
             @mouseenter="handleFilterTypeHover(filterType.value, $event)"
             @mouseleave="handleFilterTypeLeave"
           >
             <button
+              ref="filterTypeRefs"
               type="button"
               class="btn btn-sm btn-ghost w-full justify-start gap-2 font-normal"
+              :class="{ 'ring-2 ring-primary': focusedFilterTypeIndex === index }"
+              @click="openSubmenu(filterType.value)"
             >
               <Icon :name="filterType.icon" size="1.2em" />
               <span class="flex-1 text-left">{{ filterType.label }}</span>
@@ -77,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { Icon } from '#components'
 import { useCompanyStore } from '~/store/CompanyStore'
 import { useTagStore } from '~/store/TagStore'
@@ -109,6 +114,9 @@ const hoveredFilterType = ref<string | null>(null)
 const submenuPosition = ref<'left' | 'right'>('right')
 const container = ref<HTMLElement | null>(null)
 const hideTimeout = ref<NodeJS.Timeout | null>(null)
+const focusedFilterTypeIndex = ref(-1) // -1 means search is focused
+const filterTypeRefs = ref<HTMLElement[]>([])
+const searchInputRef = ref<InstanceType<typeof TextInput> | null>(null)
 
 const filterTypes = [
   { value: FilterType.SEARCH, label: 'Search', icon: 'heroicons:magnifying-glass' },
@@ -117,12 +125,20 @@ const filterTypes = [
   { value: FilterType.TAG, label: 'Tag', icon: 'heroicons:tag' },
 ]
 
+const availableFilterTypes = computed(() => filterTypes.filter(ft => ft.value !== FilterType.SEARCH))
+
 const companies = computed(() => companyStore.companies)
 
 function toggle() {
   isOpen.value = !isOpen.value
   if (!isOpen.value) {
     hoveredFilterType.value = null
+  } else {
+    // Auto-focus search input when opening
+    focusedFilterTypeIndex.value = -1
+    nextTick(() => {
+      searchInputRef.value?.focus()
+    })
   }
 }
 
@@ -178,6 +194,69 @@ function handleFilterTypeHover(filterTypeValue: string, event: MouseEvent) {
     
     submenuPosition.value = wouldOverflow ? 'left' : 'right'
   }
+}
+
+function openSubmenu(filterTypeValue: string) {
+  hoveredFilterType.value = filterTypeValue
+}
+
+function handleSearchKeydown(event: KeyboardEvent) {
+  if (event.key === 'ArrowDown' && availableFilterTypes.value.length > 0) {
+    event.preventDefault()
+    event.stopPropagation()
+    focusedFilterTypeIndex.value = 0
+    scrollToFocusedFilterType()
+  }
+}
+
+function handleMainMenuKeydown(event: KeyboardEvent) {
+  switch (event.key) {
+    case 'ArrowDown':
+      event.preventDefault()
+      if (focusedFilterTypeIndex.value === -1) {
+        // From search to first filter type
+        focusedFilterTypeIndex.value = 0
+        scrollToFocusedFilterType()
+      } else if (focusedFilterTypeIndex.value < availableFilterTypes.value.length - 1) {
+        focusedFilterTypeIndex.value++
+        scrollToFocusedFilterType()
+      }
+      break
+    case 'ArrowUp':
+      event.preventDefault()
+      if (focusedFilterTypeIndex.value === 0) {
+        // From first filter type back to search
+        focusedFilterTypeIndex.value = -1
+        nextTick(() => {
+          searchInputRef.value?.focus()
+        })
+      } else if (focusedFilterTypeIndex.value > 0) {
+        focusedFilterTypeIndex.value--
+        scrollToFocusedFilterType()
+      }
+      break
+    case 'ArrowRight':
+    case 'Enter':
+      event.preventDefault()
+      if (focusedFilterTypeIndex.value >= 0 && availableFilterTypes.value[focusedFilterTypeIndex.value]) {
+        openSubmenu(availableFilterTypes.value[focusedFilterTypeIndex.value]!.value)
+      }
+      break
+    case 'Escape':
+      event.preventDefault()
+      close()
+      break
+  }
+}
+
+function scrollToFocusedFilterType() {
+  nextTick(() => {
+    const focusedElement = filterTypeRefs.value[focusedFilterTypeIndex.value]
+    if (focusedElement) {
+      focusedElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+      focusedElement.focus()
+    }
+  })
 }
 
 function handleCompanySelect(companyId: string) {

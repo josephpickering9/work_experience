@@ -1,15 +1,15 @@
 <template>
-  <div class="flex flex-col max-h-64 overflow-y-auto">
-    <TextInput
-      v-model="searchQuery"
-      placeholder="Search companies..."
-    />
+  <div class="flex flex-col max-h-64 overflow-y-auto p-1">
     <button
-      v-for="company in filteredCompanies"
+      v-for="(company, index) in filteredCompanies"
       :key="company.id"
+      ref="itemRefs"
       type="button"
       class="btn btn-sm btn-ghost justify-start gap-2 font-normal hover:bg-base-200 h-auto py-2"
+      :class="{ 'ring-2 ring-primary': focusedIndex === index }"
       @click="selectCompany(company.id)"
+      @mouseenter="focusedIndex = index"
+      @keydown="handleItemKeydown"
     >
       <CompanyItem :company="company" size="sm" />
     </button>
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, nextTick, onMounted } from 'vue'
 import type { Company } from '@api'
 import { useCompanyStore } from '~/store/CompanyStore'
 import CompanyItem from '../form/CompanyItem.vue'
@@ -30,7 +30,8 @@ const emit = defineEmits<{
 }>()
 
 const companyStore = useCompanyStore()
-const searchQuery = ref('')
+const focusedIndex = ref(-1)
+const itemRefs = ref<HTMLElement[]>([])
 
 const companies = computed((): Company[] => {
   const sorted = [...companyStore.companies].sort((a, b) => {
@@ -42,16 +43,59 @@ const companies = computed((): Company[] => {
   return sorted
 })
 
-const filteredCompanies = computed(() => {
-  if (!searchQuery.value) return companies.value
-  
-  const query = searchQuery.value.toLowerCase()
-  return companies.value.filter(company => 
-    company.name.toLowerCase().includes(query)
-  )
+const filteredCompanies = computed(() => {  
+  return companies.value
 })
 
 function selectCompany(companyId: string) {
   emit('select', companyId)
 }
+
+function handleItemKeydown(event: KeyboardEvent) {
+  // Stop propagation to prevent main menu from handling these events
+  event.stopPropagation()
+  
+  switch (event.key) {
+    case 'ArrowDown':
+      event.preventDefault()
+      if (focusedIndex.value < filteredCompanies.value.length - 1) {
+        focusedIndex.value++
+        scrollToFocusedItem()
+      }
+      break
+    case 'ArrowUp':
+      event.preventDefault()
+      if (focusedIndex.value > 0) {
+        focusedIndex.value--
+        scrollToFocusedItem()
+      }
+      break
+    case 'Enter':
+      event.preventDefault()
+      if (filteredCompanies.value[focusedIndex.value]) {
+        selectCompany(filteredCompanies.value[focusedIndex.value]!.id)
+      }
+      break
+  }
+}
+
+function scrollToFocusedItem() {
+  nextTick(() => {
+    if (focusedIndex.value >= 0) {
+      const focusedElement = itemRefs.value[focusedIndex.value]
+      if (focusedElement) {
+        focusedElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+        focusedElement.focus()
+      }
+    }
+  })
+}
+
+onMounted(() => {
+  // Auto-focus first company on mount
+  if (filteredCompanies.value.length > 0) {
+    focusedIndex.value = 0
+    scrollToFocusedItem()
+  }
+})
 </script>

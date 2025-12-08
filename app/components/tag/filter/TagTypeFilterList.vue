@@ -1,11 +1,14 @@
 <template>
-  <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1 p-1" @keydown="handleKeydown">
     <button
-      v-for="tagType in tagTypes"
+      v-for="(tagType, index) in tagTypes"
       :key="tagType.value"
+      ref="itemRefs"
       type="button"
       class="btn btn-sm btn-ghost justify-start gap-2 font-normal hover:bg-base-200 h-auto py-2"
+      :class="{ 'ring-2 ring-primary': focusedIndex === index }"
       @click="selectTagType(tagType.value)"
+      @mouseenter="focusedIndex = index"
     >
       <Icon :name="tagType.icon" size="1.2em" />
       <span>{{ tagType.label }}</span>
@@ -14,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, nextTick } from 'vue'
 import { TagType } from '@api'
 import { Icon } from '#components'
 
@@ -33,7 +37,54 @@ const tagTypes = [
   { value: TagType.OTHER, label: 'Other', icon: 'heroicons:ellipsis-horizontal-circle' },
 ]
 
+const focusedIndex = ref(0)
+const itemRefs = ref<HTMLElement[]>([])
+
 function selectTagType(tagType: TagType) {
   emit('select', tagType)
 }
+
+function handleKeydown(event: KeyboardEvent) {
+  // Stop propagation to prevent main menu from handling these events
+  event.stopPropagation()
+  
+  switch (event.key) {
+    case 'ArrowDown':
+      event.preventDefault()
+      focusedIndex.value = Math.min(focusedIndex.value + 1, tagTypes.length - 1)
+      scrollToFocusedItem()
+      break
+    case 'ArrowUp':
+      event.preventDefault()
+      focusedIndex.value = Math.max(focusedIndex.value - 1, 0)
+      scrollToFocusedItem()
+      break
+    case 'Enter':
+      event.preventDefault()
+      if (tagTypes[focusedIndex.value]) {
+        selectTagType(tagTypes[focusedIndex.value]!.value)
+      }
+      break
+  }
+}
+
+function scrollToFocusedItem() {
+  nextTick(() => {
+    const focusedElement = itemRefs.value[focusedIndex.value]
+    if (focusedElement) {
+      focusedElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+    }
+  })
+}
+
+onMounted(() => {
+  // Focus first tag type on mount
+  focusedIndex.value = 0
+  nextTick(() => {
+    const firstElement = itemRefs.value[0]
+    if (firstElement) {
+      firstElement.focus()
+    }
+  })
+})
 </script>

@@ -1,21 +1,27 @@
 <template>
-  <div class="flex flex-col max-h-64 gap-1 overflow-y-auto">
+  <div class="flex flex-col max-h-64 gap-1 overflow-y-auto p-1">
     <div class="px-2 pt-1 pb-2">
       <TextInput
+        ref="searchInputRef"
         v-model="searchQuery"
         placeholder="Search tags..."
         size="sm"
+        @keydown="handleSearchKeydown"
       />
     </div>
 
     <div class="divider my-0" />  
 
     <button
-      v-for="tag in filteredTags"
+      v-for="(tag, index) in filteredTags"
       :key="tag.id"
+      ref="itemRefs"
       type="button"
       class="btn btn-sm btn-ghost justify-between gap-2 font-normal hover:bg-base-200 h-auto py-2"
+      :class="{ 'ring-2 ring-primary': focusedIndex === index }"
       @click="selectTag(tag.title)"
+      @mouseenter="focusedIndex = index"
+      @keydown="handleItemKeydown"
     >
       <Tag :tag="tag" size="sm" />
       <span v-if="tagCounts[tag.title]" class="badge badge-sm badge-ghost ml-auto">
@@ -29,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import type { Tag as TagType } from '@api'
 import { useTagStore } from '~/store/TagStore'
 import { useProjectStore } from '~/store/ProjectStore'
@@ -44,6 +50,9 @@ const emit = defineEmits<{
 const tagStore = useTagStore()
 const projectStore = useProjectStore()
 const searchQuery = ref('')
+const focusedIndex = ref(-1) // -1 means search input is focused
+const searchInputRef = ref<InstanceType<typeof TextInput> | null>(null)
+const itemRefs = ref<HTMLElement[]>([])
 
 // Calculate tag counts from projects
 const tagCounts = computed((): Record<string, number> => {
@@ -85,9 +94,71 @@ function selectTag(tagTitle: string) {
   emit('select', tagTitle)
 }
 
+function handleSearchKeydown(event: KeyboardEvent) {
+  // Stop propagation to prevent main menu from handling these events
+  event.stopPropagation()
+  
+  if (event.key === 'ArrowDown' && filteredTags.value.length > 0) {
+    event.preventDefault()
+    focusedIndex.value = 0
+    scrollToFocusedItem()
+  }
+}
+
+function handleItemKeydown(event: KeyboardEvent) {
+  // Stop propagation to prevent main menu from handling these events
+  event.stopPropagation()
+  
+  switch (event.key) {
+    case 'ArrowDown':
+      event.preventDefault()
+      if (focusedIndex.value < filteredTags.value.length - 1) {
+        focusedIndex.value++
+        scrollToFocusedItem()
+      }
+      break
+    case 'ArrowUp':
+      event.preventDefault()
+      if (focusedIndex.value > 0) {
+        focusedIndex.value--
+        scrollToFocusedItem()
+      } else {
+        // Return focus to search input
+        focusedIndex.value = -1
+        nextTick(() => {
+          searchInputRef.value?.focus()
+        })
+      }
+      break
+    case 'Enter':
+      event.preventDefault()
+      if (filteredTags.value[focusedIndex.value]) {
+        selectTag(filteredTags.value[focusedIndex.value]!.title)
+      }
+      break
+  }
+}
+
+function scrollToFocusedItem() {
+  nextTick(() => {
+    if (focusedIndex.value >= 0) {
+      const focusedElement = itemRefs.value[focusedIndex.value]
+      if (focusedElement) {
+        focusedElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+        focusedElement.focus()
+      }
+    }
+  })
+}
+
 onMounted(() => {
   if (tagStore.tags.length === 0) tagStore.getTags()
   if (projectStore.projects.length === 0) projectStore.getProjects()
+  
+  // Auto-focus search input on mount (keeps existing behavior)
+  nextTick(() => {
+    searchInputRef.value?.focus()
+  })
 })
 </script>
 
