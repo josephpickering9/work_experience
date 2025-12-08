@@ -9,6 +9,7 @@
   >
     <template #actions>
       <FilterBar v-model:filters="filters" />
+      <ViewToggle v-model="viewMode" :disabled="loading" class="hidden md:flex" />
       <ClientOnly>
         <FormButton
           v-if="isAuthenticated"
@@ -21,7 +22,13 @@
       </ClientOnly>
     </template>
 
+    <ProjectTableView
+      v-if="viewMode === ViewMode.TABLE"
+      :projects="filteredProjects"
+    />
+    
     <TransitionGroup 
+      v-else
       name="list" 
       tag="div" 
       class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
@@ -50,16 +57,20 @@ import { ref, computed, watch, onMounted } from 'vue'
 import { isEmpty } from 'lodash-es'
 import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '~/store/ProjectStore'
+import { usePreferencesStore } from '~/store/PreferencesStore'
 import type { Project } from '@api/models/Project'
 import { TagType, type Company } from '@api'
 import { LoadingType } from '~/types/LoadingType'
+import { ViewMode } from '~/types/ViewMode'
 import useAuth from '~/composables/useAuth'
 import { getEnumValue } from '~/utils/enum-helper'
 import ListLayout from '~/components/ui/layout/ListLayout.vue'
 import Skeleton from '~/components/feedback/loading/Skeleton.vue'
 import FormButton from '~/components/ui/form/FormButton.vue'
 import FilterBar from '~/components/ui/filter/FilterBar.vue'
+import ViewToggle from '~/components/ui/button/ViewToggle.vue'
 import ProjectListItem from './ProjectListItem.vue'
+import ProjectTableView from './ProjectTableView.vue'
 import type { Filter } from '~/types/Filter'
 import { useCompanyStore } from '~/store/CompanyStore'
 import { FilterType } from '~/types/FilterType'
@@ -89,6 +100,12 @@ const companyStore = useCompanyStore()
 const initialLoad = ref(props.setProjects.length === 0)
 const filters = ref<Filter[]>([])
 const loadingTypeCard = ref(LoadingType.CARD)
+
+const preferencesStore = usePreferencesStore()
+const viewMode = computed({
+  get: () => preferencesStore.projectsViewMode,
+  set: (value: ViewMode) => preferencesStore.setProjectsViewMode(value),
+})
 
 const projects = computed((): Project[] => {
   return projectStore.projects
