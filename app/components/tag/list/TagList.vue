@@ -61,7 +61,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
-import { isEmpty } from 'lodash-es'
+import { chain, isEmpty, sortBy } from 'lodash-es'
 import { useRoute, useRouter } from 'vue-router'
 import { useTagStore } from '~/store/TagStore'
 import type { Tag } from '@api/models/Tag'
@@ -102,20 +102,15 @@ const filteredTags = computed((): Record<string, Tag[]> => {
     tagsFiltered = tagsFiltered.filter((tag) => tag.type === tagType.value)
   }
 
-  const groupedAndSorted = tagsFiltered.reduce((acc: any, tag: Tag) => {
-    const type = (acc[tag.type] = acc[tag.type] || [])
-    type.push(tag)
-    acc[tag.type].sort((a: Tag, b: Tag) => a.title.localeCompare(b.title))
-    return acc
-  }, {})
+  const sortedGroupedTags = chain(tagsFiltered)
+    .groupBy('type')
+    .mapValues((tags) => sortBy(tags, ['title']))
+    .toPairs()
+    .sortBy(0)
+    .fromPairs()
+    .value()
 
-  const sortedGroupTitles = Object.keys(groupedAndSorted).sort((a, b) => a.localeCompare(b))
-  const sortedGroupedTags = sortedGroupTitles.reduce((acc: any, title: string) => {
-    acc[title] = groupedAndSorted[title]
-    return acc
-  }, {})
-
-  return sortedGroupedTags
+  return sortedGroupedTags as Record<string, Tag[]>
 })
 
 function setValues() {
