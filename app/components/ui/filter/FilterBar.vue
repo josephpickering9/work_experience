@@ -18,7 +18,7 @@
         <span>{{ filters.length > 0 ? 'Add Filter' : 'Filter' }}</span>
       </button>
 
-      <div v-if="isOpen" class="dropdown-content z-[1] mt-2 w-56 rounded-box bg-base-100 p-2 shadow-xl ring-1 ring-base-content/10" @click.stop @keydown="handleMainMenuKeydown">
+      <div v-if="isOpen" class="dropdown-content z-[1] mt-2 w-56 rounded-box bg-base-100 p-2 shadow-xl ring-1 ring-base-content/10" :class="dropdownPosition === 'left' ? 'dropdown-left' : 'dropdown-right'" @click.stop @keydown="handleMainMenuKeydown">
         <div class="flex flex-col gap-1">
           <div class="px-2 py-1">
             <TextInput
@@ -115,6 +115,7 @@ const isOpen = ref(false)
 const searchValue = ref<string>('')
 const hoveredFilterType = ref<string | null>(null)
 const submenuPosition = ref<'left' | 'right'>('right')
+const dropdownPosition = ref<'left' | 'right'>('right')
 const container = ref<HTMLElement | null>(null)
 const hideTimeout = ref<NodeJS.Timeout | null>(null)
 const focusedFilterTypeIndex = ref(-1) // -1 means search is focused
@@ -124,19 +125,35 @@ const searchInputRef = ref<InstanceType<typeof TextInput> | null>(null)
 const filterTypes = [
   { value: FilterType.SEARCH, label: 'Search', icon: 'heroicons:magnifying-glass' },
   { value: FilterType.COMPANY, label: 'Company', icon: 'heroicons:building-office' },
-  { value: FilterType.TAG_TYPE, label: 'Tag Type', icon: 'heroicons:tag' },
-  { value: FilterType.TAG, label: 'Tag', icon: 'heroicons:tag' },
+  { value: FilterType.TAG_TYPE, label: 'Tag Type', icon: 'heroicons:squares-2x2' },
+  { value: FilterType.TAG, label: 'Tag', icon: 'heroicons:hashtag' },
 ]
 
 const availableFilterTypes = computed(() => filterTypes.filter(ft => ft.value !== FilterType.SEARCH))
 
 const companies = computed(() => companyStore.companies)
 
+function calculateDropdownPosition() {
+  if (container.value) {
+    const rect = container.value.getBoundingClientRect()
+    const dropdownWidth = 280
+    const buffer = 16
+    const viewportWidth = window.innerWidth
+    
+    const spaceOnRight = viewportWidth - rect.right
+    const wouldOverflow = spaceOnRight < (dropdownWidth + buffer)
+    
+    dropdownPosition.value = wouldOverflow ? 'left' : 'right'
+  }
+}
+
 function toggle() {
   isOpen.value = !isOpen.value
   if (!isOpen.value) {
     hoveredFilterType.value = null
   } else {
+    // Calculate dropdown position when opening
+    calculateDropdownPosition()
     // Auto-focus search input when opening
     focusedFilterTypeIndex.value = -1
     nextTick(() => {
@@ -379,4 +396,12 @@ onUnmounted(() => {
 })
 </script>
 
+<style scoped>
+.dropdown-left {
+  right: 0;
+}
+.dropdown-right {
+  left: 0;
+}
+</style>
 

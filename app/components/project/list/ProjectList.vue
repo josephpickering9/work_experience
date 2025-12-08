@@ -88,7 +88,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   showHeader: false,
-  maxWidth: 'max-w-7xl',
+  maxWidth: 'max-w-6xl',
   modelSearch: undefined,
   setProjects: () => [],
 })
@@ -143,7 +143,7 @@ const filteredProjects = computed((): Project[] => {
       })
     } else if (filter.type === FilterType.TAG) {
       projectsFiltered = projectsFiltered.filter((project) => {
-        return project.tags.some((tag) => tag.title === filter.value)
+        return project.tags.some((tag) => tag.id === filter.value)
       })
     }
   })

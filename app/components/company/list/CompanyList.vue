@@ -3,6 +3,7 @@
     title="Companies"
     :loading="loading"
     :is-empty="filteredCompanies.length === 0"
+    description="Timeline of companies and projects"
     empty-title="No companies found"
     empty-description="Try searching for something else"
     max-width="max-w-7xl"

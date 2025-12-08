@@ -6,29 +6,6 @@
 
 @layer base {
   h1 {
-    /* Mobile: text-3xl */
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-    font-weight: 700;
-  }
-
-  @media (min-width: 768px) {
-    h1 {
-      /* Tablet: text-4xl */
-      font-size: 2.25rem;
-      line-height: 2.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    h1 {
-      /* Desktop: text-5xl */
-      font-size: 3rem;
-      line-height: 1;
-    }
-  }
-
-  h2 {
     /* Mobile: text-2xl */
     font-size: 1.5rem;
     line-height: 2rem;
@@ -36,7 +13,7 @@
   }
 
   @media (min-width: 768px) {
-    h2 {
+    h1 {
       /* Tablet: text-3xl */
       font-size: 1.875rem;
       line-height: 2.25rem;
@@ -44,22 +21,22 @@
   }
 
   @media (min-width: 1024px) {
-    h2 {
+    h1 {
       /* Desktop: text-4xl */
       font-size: 2.25rem;
       line-height: 2.5rem;
     }
   }
 
-  h3 {
+  h2 {
     /* Mobile: text-xl */
     font-size: 1.25rem;
     line-height: 1.75rem;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   @media (min-width: 768px) {
-    h3 {
+    h2 {
       /* Tablet: text-2xl */
       font-size: 1.5rem;
       line-height: 2rem;
@@ -67,14 +44,14 @@
   }
 
   @media (min-width: 1024px) {
-    h3 {
+    h2 {
       /* Desktop: text-3xl */
       font-size: 1.875rem;
       line-height: 2.25rem;
     }
   }
 
-  h4 {
+  h3 {
     /* Mobile: text-lg */
     font-size: 1.125rem;
     line-height: 1.75rem;
@@ -82,7 +59,7 @@
   }
 
   @media (min-width: 768px) {
-    h4 {
+    h3 {
       /* Tablet: text-xl */
       font-size: 1.25rem;
       line-height: 1.75rem;
@@ -90,14 +67,14 @@
   }
 
   @media (min-width: 1024px) {
-    h4 {
+    h3 {
       /* Desktop: text-2xl */
       font-size: 1.5rem;
       line-height: 2rem;
     }
   }
 
-  h5 {
+  h4 {
     /* Mobile: text-base */
     font-size: 1rem;
     line-height: 1.5rem;
@@ -105,7 +82,7 @@
   }
 
   @media (min-width: 768px) {
-    h5 {
+    h4 {
       /* Tablet: text-lg */
       font-size: 1.125rem;
       line-height: 1.75rem;
@@ -113,14 +90,14 @@
   }
 
   @media (min-width: 1024px) {
-    h5 {
+    h4 {
       /* Desktop: text-xl */
       font-size: 1.25rem;
       line-height: 1.75rem;
     }
   }
 
-  h6 {
+  h5 {
     /* Mobile: text-sm */
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -128,7 +105,7 @@
   }
 
   @media (min-width: 768px) {
-    h6 {
+    h5 {
       /* Tablet: text-base */
       font-size: 1rem;
       line-height: 1.5rem;
@@ -136,10 +113,33 @@
   }
 
   @media (min-width: 1024px) {
-    h6 {
+    h5 {
       /* Desktop: text-lg */
       font-size: 1.125rem;
       line-height: 1.75rem;
+    }
+  }
+
+  h6 {
+    /* Mobile: text-xs */
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 600;
+  }
+
+  @media (min-width: 768px) {
+    h6 {
+      /* Tablet: text-sm */
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    h6 {
+      /* Desktop: text-base */
+      font-size: 1rem;
+      line-height: 1.5rem;
     }
   }
 }
