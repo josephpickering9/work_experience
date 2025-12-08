@@ -62,7 +62,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { chain, isEmpty, sortBy } from 'lodash-es'
-import { useRoute, useRouter } from 'vue-router'
+import { useQuerySync } from '~/composables/useQuerySync'
 import { useTagStore } from '~/store/TagStore'
 import type { Tag } from '@api/models/Tag'
 import { TagType } from '@api/models/TagType'
@@ -74,14 +74,20 @@ import TagTypeSelectList from '~/components/tag/form/TagTypeSelectList.vue'
 import TagListItem from './TagListItem.vue'
 import TextInput from '~/components/ui/input/TextInput.vue'
 
-const route = useRoute()
-const router = useRouter()
+
 const { isAuthenticated } = useAuth()
 const tagStore = useTagStore()
 
 const initialLoad = ref(true)
 const search = ref('')
 const tagType = ref<TagType | undefined>(undefined)
+
+useQuerySync(search, { key: 'search', initialValue: '' })
+useQuerySync(tagType, { 
+  key: 'type', 
+  initialValue: undefined,
+  transform: (val) => val ? getEnumValue(TagType, val) : undefined,
+})
 
 const tags = computed((): Tag[] => {
   return tagStore.tags
@@ -113,40 +119,12 @@ const filteredTags = computed((): Record<string, Tag[]> => {
   return sortedGroupedTags as Record<string, Tag[]>
 })
 
-function setValues() {
-  search.value = route.query['search']?.toString() || search.value
-  tagType.value = (route.query['type'] ? getEnumValue(TagType, route.query['type'].toString()) : undefined) || tagType.value
-}
-
-function updateQueryParams() {
-  router.push({
-    path: route.path,
-    query: {
-      search: !isEmpty(search.value) ? search.value : undefined,
-      type: tagType.value ? tagType.value : undefined,
-    },
-  })
-}
-
 onMounted(async () => {
-  setValues()
   await tagStore.getTags()
 })
 
 watch(tags, () => {
   initialLoad.value = false
-})
-
-watch(() => route.query, () => {
-  setValues()
-})
-
-watch(search, () => {
-  updateQueryParams()
-})
-
-watch(tagType, () => {
-  updateQueryParams()
 })
 </script>
 
