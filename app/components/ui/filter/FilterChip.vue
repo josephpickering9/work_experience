@@ -1,10 +1,11 @@
 <template>
-  <div class="badge badge-lg gap-2 pr-1 border transition-colors" :class="badgeColorClass">
-    <span class="font-medium">{{ filter.label }}:</span>
-    <span class="opacity-80">{{ displayValue }}</span>
+  <div class="badge badge-lg gap-1.5 pr-1 border transition-all hover:scale-[1.02]" :class="badgeColorClass">
+    <Icon v-if="filter.icon" :name="filter.icon" size="1.1em" class="opacity-90" />
+    <img v-if="filter.logo" :src="getImageUrl(filter.logo)" class="opacity-90 h-4 w-4" >
+    <span class="opacity-90 font-normal">{{ displayValue }}</span>
     <button
       type="button"
-      class="btn btn-circle btn-ghost btn-xs ml-1 opacity-70 hover:opacity-100"
+      class="btn btn-circle btn-ghost btn-xs ml-0.5 opacity-60 hover:opacity-100 transition-opacity"
       @click="$emit('remove')"
     >
       <Icon name="heroicons:x-mark" size="1em" />
@@ -17,6 +18,7 @@ import { computed } from 'vue'
 import { Icon } from '#components'
 import type { Filter } from '~/types/Filter'
 import { FilterType } from '~/types/FilterType'
+import { getImageUrl } from '~/utils/image-helper'
 
 interface Props {
   filter: Filter

@@ -20,7 +20,6 @@
 
       <div v-if="isOpen" class="dropdown-content z-[1] mt-2 w-56 rounded-box bg-base-100 p-2 shadow-xl ring-1 ring-base-content/10" @click.stop>
         <div class="flex flex-col gap-1">
-          <!-- Search input always visible -->
           <div class="px-2 py-1">
             <TextInput
               v-model="searchValue"
@@ -81,6 +80,7 @@
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { Icon } from '#components'
 import { useCompanyStore } from '~/store/CompanyStore'
+import { useTagStore } from '~/store/TagStore'
 import FilterChip from './FilterChip.vue'
 import TextInput from '~/components/ui/input/TextInput.vue'
 import CompanyFilterList from '~/components/company/filter/CompanyFilterList.vue'
@@ -101,13 +101,13 @@ const emit = defineEmits<{
 }>()
 
 const companyStore = useCompanyStore()
+const tagStore = useTagStore()
 
 const isOpen = ref(false)
 const searchValue = ref<string>('')
 const hoveredFilterType = ref<string | null>(null)
 const submenuPosition = ref<'left' | 'right'>('right')
 const container = ref<HTMLElement | null>(null)
-const submenuContainer = ref<HTMLElement | null>(null)
 
 const filterTypes = [
   { value: FilterType.SEARCH, label: 'Search', icon: 'heroicons:magnifying-glass' },
@@ -162,6 +162,7 @@ function handleCompanySelect(companyId: string) {
     value: companyId,
     label: 'Company',
     displayValue: company.name,
+    logo: company.logo,
   }
 
   emit('update:filters', [...props.filters, newFilter])
@@ -181,11 +182,14 @@ function handleTagTypeSelect(tagType: TagType) {
 }
 
 function handleTagSelect(tagTitle: string) {
+  const tag = tagStore.tags.find(t => t.title === tagTitle)
+  
   const newFilter: Filter = {
     type: FilterType.TAG,
     value: tagTitle,
     label: 'Tag',
     displayValue: tagTitle,
+    icon: tag?.icon ?? undefined,
   }
 
   emit('update:filters', [...props.filters, newFilter])

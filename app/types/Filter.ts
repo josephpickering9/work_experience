@@ -3,4 +3,6 @@ export interface Filter {
     value: string
     label: string
     displayValue?: string
+    icon?: string | null
+    logo?: string | null
 }

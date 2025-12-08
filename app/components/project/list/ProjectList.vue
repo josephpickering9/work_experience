@@ -62,7 +62,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '~/store/ProjectStore'
 import { usePreferencesStore } from '~/store/PreferencesStore'
 import type { Project } from '@api/models/Project'
-import { TagType, type Company } from '@api'
+import { TagType, type Company, type Tag } from '@api'
 import { LoadingType } from '~/types/LoadingType'
 import { ViewMode } from '~/types/ViewMode'
 import useAuth from '~/composables/useAuth'
@@ -77,11 +77,11 @@ import ProjectTableView from './ProjectTableView.vue'
 import type { Filter } from '~/types/Filter'
 import { useCompanyStore } from '~/store/CompanyStore'
 import { FilterType } from '~/types/FilterType'
+import { useTagStore } from '~/store/TagStore'
 
 interface Props { 
   showHeader?: boolean
   maxWidth?: string
-  tags?: string[]
   modelSearch?: string
   setProjects?: Project[]
 }
@@ -89,7 +89,6 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   showHeader: false,
   maxWidth: 'max-w-7xl',
-  tags: () => [],
   modelSearch: undefined,
   setProjects: () => [],
 })
@@ -99,7 +98,7 @@ const router = useRouter()
 const { isAuthenticated } = useAuth()
 const projectStore = useProjectStore()
 const companyStore = useCompanyStore()
-
+const tagStore = useTagStore()
 const initialLoad = ref(props.setProjects.length === 0)
 const filters = ref<Filter[]>([])
 const loadingTypeCard = ref(LoadingType.CARD)
@@ -110,7 +109,6 @@ const viewMode = computed({
   set: (value: ViewMode) => preferencesStore.setProjectsViewMode(value),
 })
 
-// Sort state
 const sortColumn = ref<string | null>('dateRange')
 const sortDirection = ref<'asc' | 'desc'>('desc')
 
@@ -123,6 +121,7 @@ const loading = computed((): boolean => {
 })
 
 const companies = computed((): Company[] => companyStore.companies)
+const tags = computed((): Tag[] => tagStore.tags)
 
 const filteredProjects = computed((): Project[] => {
   let projectsFiltered: Project[] = props.setProjects.length ? [...props.setProjects] : [...projects.value]
@@ -161,9 +160,9 @@ const filteredProjects = computed((): Project[] => {
     })
   }
 
-  if (props.tags.length > 0) {
+  if (tags.value.length > 0) {
     projectsFiltered = projectsFiltered.filter((project) => {
-      return project.tags.some((tag) => props.tags.includes(tag.title))
+      return project.tags.some((tag) => tags.value.map((tag) => tag.title).includes(tag.title))
     })
   }
 
@@ -179,7 +178,6 @@ const sortedProjects = computed((): Project[] => {
     let aValue: any
     let bValue: any
 
-    // Map column keys to actual project properties
     if (sortColumn.value === 'project') {
       aValue = a.title.toLowerCase()
       bValue = b.title.toLowerCase()
@@ -222,6 +220,7 @@ function loadFiltersFromQuery() {
       value: company,
       label: 'Company',
       displayValue: companyObj?.name,
+      logo: companyObj?.logo,
     })
   }
 
@@ -240,11 +239,13 @@ function loadFiltersFromQuery() {
 
   const tag = route.query['tag']?.toString()
   if (tag) {
+    const tagObj = tags.value.find(t => t.id === tag)
     newFilters.push({
       type: FilterType.TAG,
       value: tag,
       label: 'Tag',
-      displayValue: tag,
+      displayValue: tagObj?.title,
+      icon: tagObj?.icon,
     })
   }
 
@@ -274,10 +275,8 @@ function updateQueryParams() {
 
 function handleSort(column: string) {
   if (sortColumn.value === column) {
-    // Toggle direction if same column
     sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'
   } else {
-    // New column, default to ascending
     sortColumn.value = column
     sortDirection.value = 'asc'
   }
@@ -286,6 +285,7 @@ function handleSort(column: string) {
 onMounted(async () => {
   loadFiltersFromQuery()
   if (companies.value.length === 0) await companyStore.getCompanies()
+  if (tags.value.length === 0) await tagStore.getTags()
   if (props.setProjects.length === 0) await projectStore.getProjects()
 })
 
@@ -304,6 +304,25 @@ watch(companies, () => {
         return {
           ...filter,
           displayValue: companyObj.name,
+          logo: companyObj.logo,
+        }
+      }
+    }
+    return filter
+  })
+  
+  filters.value = updatedFilters
+})
+
+watch(tags, () => {  
+  const updatedFilters = filters.value.map(filter => {
+    if (filter.type === FilterType.TAG && !filter.displayValue) {
+      const tagObj = tags.value.find(p => p.id === filter.value)
+      if (tagObj) {
+        return {
+          ...filter,
+          displayValue: tagObj.title,
+          icon: tagObj.icon,
         }
       }
     }

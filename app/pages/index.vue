@@ -16,7 +16,7 @@
       @blur="handleBlur"
     />
     <div v-if="isSearchActive" class="z-0 flex w-full justify-center">
-      <ProjectList :model-search="search" :tags="tags" />
+      <ProjectList :model-search="search" />
     </div>
   </div>
 </template>
