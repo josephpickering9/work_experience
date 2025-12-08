@@ -7,7 +7,7 @@
       type="button"
       class="btn btn-sm btn-ghost focus-visible:outline-none justify-start gap-2 hover:bg-base-200 h-auto py-2"
       :class="{ 'ring-2 ring-primary': focusedIndex === index }"
-      @click="selectTagType(tagType.value)"
+      @click="selectTagType(tagType)"
       @mouseenter="focusedIndex = index"
     >
       <Icon :name="tagType.icon" size="1.2em" :class="tagType.color" />
@@ -18,29 +18,19 @@
 
 <script setup lang="ts">
 import { ref, onMounted, nextTick } from 'vue'
-import { TagType } from '@api'
 import { Icon } from '#components'
+import type { TagTypeValue } from '~/types/TagTypeValue';
+import { tagTypes } from '~/data/TagTypes';
 
 const emit = defineEmits<{
-  'select': [tagType: TagType]
+  'select': [tagType: TagTypeValue]
+  'close': []
 }>()
-
-const tagTypes = [
-  { value: TagType.DEFAULT, label: 'Default', icon: 'heroicons:tag', color: 'text-gray-500' },
-  { value: TagType.AI, label: 'AI', icon: 'heroicons:sparkles', color: 'text-purple-500' },
-  { value: TagType.BACKEND, label: 'Backend', icon: 'heroicons:server', color: 'text-green-500' },
-  { value: TagType.FRONTEND, label: 'Frontend', icon: 'heroicons:computer-desktop', color: 'text-blue-500' },
-  { value: TagType.DEV_OPS, label: 'DevOps', icon: 'heroicons:circle-stack', color: 'text-orange-500' },
-  { value: TagType.DATA, label: 'Data', icon: 'heroicons:chart-bar', color: 'text-cyan-500' },
-  { value: TagType.CMS, label: 'CMS', icon: 'heroicons:document-text', color: 'text-pink-500' },
-  { value: TagType.MOBILE, label: 'Mobile', icon: 'heroicons:device-phone-mobile', color: 'text-indigo-500' },
-  { value: TagType.OTHER, label: 'Other', icon: 'heroicons:ellipsis-horizontal-circle', color: 'text-gray-400' },
-]
 
 const focusedIndex = ref(0)
 const itemRefs = ref<HTMLElement[]>([])
 
-function selectTagType(tagType: TagType) {
+function selectTagType(tagType: TagTypeValue) {
   emit('select', tagType)
 }
 
@@ -59,12 +49,20 @@ function handleKeydown(event: KeyboardEvent) {
       focusedIndex.value = Math.max(focusedIndex.value - 1, 0)
       scrollToFocusedItem()
       break
-    case 'Enter':
+    case 'ArrowRight':
       event.preventDefault()
-      if (tagTypes[focusedIndex.value]) {
-        selectTagType(tagTypes[focusedIndex.value]!.value)
-      }
+      emit('close')
       break
+    case 'ArrowLeft':
+      event.preventDefault()
+      emit('close')
+      break
+    case 'Enter': {
+      event.preventDefault()
+      const tagType = tagTypes[focusedIndex.value]
+      if (tagType) selectTagType(tagType)
+      break
+    }
   }
 }
 

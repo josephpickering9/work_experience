@@ -42,7 +42,7 @@
             <button
               ref="filterTypeRefs"
               type="button"
-              class="btn btn-sm btn-ghost w-full justify-start gap-2 font-normal"
+              class="btn btn-sm btn-ghost focus-visible:outline-none w-full justify-start gap-2 font-normal"
               :class="{ 'ring-2 ring-primary': focusedFilterTypeIndex === index }"
               @click="openSubmenu(filterType.value)"
             >
@@ -62,16 +62,19 @@
               <CompanyFilterList
                 v-if="filterType.value === FilterType.COMPANY"
                 @select="handleCompanySelect"
+                @close="handleSubmenuClose"
               />
 
               <TagTypeFilterList
                 v-else-if="filterType.value === FilterType.TAG_TYPE"
                 @select="handleTagTypeSelect"
+                @close="handleSubmenuClose"
               />
 
               <TagFilterList
                 v-else-if="filterType.value === FilterType.TAG"
                 @select="handleTagSelect"
+                @close="handleSubmenuClose"
               />
             </div>
           </div>
@@ -93,7 +96,7 @@ import TagTypeFilterList from '~/components/tag/filter/TagTypeFilterList.vue'
 import TagFilterList from '~/components/tag/filter/TagFilterList.vue'
 import type { Filter } from '~/types/Filter'
 import { FilterType } from '~/types/FilterType'
-import type { TagType } from '@api'
+import type { TagTypeValue } from '~/types/TagTypeValue'
 
 interface Props {
   filters: Filter[]
@@ -200,6 +203,19 @@ function openSubmenu(filterTypeValue: string) {
   hoveredFilterType.value = filterTypeValue
 }
 
+function handleSubmenuClose() {
+  hoveredFilterType.value = null
+  
+  nextTick(() => {
+    if (focusedFilterTypeIndex.value >= 0) {
+      const focusedElement = filterTypeRefs.value[focusedFilterTypeIndex.value]
+      if (focusedElement) {
+        focusedElement.focus()
+      }
+    }
+  })
+}
+
 function handleSearchKeydown(event: KeyboardEvent) {
   if (event.key === 'ArrowDown' && availableFilterTypes.value.length > 0) {
     event.preventDefault()
@@ -235,6 +251,7 @@ function handleMainMenuKeydown(event: KeyboardEvent) {
         scrollToFocusedFilterType()
       }
       break
+    case 'ArrowLeft':
     case 'ArrowRight':
     case 'Enter':
       event.preventDefault()
@@ -275,26 +292,27 @@ function handleCompanySelect(companyId: string) {
   close()
 }
 
-function handleTagTypeSelect(tagType: TagType) {
+function handleTagTypeSelect(tagType: TagTypeValue) {
   const newFilter: Filter = {
     type: FilterType.TAG_TYPE,
-    value: tagType,
+    value: tagType.value,
     label: 'Tag Type',
-    displayValue: tagType,
+    displayValue: tagType.label,
+    icon: tagType.icon,
   }
 
   emit('update:filters', [...props.filters, newFilter])
   close()
 }
 
-function handleTagSelect(tagTitle: string) {
-  const tag = tagStore.tags.find(t => t.title === tagTitle)
+function handleTagSelect(tagId: string) {
+  const tag = tagStore.tags.find(t => t.id === tagId)
   
   const newFilter: Filter = {
     type: FilterType.TAG,
-    value: tagTitle,
+    value: tagId,
     label: 'Tag',
-    displayValue: tagTitle,
+    displayValue: tag?.title ?? '',
     icon: tag?.icon ?? undefined,
   }
 

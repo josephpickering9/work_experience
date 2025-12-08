@@ -62,11 +62,10 @@ import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '~/store/ProjectStore'
 import { usePreferencesStore } from '~/store/PreferencesStore'
 import type { Project } from '@api/models/Project'
-import { TagType, type Company, type Tag } from '@api'
+import type { Company, Tag } from '@api'
 import { LoadingType } from '~/types/LoadingType'
 import { ViewMode } from '~/types/ViewMode'
 import useAuth from '~/composables/useAuth'
-import { getEnumValue } from '~/utils/enum-helper'
 import ListLayout from '~/components/ui/layout/ListLayout.vue'
 import Skeleton from '~/components/feedback/loading/Skeleton.vue'
 import FormButton from '~/components/ui/form/FormButton.vue'
@@ -78,6 +77,7 @@ import type { Filter } from '~/types/Filter'
 import { useCompanyStore } from '~/store/CompanyStore'
 import { FilterType } from '~/types/FilterType'
 import { useTagStore } from '~/store/TagStore'
+import { tagTypes } from '~/data/TagTypes'
 
 interface Props { 
   showHeader?: boolean
@@ -226,13 +226,14 @@ function loadFiltersFromQuery() {
 
   const tagType = route.query['type']?.toString()
   if (tagType) {
-    const enumValue = getEnumValue(TagType, tagType)
-    if (enumValue) {
+    const tagTypeValue = tagTypes.find(t => t.value === tagType)
+    if (tagTypeValue) {
       newFilters.push({
         type: FilterType.TAG_TYPE,
-        value: enumValue,
+        value: tagTypeValue.value,
         label: 'Tag Type',
-        displayValue: tagType,
+        displayValue: tagTypeValue.label,
+        icon: tagTypeValue.icon,
       })
     }
   }

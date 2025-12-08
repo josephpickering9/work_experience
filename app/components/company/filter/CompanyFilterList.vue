@@ -27,6 +27,7 @@ import CompanyItem from '../form/CompanyItem.vue'
 
 const emit = defineEmits<{
   'select': [companyId: string]
+  'close': []
 }>()
 
 const companyStore = useCompanyStore()
@@ -69,6 +70,14 @@ function handleItemKeydown(event: KeyboardEvent) {
         focusedIndex.value--
         scrollToFocusedItem()
       }
+      break
+    case 'ArrowRight':
+      event.preventDefault()
+      emit('close')
+      break
+    case 'ArrowLeft':
+      event.preventDefault()
+      emit('close')
       break
     case 'Enter':
       event.preventDefault()

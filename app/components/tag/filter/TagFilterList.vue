@@ -19,7 +19,7 @@
       type="button"
       class="btn btn-sm btn-ghost focus-visible:outline-none justify-between hover:bg-base-200 h-auto py-2"
       :class="{ 'ring-2 ring-primary': focusedIndex === index }"
-      @click="selectTag(tag.title)"
+      @click="selectTag(tag.id)"
       @mouseenter="focusedIndex = index"
       @keydown="handleItemKeydown"
     >
@@ -45,6 +45,7 @@ import TextInput from '~/components/ui/input/TextInput.vue'
 
 const emit = defineEmits<{
   'select': [tagTitle: string]
+  'close': []
 }>()
 
 const tagStore = useTagStore()
@@ -90,8 +91,8 @@ const filteredTags = computed(() => {
   )
 })
 
-function selectTag(tagTitle: string) {
-  emit('select', tagTitle)
+function selectTag(tagId: string) {
+  emit('select', tagId)
 }
 
 function handleSearchKeydown(event: KeyboardEvent) {
@@ -102,6 +103,9 @@ function handleSearchKeydown(event: KeyboardEvent) {
     event.preventDefault()
     focusedIndex.value = 0
     scrollToFocusedItem()
+  } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+    event.preventDefault()
+    emit('close')
   }
 }
 
@@ -130,10 +134,18 @@ function handleItemKeydown(event: KeyboardEvent) {
         })
       }
       break
+    case 'ArrowRight':
+      event.preventDefault()
+      emit('close')
+      break
+    case 'ArrowLeft':
+      event.preventDefault()
+      emit('close')
+      break
     case 'Enter':
       event.preventDefault()
       if (filteredTags.value[focusedIndex.value]) {
-        selectTag(filteredTags.value[focusedIndex.value]!.title)
+        selectTag(filteredTags.value[focusedIndex.value]!.id)
       }
       break
   }
@@ -155,7 +167,6 @@ onMounted(() => {
   if (tagStore.tags.length === 0) tagStore.getTags()
   if (projectStore.projects.length === 0) projectStore.getProjects()
   
-  // Auto-focus search input on mount (keeps existing behavior)
   nextTick(() => {
     searchInputRef.value?.focus()
   })
