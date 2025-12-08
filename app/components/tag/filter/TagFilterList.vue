@@ -17,7 +17,7 @@
       :key="tag.id"
       ref="itemRefs"
       type="button"
-      class="btn btn-sm btn-ghost justify-between gap-2 font-normal hover:bg-base-200 h-auto py-2"
+      class="btn btn-sm btn-ghost focus-visible:outline-none justify-between hover:bg-base-200 h-auto py-2"
       :class="{ 'ring-2 ring-primary': focusedIndex === index }"
       @click="selectTag(tag.title)"
       @mouseenter="focusedIndex = index"

@@ -5,12 +5,12 @@
       :key="tagType.value"
       ref="itemRefs"
       type="button"
-      class="btn btn-sm btn-ghost justify-start gap-2 font-normal hover:bg-base-200 h-auto py-2"
+      class="btn btn-sm btn-ghost focus-visible:outline-none justify-start gap-2 hover:bg-base-200 h-auto py-2"
       :class="{ 'ring-2 ring-primary': focusedIndex === index }"
       @click="selectTagType(tagType.value)"
       @mouseenter="focusedIndex = index"
     >
-      <Icon :name="tagType.icon" size="1.2em" />
+      <Icon :name="tagType.icon" size="1.2em" :class="tagType.color" />
       <span>{{ tagType.label }}</span>
     </button>
   </div>
@@ -26,15 +26,15 @@ const emit = defineEmits<{
 }>()
 
 const tagTypes = [
-  { value: TagType.DEFAULT, label: 'Default', icon: 'heroicons:tag' },
-  { value: TagType.AI, label: 'AI', icon: 'heroicons:sparkles' },
-  { value: TagType.BACKEND, label: 'Backend', icon: 'heroicons:server' },
-  { value: TagType.FRONTEND, label: 'Frontend', icon: 'heroicons:computer-desktop' },
-  { value: TagType.DEV_OPS, label: 'DevOps', icon: 'heroicons:circle-stack' },
-  { value: TagType.DATA, label: 'Data', icon: 'heroicons:chart-bar' },
-  { value: TagType.CMS, label: 'CMS', icon: 'heroicons:document-text' },
-  { value: TagType.MOBILE, label: 'Mobile', icon: 'heroicons:device-phone-mobile' },
-  { value: TagType.OTHER, label: 'Other', icon: 'heroicons:ellipsis-horizontal-circle' },
+  { value: TagType.DEFAULT, label: 'Default', icon: 'heroicons:tag', color: 'text-gray-500' },
+  { value: TagType.AI, label: 'AI', icon: 'heroicons:sparkles', color: 'text-purple-500' },
+  { value: TagType.BACKEND, label: 'Backend', icon: 'heroicons:server', color: 'text-green-500' },
+  { value: TagType.FRONTEND, label: 'Frontend', icon: 'heroicons:computer-desktop', color: 'text-blue-500' },
+  { value: TagType.DEV_OPS, label: 'DevOps', icon: 'heroicons:circle-stack', color: 'text-orange-500' },
+  { value: TagType.DATA, label: 'Data', icon: 'heroicons:chart-bar', color: 'text-cyan-500' },
+  { value: TagType.CMS, label: 'CMS', icon: 'heroicons:document-text', color: 'text-pink-500' },
+  { value: TagType.MOBILE, label: 'Mobile', icon: 'heroicons:device-phone-mobile', color: 'text-indigo-500' },
+  { value: TagType.OTHER, label: 'Other', icon: 'heroicons:ellipsis-horizontal-circle', color: 'text-gray-400' },
 ]
 
 const focusedIndex = ref(0)
