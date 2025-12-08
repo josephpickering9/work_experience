@@ -3,10 +3,7 @@
     <FilterChip
       v-for="(filter, index) in filters"
       :key="`${filter.type}-${index}`"
-      :type="filter.type"
-      :label="filter.label"
-      :value="filter.value"
-      :display-value="filter.displayValue"
+      :filter="filter"
       @remove="removeFilter(index)"
     />
 
@@ -23,9 +20,12 @@
 
       <div v-if="isOpen" class="dropdown-content z-[1] mt-2 w-80 rounded-box bg-base-100 p-4 shadow-xl ring-1 ring-base-content/10" @click.stop>
         <div v-if="!selectedFilterType" class="flex flex-col gap-2">
-          <h3 class="text-sm font-bold opacity-70 mb-2">Select Filter Type</h3>
+          <TextInput
+            v-model="searchValue"
+            placeholder="Search projects..."
+          />
           <button
-            v-for="filterType in filterTypes"
+            v-for="filterType in filterTypes.filter(ft => ft.value !== 'search')"
             :key="filterType.value"
             type="button"
             class="btn btn-sm btn-ghost justify-start gap-2"
@@ -43,15 +43,8 @@
             </button>
           </div>
 
-          <TextInput
-            v-if="selectedFilterType === 'search'"
-            v-model="filterValue"
-            placeholder="Search projects..."
-            @keyup.enter="applyFilter"
-          />
-
           <CompanyAutoComplete
-            v-else-if="selectedFilterType === 'company'"
+            v-if="selectedFilterType === 'company'"
             v-model="filterValue"
             placeholder="Select company..."
           />
@@ -82,8 +75,8 @@ import TextInput from '~/components/ui/input/TextInput.vue'
 import CompanyAutoComplete from '~/components/company/form/CompanyAutoComplete.vue'
 import TagTypeSelectList from '~/components/tag/form/TagTypeSelectList.vue'
 import TagAutoComplete from '~/components/tag/form/TagAutoComplete.vue'
-import { concat } from 'lodash-es'
 import type { Filter } from '~/types/Filter'
+import { FilterType } from '~/types/FilterType'
 
 interface Props {
   filters: Filter[]
@@ -100,13 +93,15 @@ const companyStore = useCompanyStore()
 const isOpen = ref(false)
 const selectedFilterType = ref<string | null>(null)
 const filterValue = ref<string | string[]>('')
+const searchValue = ref<string>('')
+const searchTimeout = ref<NodeJS.Timeout | null>(null)
 const container = ref<HTMLElement | null>(null)
 
 const filterTypes = [
-  { value: 'search', label: 'Search', icon: 'heroicons:magnifying-glass' },
-  { value: 'company', label: 'Company', icon: 'heroicons:building-office' },
-  { value: 'tagType', label: 'Tag Type', icon: 'heroicons:tag' },
-  { value: 'tag', label: 'Tag', icon: 'heroicons:tag' },
+  { value: FilterType.SEARCH, label: 'Search', icon: 'heroicons:magnifying-glass' },
+  { value: FilterType.COMPANY, label: 'Company', icon: 'heroicons:building-office' },
+  { value: FilterType.TAG_TYPE, label: 'Tag Type', icon: 'heroicons:tag' },
+  { value: FilterType.TAG, label: 'Tag', icon: 'heroicons:tag' },
 ]
 
 const companies = computed(() => companyStore.companies)
@@ -141,7 +136,7 @@ function close() {
 
 function selectFilterType(type: string) {
   selectedFilterType.value = type
-  filterValue.value = type === 'tag' ? [] : ''
+  filterValue.value = type === FilterType.TAG ? [] : ''
 }
 
 function resetFilterType() {
@@ -152,7 +147,7 @@ function resetFilterType() {
 function applyFilter() {
   if (!selectedFilterType.value) return
   
-  if (selectedFilterType.value === 'tag') {
+  if (selectedFilterType.value === FilterType.TAG) {
     const tags = Array.isArray(filterValue.value) ? filterValue.value : []
     if (tags.length === 0) return
     
@@ -160,7 +155,7 @@ function applyFilter() {
     if (!filterType) return
 
     const newFilter: Filter = {
-      type: 'tag',
+      type: FilterType.TAG,
       value: tags[0] || '',
       label: filterType.label,
       displayValue: tags[0],
@@ -177,28 +172,54 @@ function applyFilter() {
   if (!filterType) return
 
   let displayValue: string | undefined
-  if (selectedFilterType.value === 'company') {
+  if (selectedFilterType.value === FilterType.COMPANY) {
     const company = companies.value.find(c => c.id === filterValue.value)
     displayValue = company?.name
   }
 
   const newFilter: Filter = {
-    type: selectedFilterType.value as Filter['type'],
+    type: selectedFilterType.value as FilterType,
     value: filterValue.value,
     label: filterType.label,
-    displayValue: displayValue || '',
+    displayValue,
   }
 
-  emit('update:filters', concat(props.filters, newFilter))
+  emit('update:filters', [...props.filters, newFilter])
   
-  if (selectedFilterType.value !== 'search') {
+  // Close dropdown except for search
+  if (selectedFilterType.value !== FilterType.SEARCH) {
     close()
   }
 }
 
 function removeFilter(index: number) {
   const updatedFilters = [...props.filters]
-  updatedFilters.splice(index, 1)
+  const removedFilter = updatedFilters.splice(index, 1)[0]
+  
+  if (removedFilter?.type === FilterType.SEARCH) searchValue.value = ''
+  
+  emit('update:filters', updatedFilters)
+}
+
+function applySearchFilter() {
+  if (!searchValue.value.trim()) {
+    const searchFilterIndex = props.filters.findIndex(f => f.type === FilterType.SEARCH)
+    if (searchFilterIndex !== -1) removeFilter(searchFilterIndex)
+    return
+  }
+
+  const updatedFilters = [...props.filters]
+  const searchFilterIndex = updatedFilters.findIndex(f => f.type === FilterType.SEARCH)
+  
+  const searchFilter: Filter = {
+    type: FilterType.SEARCH,
+    value: searchValue.value.trim(),
+    label: 'Search',
+  }
+
+  if (searchFilterIndex !== -1) updatedFilters[searchFilterIndex] = searchFilter
+  else updatedFilters.push(searchFilter)
+
   emit('update:filters', updatedFilters)
 }
 
@@ -208,8 +229,21 @@ function handleClickOutside(event: MouseEvent) {
   }
 }
 
+watch(() => props.filters, (newFilters) => {
+  const searchFilter = newFilters.find(f => f.type === FilterType.SEARCH)
+  if (searchFilter && searchFilter.value !== searchValue.value) {
+    searchValue.value = searchFilter.value
+  } else if (!searchFilter && searchValue.value) {
+    searchValue.value = ''
+  }
+}, { deep: true, immediate: true })
+
+watch(() => searchValue.value, () => {
+  applySearchFilter()
+})
+
 watch(filterValue, (newValue, oldValue) => {
-  if (selectedFilterType.value && selectedFilterType.value !== 'search') {
+  if (selectedFilterType.value && selectedFilterType.value !== FilterType.SEARCH) {
     if (newValue && newValue !== oldValue) {
       applyFilter()
     }

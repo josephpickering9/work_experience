@@ -60,10 +60,11 @@ import Skeleton from '~/components/feedback/loading/Skeleton.vue'
 import FormButton from '~/components/ui/form/FormButton.vue'
 import FilterBar from '~/components/ui/filter/FilterBar.vue'
 import ProjectListItem from './ProjectListItem.vue'
-import type {Filter } from '~/types/Filter'
+import type { Filter } from '~/types/Filter'
 import { useCompanyStore } from '~/store/CompanyStore'
+import { FilterType } from '~/types/FilterType'
 
-interface Props {
+interface Props { 
   showHeader?: boolean
   maxWidth?: string
   tags?: string[]
@@ -103,7 +104,7 @@ const filteredProjects = computed((): Project[] => {
   let projectsFiltered: Project[] = props.setProjects.length ? [...props.setProjects] : [...projects.value]
 
   filters.value.forEach(filter => {
-    if (filter.type === 'search' && !isEmpty(filter.value)) {
+    if (filter.type === FilterType.SEARCH && !isEmpty(filter.value)) {
       projectsFiltered = projectsFiltered.filter((project) => {
         return (
           project.title.toLowerCase().includes(filter.value.toLowerCase()) ||
@@ -111,13 +112,13 @@ const filteredProjects = computed((): Project[] => {
           project.description.toLowerCase().includes(filter.value.toLowerCase())
         )
       })
-    } else if (filter.type === 'company') {
+    } else if (filter.type === FilterType.COMPANY) {
       projectsFiltered = projectsFiltered.filter((project) => project.companyId === filter.value)
-    } else if (filter.type === 'tagType') {
+    } else if (filter.type === FilterType.TAG_TYPE) {
       projectsFiltered = projectsFiltered.filter((project) => {
         return project.tags.some((tag) => tag.type === filter.value)
       })
-    } else if (filter.type === 'tag') {
+    } else if (filter.type === FilterType.TAG) {
       projectsFiltered = projectsFiltered.filter((project) => {
         return project.tags.some((tag) => tag.title === filter.value)
       })
@@ -155,7 +156,7 @@ function loadFiltersFromQuery() {
   const search = route.query['search']?.toString()
   if (search) {
     newFilters.push({
-      type: 'search',
+      type: FilterType.SEARCH,
       value: search,
       label: 'Search',
     })
@@ -165,7 +166,7 @@ function loadFiltersFromQuery() {
   if (company) {
     const companyObj = companies.value.find(c => c.id === company)
     newFilters.push({
-      type: 'company',
+      type: FilterType.COMPANY,
       value: company,
       label: 'Company',
       displayValue: companyObj?.name,
@@ -177,7 +178,7 @@ function loadFiltersFromQuery() {
     const enumValue = getEnumValue(TagType, tagType)
     if (enumValue) {
       newFilters.push({
-        type: 'tagType',
+        type: FilterType.TAG_TYPE,
         value: enumValue,
         label: 'Tag Type',
         displayValue: tagType,
@@ -188,7 +189,7 @@ function loadFiltersFromQuery() {
   const tag = route.query['tag']?.toString()
   if (tag) {
     newFilters.push({
-      type: 'tag',
+      type: FilterType.TAG,
       value: tag,
       label: 'Tag',
       displayValue: tag,
@@ -202,13 +203,13 @@ function updateQueryParams() {
   const query: Record<string, string | undefined> = {}
 
   filters.value.forEach(filter => {
-    if (filter.type === 'search') {
+    if (filter.type === FilterType.SEARCH) {
       query['search'] = filter.value
-    } else if (filter.type === 'company') {
+    } else if (filter.type === FilterType.COMPANY) {
       query['company'] = filter.value
-    } else if (filter.type === 'tagType') {
+    } else if (filter.type === FilterType.TAG_TYPE) {
       query['type'] = filter.displayValue || filter.value
-    } else if (filter.type === 'tag') {
+    } else if (filter.type === FilterType.TAG) {
       query['tag'] = filter.value
     }
   })
@@ -234,7 +235,7 @@ watch(
 
 watch(companies, () => {  
   const updatedFilters = filters.value.map(filter => {
-    if (filter.type === 'company' && !filter.displayValue) {
+    if (filter.type === FilterType.COMPANY && !filter.displayValue) {
       const companyObj = companies.value.find(p => p.id === filter.value)
       if (companyObj) {
         return {
