@@ -24,7 +24,10 @@
 
     <ProjectTableView
       v-if="viewMode === ViewMode.TABLE"
-      :projects="filteredProjects"
+      :projects="sortedProjects"
+      :sort-column="sortColumn"
+      :sort-direction="sortDirection"
+      @sort="handleSort"
     />
     
     <TransitionGroup 
@@ -85,7 +88,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   showHeader: false,
-  maxWidth: 'max-w-5xl',
+  maxWidth: 'max-w-7xl',
   tags: () => [],
   modelSearch: undefined,
   setProjects: () => [],
@@ -106,6 +109,10 @@ const viewMode = computed({
   get: () => preferencesStore.projectsViewMode,
   set: (value: ViewMode) => preferencesStore.setProjectsViewMode(value),
 })
+
+// Sort state
+const sortColumn = ref<string | null>('dateRange')
+const sortDirection = ref<'asc' | 'desc'>('desc')
 
 const projects = computed((): Project[] => {
   return projectStore.projects
@@ -161,6 +168,34 @@ const filteredProjects = computed((): Project[] => {
   }
 
   return projectsFiltered
+})
+
+const sortedProjects = computed((): Project[] => {
+  const sorted = [...filteredProjects.value]
+
+  if (!sortColumn.value) return sorted
+
+  sorted.sort((a, b) => {
+    let aValue: any
+    let bValue: any
+
+    // Map column keys to actual project properties
+    if (sortColumn.value === 'project') {
+      aValue = a.title.toLowerCase()
+      bValue = b.title.toLowerCase()
+    } else if (sortColumn.value === 'dateRange') {
+      aValue = new Date(a.startDate).getTime()
+      bValue = new Date(b.startDate).getTime()
+    } else {
+      return 0
+    }
+
+    if (aValue < bValue) return sortDirection.value === 'asc' ? -1 : 1
+    if (aValue > bValue) return sortDirection.value === 'asc' ? 1 : -1
+    return 0
+  })
+
+  return sorted
 })
 
 const wrapperClass = computed(() => ({
@@ -235,6 +270,17 @@ function updateQueryParams() {
     path: route.path,
     query,
   })
+}
+
+function handleSort(column: string) {
+  if (sortColumn.value === column) {
+    // Toggle direction if same column
+    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'
+  } else {
+    // New column, default to ascending
+    sortColumn.value = column
+    sortDirection.value = 'asc'
+  }
 }
 
 onMounted(async () => {
