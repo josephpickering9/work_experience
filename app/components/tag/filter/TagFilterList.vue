@@ -8,10 +8,13 @@
       v-for="tag in filteredTags"
       :key="tag.id"
       type="button"
-      class="btn btn-sm btn-ghost justify-start gap-2 font-normal hover:bg-base-200 h-auto py-2"
+      class="btn btn-sm btn-ghost justify-between gap-2 font-normal hover:bg-base-200 h-auto py-2"
       @click="selectTag(tag.title)"
     >
       <Tag :tag="tag" size="sm" />
+      <span v-if="tagCounts[tag.title]" class="badge badge-sm badge-ghost ml-auto">
+        {{ tagCounts[tag.title] }}
+      </span>
     </button>
     <div v-if="filteredTags.length === 0" class="text-sm text-center py-4 opacity-50">
       No tags found
@@ -23,7 +26,8 @@
 import { ref, computed, onMounted } from 'vue'
 import type { Tag as TagType } from '@api'
 import { useTagStore } from '~/store/TagStore'
-import { isEmpty, sortBy } from 'lodash-es'
+import { useProjectStore } from '~/store/ProjectStore'
+import { isEmpty } from 'lodash-es'
 import Tag from '../Tag.vue'
 
 const emit = defineEmits<{
@@ -31,10 +35,34 @@ const emit = defineEmits<{
 }>()
 
 const tagStore = useTagStore()
+const projectStore = useProjectStore()
 const searchQuery = ref('')
 
+// Calculate tag counts from projects
+const tagCounts = computed((): Record<string, number> => {
+  const counts: Record<string, number> = {}
+  
+  projectStore.projects.forEach(project => {
+    project.tags.forEach(tag => {
+      counts[tag.title] = (counts[tag.title] || 0) + 1
+    })
+  })
+  
+  return counts
+})
+
 const tags = computed((): TagType[] => {
-  return sortBy(tagStore.tags, 'title')
+  // Sort by count (descending), then by title (ascending)
+  return [...tagStore.tags].sort((a, b) => {
+    const countA = tagCounts.value[a.title] || 0
+    const countB = tagCounts.value[b.title] || 0
+    
+    if (countB !== countA) {
+      return countB - countA // Sort by count descending
+    }
+    
+    return a.title.localeCompare(b.title) // Sort by title ascending for ties
+  })
 })
 
 const filteredTags = computed(() => {
@@ -54,6 +82,10 @@ onMounted(() => {
   // Fetch tags if not already loaded
   if (tagStore.tags.length === 0) {
     tagStore.getTags()
+  }
+  // Fetch projects if not already loaded
+  if (projectStore.projects.length === 0) {
+    projectStore.getProjects()
   }
 })
 </script>

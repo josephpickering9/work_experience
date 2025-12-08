@@ -35,7 +35,7 @@
             :key="filterType.value"
             class="relative"
             @mouseenter="handleFilterTypeHover(filterType.value, $event)"
-            @mouseleave="hoveredFilterType = null"
+            @mouseleave="handleFilterTypeLeave"
           >
             <button
               type="button"
@@ -51,7 +51,7 @@
               ref="submenuContainer"
               class="absolute top-0 w-64 rounded-box bg-base-100 p-3 shadow-xl ring-1 ring-base-content/10 z-10"
               :class="submenuPosition === 'left' ? 'right-full mr-1' : 'left-full ml-1'"
-              @mouseenter="hoveredFilterType = filterType.value"
+              @mouseenter="handleSubmenuEnter(filterType.value)"
               @mouseleave="handleSubmenuLeave"
             >
               <CompanyFilterList
@@ -108,6 +108,7 @@ const searchValue = ref<string>('')
 const hoveredFilterType = ref<string | null>(null)
 const submenuPosition = ref<'left' | 'right'>('right')
 const container = ref<HTMLElement | null>(null)
+const hideTimeout = ref<NodeJS.Timeout | null>(null)
 
 const filterTypes = [
   { value: FilterType.SEARCH, label: 'Search', icon: 'heroicons:magnifying-glass' },
@@ -131,10 +132,36 @@ function close() {
 }
 
 function handleSubmenuLeave() {
-  hoveredFilterType.value = null
+  // Delay hiding to allow user to move mouse from button to submenu
+  hideTimeout.value = setTimeout(() => {
+    hoveredFilterType.value = null
+  }, 150)
+}
+
+function handleFilterTypeLeave() {
+  // Delay hiding to allow user to move mouse to submenu
+  hideTimeout.value = setTimeout(() => {
+    hoveredFilterType.value = null
+  }, 150)
+}
+
+function handleSubmenuEnter(filterTypeValue: string) {
+  // Clear any pending hide timeout when entering submenu
+  if (hideTimeout.value) {
+    clearTimeout(hideTimeout.value)
+    hideTimeout.value = null
+  }
+  // Ensure the submenu stays visible
+  hoveredFilterType.value = filterTypeValue
 }
 
 function handleFilterTypeHover(filterTypeValue: string, event: MouseEvent) {
+  // Clear any pending hide timeout when hovering
+  if (hideTimeout.value) {
+    clearTimeout(hideTimeout.value)
+    hideTimeout.value = null
+  }
+  
   hoveredFilterType.value = filterTypeValue
   
   // Calculate if submenu would overflow on the right
