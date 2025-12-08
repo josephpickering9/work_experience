@@ -1318,7 +1318,8 @@
           "Other",
           "Data",
           "CMS",
-          "Mobile"
+          "Mobile",
+          "AI"
         ],
         "type": "string"
       },

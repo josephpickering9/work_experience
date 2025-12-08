@@ -11,4 +11,5 @@ export enum TagType {
     DATA = 'Data',
     CMS = 'CMS',
     MOBILE = 'Mobile',
+    AI = 'AI',
 }

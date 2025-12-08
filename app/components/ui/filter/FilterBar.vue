@@ -18,48 +18,59 @@
         <span>{{ filters.length > 0 ? 'Add Filter' : 'Filter' }}</span>
       </button>
 
-      <div v-if="isOpen" class="dropdown-content z-[1] mt-2 w-80 rounded-box bg-base-100 p-4 shadow-xl ring-1 ring-base-content/10" @click.stop>
-        <div v-if="!selectedFilterType" class="flex flex-col gap-2">
-          <TextInput
-            v-model="searchValue"
-            placeholder="Search projects..."
-          />
-          <button
-            v-for="filterType in filterTypes.filter(ft => ft.value !== 'search')"
-            :key="filterType.value"
-            type="button"
-            class="btn btn-sm btn-ghost justify-start gap-2"
-            @click="selectFilterType(filterType.value)"
-          >
-            <Icon :name="filterType.icon" size="1.2em" />
-            <span>{{ filterType.label }}</span>
-          </button>
-        </div>
-        <div v-else class="flex flex-col gap-4">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold opacity-70">{{ selectedFilterTypeLabel }}</h3>
-            <button type="button" class="btn btn-circle btn-ghost btn-xs" @click="resetFilterType">
-              <Icon name="heroicons:x-mark" />
-            </button>
+      <div v-if="isOpen" class="dropdown-content z-[1] mt-2 w-56 rounded-box bg-base-100 p-2 shadow-xl ring-1 ring-base-content/10" @click.stop>
+        <div class="flex flex-col gap-1">
+          <!-- Search input always visible -->
+          <div class="px-2 py-1">
+            <TextInput
+              v-model="searchValue"
+              placeholder="Search projects..."
+              size="sm"
+            />
           </div>
 
-          <CompanyAutoComplete
-            v-if="selectedFilterType === 'company'"
-            v-model="filterValue"
-            placeholder="Select company..."
-          />
+          <div class="divider my-0" />
 
-          <TagTypeSelectList
-            v-else-if="selectedFilterType === 'tagType'"
-            v-model="filterValue"
-            placeholder="Select tag type..."
-          />
+          <div
+            v-for="filterType in filterTypes.filter(ft => ft.value !== FilterType.SEARCH)"
+            :key="filterType.value"
+            class="relative"
+            @mouseenter="handleFilterTypeHover(filterType.value, $event)"
+            @mouseleave="hoveredFilterType = null"
+          >
+            <button
+              type="button"
+              class="btn btn-sm btn-ghost w-full justify-start gap-2 font-normal"
+            >
+              <Icon :name="filterType.icon" size="1.2em" />
+              <span class="flex-1 text-left">{{ filterType.label }}</span>
+              <Icon name="heroicons:chevron-right" size="1em" class="opacity-50" />
+            </button>
 
-          <TagAutoComplete
-            v-else-if="selectedFilterType === 'tag'"
-            v-model="tagFilterValue"
-            placeholder="Select tag..."
-          />
+            <div
+              v-if="hoveredFilterType === filterType.value"
+              ref="submenuContainer"
+              class="absolute top-0 w-64 rounded-box bg-base-100 p-3 shadow-xl ring-1 ring-base-content/10 z-10"
+              :class="submenuPosition === 'left' ? 'right-full mr-1' : 'left-full ml-1'"
+              @mouseenter="hoveredFilterType = filterType.value"
+              @mouseleave="handleSubmenuLeave"
+            >
+              <CompanyFilterList
+                v-if="filterType.value === FilterType.COMPANY"
+                @select="handleCompanySelect"
+              />
+
+              <TagTypeFilterList
+                v-else-if="filterType.value === FilterType.TAG_TYPE"
+                @select="handleTagTypeSelect"
+              />
+
+              <TagFilterList
+                v-else-if="filterType.value === FilterType.TAG"
+                @select="handleTagSelect"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -72,11 +83,12 @@ import { Icon } from '#components'
 import { useCompanyStore } from '~/store/CompanyStore'
 import FilterChip from './FilterChip.vue'
 import TextInput from '~/components/ui/input/TextInput.vue'
-import CompanyAutoComplete from '~/components/company/form/CompanyAutoComplete.vue'
-import TagTypeSelectList from '~/components/tag/form/TagTypeSelectList.vue'
-import TagAutoComplete from '~/components/tag/form/TagAutoComplete.vue'
+import CompanyFilterList from '~/components/company/filter/CompanyFilterList.vue'
+import TagTypeFilterList from '~/components/tag/filter/TagTypeFilterList.vue'
+import TagFilterList from '~/components/tag/filter/TagFilterList.vue'
 import type { Filter } from '~/types/Filter'
 import { FilterType } from '~/types/FilterType'
+import type { TagType } from '@api'
 
 interface Props {
   filters: Filter[]
@@ -91,11 +103,11 @@ const emit = defineEmits<{
 const companyStore = useCompanyStore()
 
 const isOpen = ref(false)
-const selectedFilterType = ref<string | null>(null)
-const filterValue = ref<string | string[]>('')
 const searchValue = ref<string>('')
-const searchTimeout = ref<NodeJS.Timeout | null>(null)
+const hoveredFilterType = ref<string | null>(null)
+const submenuPosition = ref<'left' | 'right'>('right')
 const container = ref<HTMLElement | null>(null)
+const submenuContainer = ref<HTMLElement | null>(null)
 
 const filterTypes = [
   { value: FilterType.SEARCH, label: 'Search', icon: 'heroicons:magnifying-glass' },
@@ -106,90 +118,78 @@ const filterTypes = [
 
 const companies = computed(() => companyStore.companies)
 
-const selectedFilterTypeLabel = computed(() => {
-  return filterTypes.find(ft => ft.value === selectedFilterType.value)?.label || ''
-})
-
-const tagFilterValue = computed({
-  get: () => {
-    if (selectedFilterType.value === 'tag') {
-      return Array.isArray(filterValue.value) ? filterValue.value : []
-    }
-    return []
-  },
-  set: (val: string[]) => {
-    filterValue.value = val
-  }
-})
-
 function toggle() {
   isOpen.value = !isOpen.value
   if (!isOpen.value) {
-    resetFilterType()
+    hoveredFilterType.value = null
   }
 }
 
 function close() {
   isOpen.value = false
-  resetFilterType()
+  hoveredFilterType.value = null
 }
 
-function selectFilterType(type: string) {
-  selectedFilterType.value = type
-  filterValue.value = type === FilterType.TAG ? [] : ''
+function handleSubmenuLeave() {
+  hoveredFilterType.value = null
 }
 
-function resetFilterType() {
-  selectedFilterType.value = null
-  filterValue.value = ''
-}
-
-function applyFilter() {
-  if (!selectedFilterType.value) return
+function handleFilterTypeHover(filterTypeValue: string, event: MouseEvent) {
+  hoveredFilterType.value = filterTypeValue
   
-  if (selectedFilterType.value === FilterType.TAG) {
-    const tags = Array.isArray(filterValue.value) ? filterValue.value : []
-    if (tags.length === 0) return
+  // Calculate if submenu would overflow on the right
+  const target = event.currentTarget as HTMLElement
+  if (target) {
+    const rect = target.getBoundingClientRect()
+    const submenuWidth = 350
+    const buffer = 16
+    const viewportWidth = window.innerWidth
     
-    const filterType = filterTypes.find(ft => ft.value === selectedFilterType.value)
-    if (!filterType) return
-
-    const newFilter: Filter = {
-      type: FilterType.TAG,
-      value: tags[0] || '',
-      label: filterType.label,
-      displayValue: tags[0],
-    }
-
-    emit('update:filters', [...props.filters, newFilter])
-    close()
-    return
+    // Check if there's enough space on the right
+    const spaceOnRight = viewportWidth - rect.right
+    const wouldOverflow = spaceOnRight < (submenuWidth + buffer)
+    
+    submenuPosition.value = wouldOverflow ? 'left' : 'right'
   }
+}
 
-  if (!filterValue.value || Array.isArray(filterValue.value)) return
-
-  const filterType = filterTypes.find(ft => ft.value === selectedFilterType.value)
-  if (!filterType) return
-
-  let displayValue: string | undefined
-  if (selectedFilterType.value === FilterType.COMPANY) {
-    const company = companies.value.find(c => c.id === filterValue.value)
-    displayValue = company?.name
-  }
+function handleCompanySelect(companyId: string) {
+  const company = companies.value.find(c => c.id === companyId)
+  if (!company) return
 
   const newFilter: Filter = {
-    type: selectedFilterType.value as FilterType,
-    value: filterValue.value,
-    label: filterType.label,
-    displayValue,
+    type: FilterType.COMPANY,
+    value: companyId,
+    label: 'Company',
+    displayValue: company.name,
   }
 
   emit('update:filters', [...props.filters, newFilter])
-  
-  // Close dropdown except for search
-  if (selectedFilterType.value !== FilterType.SEARCH) {
-    close()
+  close()
+}
+
+function handleTagTypeSelect(tagType: TagType) {
+  const newFilter: Filter = {
+    type: FilterType.TAG_TYPE,
+    value: tagType,
+    label: 'Tag Type',
+    displayValue: tagType,
   }
+
+  emit('update:filters', [...props.filters, newFilter])
+  close()
+}
+
+function handleTagSelect(tagTitle: string) {
+  const newFilter: Filter = {
+    type: FilterType.TAG,
+    value: tagTitle,
+    label: 'Tag',
+    displayValue: tagTitle,
+  }
+
+  emit('update:filters', [...props.filters, newFilter])
+  close()
 }
 
 function removeFilter(index: number) {
@@ -242,14 +242,6 @@ watch(() => searchValue.value, () => {
   applySearchFilter()
 })
 
-watch(filterValue, (newValue, oldValue) => {
-  if (selectedFilterType.value && selectedFilterType.value !== FilterType.SEARCH) {
-    if (newValue && newValue !== oldValue) {
-      applyFilter()
-    }
-  }
-})
-
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
 })
@@ -258,4 +250,5 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
 </script>
+
 
