@@ -79,7 +79,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import type { Project } from '@api/models/Project'
 import { getImageUrl } from '~/utils/image-helper'
 import Table, { type TableColumn } from '~/components/ui/table/Table.vue'
@@ -143,7 +143,7 @@ const columns = computed<TableColumn[]>(() => [
 
 function formatDate(dateString: string): string {
   try {
-    return format(new Date(dateString), 'MMM yyyy')
+    return format(parseISO(dateString), 'MMM yyyy')
   } catch {
     return dateString
   }

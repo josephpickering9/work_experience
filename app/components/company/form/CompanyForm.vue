@@ -65,7 +65,7 @@ import { useNotificationStore } from '~/store/NotificationStore'
 import type { CreateCompany } from '@api/models/CreateCompany'
 import type { Company } from '@api/models/Company'
 import { getImageUrl } from '~/utils/image-helper'
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import TextInput from '~/components/ui/input/TextInput.vue'
 import FormButton from '~/components/ui/form/FormButton.vue'
 import FileInput from '~/components/ui/input/FileInput.vue'
@@ -161,8 +161,8 @@ onMounted(async () => {
       description.value = company.value.description
       logoUrl.value = company.value.logo ? getImageUrl(company.value.logo) : undefined
       website.value = company.value.website ?? ''
-      startDate.value = company.value.startDate ? format(new Date(company.value.startDate), 'yyyy-MM-dd') : undefined
-      endDate.value = company.value.endDate ? format(new Date(company.value.endDate), 'yyyy-MM-dd') : undefined
+      startDate.value = company.value.startDate ? format(parseISO(company.value.startDate), 'yyyy-MM-dd') : undefined
+      endDate.value = company.value.endDate ? format(parseISO(company.value.endDate), 'yyyy-MM-dd') : undefined
     } else {
       notificationStore.displayErrorNotification(companyError.value || 'An error occurred')
     }
