@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { getProject, getProjectById, getProjectBySlug, postProject, putProjectById, deleteProjectById, getProjectByIdRelated } from '@api'
 import { asyncForm, tryCatchFinally } from '~/utils/async-helper'
 import type { Project, CreateProject } from '@api'
+import { serializeToFormData } from '~/utils/form-data'
 
 export const useProjectStore = defineStore('projectStore', {
   state: () => ({
@@ -56,14 +57,21 @@ export const useProjectStore = defineStore('projectStore', {
       if (!project || this.projectCreateForm.loading) return
 
       return await tryCatchFinally(ref(this.projectCreateForm), async () => {
-        return (await postProject({ body: project as any })).data
+        return (await postProject({
+          body: project as any,
+          bodySerializer: serializeToFormData,
+        })).data
       })
     },
     async updateProject(id: string, project: CreateProject): Promise<Project | undefined> {
       if (!project || this.projectCreateForm.loading) return
 
       return await tryCatchFinally(ref(this.projectCreateForm), async () => {
-        return (await putProjectById({ path: { id }, body: project as any })).data
+        return (await putProjectById({
+          path: { id },
+          body: project as any,
+          bodySerializer: serializeToFormData,
+        })).data
       })
     },
     async deleteProject(id: string): Promise<undefined> {
