@@ -1,6 +1,15 @@
 <template>
   <div v-if="form" class="flex flex-col gap-4 pb-4">
-    <div v-if="project?.id" class="flex justify-end">
+    <FormGroup :errors="v$['form']?.description?.$errors" name="Description">
+      <TextEditor v-model="form.description" label="Description" :disabled="loading" />
+    </FormGroup>
+    <div v-if="project?.id" class="flex justify-end items-center gap-2">
+      <TextInput
+        v-model="extraDescription"
+        placeholder="Extra Description"
+        :disabled="loading || aiLoading"
+        size="sm"
+      />
       <FormButton
         label="Suggest Description"
         type="secondary"
@@ -11,10 +20,6 @@
         @click="suggestDescription"
       />
     </div>
-
-    <FormGroup :errors="v$['form']?.description?.$errors" name="Description">
-      <TextEditor v-model="form.description" label="Description" :disabled="loading" />
-    </FormGroup>
   </div>
 </template>
 
@@ -30,6 +35,7 @@ import { defaultProjectForm } from '~/utils/default-helper'
 import FormGroup from '~/components/ui/form/FormGroup.vue'
 import TextEditor from '~/components/ui/input/TextEditor.vue'
 import FormButton from '~/components/ui/form/FormButton.vue'
+import TextInput from '~/components/ui/input/TextInput.vue'
 
 interface Props {
   modelValue?: CreateProject
@@ -38,7 +44,6 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   modelValue: () => cloneDeep(defaultProjectForm),
 })
-
 
 const emit = defineEmits<{
   'update:modelValue': [value: CreateProject]
@@ -49,6 +54,7 @@ const aiStore = useAiStore()
 const validation = useValidation()
 
 const form = ref<CreateProject>(props.modelValue)
+const extraDescription = ref<string>('')
 
 const v$ = useVuelidate()
 
@@ -71,11 +77,9 @@ async function validate(): Promise<boolean> {
 async function suggestDescription() {
   if (!project.value?.id) return
 
-  await aiStore.getSuggestedDescription(project.value.id)
+  await aiStore.getSuggestedDescription(project.value.id, extraDescription.value, null, null)
 
-  if (aiStore.aiForm.data) {
-    form.value.description = aiStore.aiForm.data as string
-  }
+  if (aiStore.aiForm.data) form.value.description = aiStore.aiForm.data.suggestedDescription ?? ''
 }
 
 defineExpose({

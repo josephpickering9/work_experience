@@ -91,6 +91,13 @@ export type Project = {
     readonly bannerUrl?: string | null;
 };
 
+export type ProjectDescriptionSuggestionResponse = {
+    projectId?: string;
+    title?: string;
+    existingDescription?: string;
+    suggestedDescription?: string;
+};
+
 export type ProjectImage = {
     id: string;
     image: string;
@@ -571,5 +578,7 @@ export type PostVertexProjectsByIdDescriptionSuggestResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: ProjectDescriptionSuggestionResponse;
 };
+
+export type PostVertexProjectsByIdDescriptionSuggestResponse = PostVertexProjectsByIdDescriptionSuggestResponses[keyof PostVertexProjectsByIdDescriptionSuggestResponses];

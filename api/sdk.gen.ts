@@ -164,6 +164,7 @@ export const postVertexQuery = <ThrowOnError extends boolean = false>(options?: 
 });
 
 export const postVertexProjectsByIdDescriptionSuggest = <ThrowOnError extends boolean = false>(options: Options<PostVertexProjectsByIdDescriptionSuggestData, ThrowOnError>) => (options.client ?? client).post<PostVertexProjectsByIdDescriptionSuggestResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/vertex/projects/{id}/description/suggest',
     ...options,
     headers: {
