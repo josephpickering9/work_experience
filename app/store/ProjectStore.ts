@@ -56,14 +56,14 @@ export const useProjectStore = defineStore('projectStore', {
       if (!project || this.projectCreateForm.loading) return
 
       return await tryCatchFinally(ref(this.projectCreateForm), async () => {
-        return (await postProject({ body: { createProject: project } })).data
+        return (await postProject({ body: project as any })).data
       })
     },
     async updateProject(id: string, project: CreateProject): Promise<Project | undefined> {
       if (!project || this.projectCreateForm.loading) return
 
       return await tryCatchFinally(ref(this.projectCreateForm), async () => {
-        return (await putProjectById({ path: { id }, body: { createProject: project } })).data
+        return (await putProjectById({ path: { id }, body: project as any })).data
       })
     },
     async deleteProject(id: string): Promise<undefined> {
