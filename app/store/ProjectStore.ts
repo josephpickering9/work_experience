@@ -27,37 +27,51 @@ export const useProjectStore = defineStore('projectStore', {
     async getProjects(search?: string): Promise<Project[]> {
       if (this.projectsForm.loading) return []
 
-      return await tryCatchFinally(ref(this.projectsForm), () => getProject({ query: { search } })) || []
+      return await tryCatchFinally(ref(this.projectsForm), async () => {
+        return (await getProject({ query: { search } })).data
+      }) || []
     },
-    async getProject(id: number): Promise<void> {
+    async getProject(id: number): Promise<Project | undefined> {
       if (!id || this.projectForm.loading) return
 
-      await tryCatchFinally(ref(this.projectForm), () => getProjectById({ path: { id: id.toString() } }))
+      return await tryCatchFinally(ref(this.projectForm), async () => {
+        return (await getProjectById({ path: { id: id.toString() } })).data
+      })
     },
-    async getProjectBySlug(slug: string): Promise<void> {
+    async getProjectBySlug(slug: string): Promise<Project | undefined> {
       if (!slug || this.projectForm.loading) return
 
-      await tryCatchFinally(ref(this.projectForm), () => getProjectBySlug({ path: { slug } }))
+      return await tryCatchFinally(ref(this.projectForm), async () => {
+        return (await getProjectBySlug({ path: { slug } })).data
+      })
     },
     async getRelatedProjects(id: number): Promise<Project[]> {
       if (!id || this.relatedProjectsForm.loading) return []
 
-      return await tryCatchFinally(ref(this.relatedProjectsForm), () => getProjectByIdRelated({ path: { id: id.toString() } })) || []
+      return await tryCatchFinally(ref(this.relatedProjectsForm), async () => {
+        return (await getProjectByIdRelated({ path: { id: id.toString() } })).data
+      }) || []
     },
     async createProject(project: CreateProject): Promise<Project | undefined> {
       if (!project || this.projectCreateForm.loading) return
 
-      return await tryCatchFinally(ref(this.projectCreateForm), () => postProject({ body: { createProject: project } }))
+      return await tryCatchFinally(ref(this.projectCreateForm), async () => {
+        return (await postProject({ body: { createProject: project } })).data
+      })
     },
     async updateProject(id: number, project: CreateProject): Promise<Project | undefined> {
       if (!project || this.projectCreateForm.loading) return
 
-      return await tryCatchFinally(ref(this.projectCreateForm), () => putProjectById({ path: { id: id.toString() }, body: { createProject: project } }))
+      return await tryCatchFinally(ref(this.projectCreateForm), async () => {
+        return (await putProjectById({ path: { id: id.toString() }, body: { createProject: project } })).data
+      })
     },
-    async deleteProject(id: number): Promise<void> {
+    async deleteProject(id: number): Promise<undefined> {
       if (!id || this.projectCreateForm.loading) return
 
-      await tryCatchFinally(ref(this.projectCreateForm), () => deleteProjectById({ path: { id: id.toString() } }))
+      await tryCatchFinally(ref(this.projectCreateForm), async () => {
+        await deleteProjectById({ path: { id: id.toString() } })
+      })
     },
   },
 })

@@ -10,6 +10,7 @@ export default defineConfig({
         ...defaultPlugins,
         '@hey-api/client-axios',
         {
+            baseUrl: 'http://localhost:5105',
             enums: 'typescript',
             name: '@hey-api/typescript',
         },

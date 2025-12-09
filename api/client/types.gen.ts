@@ -8,6 +8,7 @@ import type {
   AxiosStatic,
   CreateAxiosDefaults,
 } from 'axios';
+
 import type { Auth } from '../core/auth.gen';
 import type {
   ServerSentEventsOptions,

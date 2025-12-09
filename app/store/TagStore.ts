@@ -24,32 +24,44 @@ export const useTagStore = defineStore('tagStore', {
     async getTags(search?: string): Promise<void> {
       if (this.tagsForm.loading) return
 
-      await tryCatchFinally(ref(this.tagsForm), () => getTag({ query: { search } }))
+      await tryCatchFinally(ref(this.tagsForm), async () => {
+        return (await getTag({ query: { search } })).data
+      })
     },
     async getTag(id: string): Promise<void> {
       if (!id || this.tagForm.loading) return
 
-      await tryCatchFinally(ref(this.tagForm), () => getTagById({ path: { id } }))
+      await tryCatchFinally(ref(this.tagForm), async () => {
+        return (await getTagById({ path: { id } })).data
+      })
     },
     async getTagBySlug(slug: string): Promise<void> {
       if (!slug || this.tagForm.loading) return
 
-      await tryCatchFinally(ref(this.tagForm), () => getTagBySlug({ path: { slug } }))
+      await tryCatchFinally(ref(this.tagForm), async () => {
+        return (await getTagBySlug({ path: { slug } })).data
+      })
     },
     async createTag(tag: CreateTag): Promise<Tag | undefined> {
       if (!tag || this.tagCreateForm.loading) return
 
-      return await tryCatchFinally(ref(this.tagCreateForm), () => postTag({ body: tag }))
+      return await tryCatchFinally(ref(this.tagCreateForm), async () => {
+        return (await postTag({ body: tag })).data
+      })
     },
     async updateTag(id: string, tag: CreateTag): Promise<Tag | undefined> {
       if (!tag || this.tagCreateForm.loading) return
 
-      return await tryCatchFinally(ref(this.tagCreateForm), () => putTagById({ path: { id }, body: tag }))
+      return await tryCatchFinally(ref(this.tagCreateForm), async () => {
+        return (await putTagById({ path: { id }, body: tag })).data
+      })
     },
     async deleteTag(id: string): Promise<void> {
       if (!id || this.tagCreateForm.loading) return
 
-      await tryCatchFinally(ref(this.tagCreateForm), () => deleteTagById({ path: { id } }))
+      await tryCatchFinally(ref(this.tagCreateForm), async () => {
+        return (await deleteTagById({ path: { id } })).data
+      })
     },
   },
 })
