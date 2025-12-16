@@ -17,6 +17,9 @@
   "lint-staged": {
     "*.{js,vue,ts}": "yarn lint:commit"
   },
+  "resolutions": {
+    "vue": "3.5.25"
+  },
   "dependencies": {
     "@auth0/auth0-vue": "^2.4.0",
     "@floating-ui/dom": "^1.7.4",
