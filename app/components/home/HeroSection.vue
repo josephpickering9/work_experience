@@ -15,7 +15,7 @@
       </p>
        <p class="text-lg text-base-content/70 leading-relaxed max-w-2xl mx-auto">
           I'm a passionate developer building cleaner, faster, and more intuitive applications. 
-          My journey spans from <span class="font-semibold text-primary">Vue & React</span> to <span class="font-semibold text-secondary">.NET & Kotlin</span>. 
+          My journey spans from <span class="font-semibold text-primary">Vue &amp; React</span> to <span class="font-semibold text-secondary">.NET &amp; Kotlin</span>. 
           I love solving complex problems and turning ideas into reality.
       </p>
     </div>
