@@ -6,24 +6,27 @@
     @mousedown.stop.prevent="(event) => event.preventDefault()"
   >
     <figure class="relative h-48 w-full overflow-hidden bg-base-200">
-      <img 
-        v-if="project.cardUrl"
-        :src="backgroundImage" 
-        :alt="`${project.title} Background Image`" 
-        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-      >
+      <NuxtImg 
+        v-if="project.cardUrl" 
+        :src="getImageUrl(project.cardUrl)" 
+        :alt="project.title"
+        placeholder
+        format="webp"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
       <div v-else class="w-full h-full flex items-center justify-center bg-base-300 text-base-content/20">
          <Icon name="heroicons:photo" class="w-16 h-16" />
       </div>
       <div class="absolute inset-0 bg-gradient-to-t from-base-100 to-transparent opacity-60" />
       
-      <!-- Company Logo Overlay -->
       <div v-if="project.logoUrl" class="absolute bottom-2 right-2 p-1 bg-base-100/90 rounded-lg shadow-sm backdrop-blur-sm">
-         <img 
-              :src="image" 
-              :alt="`${project.title} Logo`" 
-              class="h-8 w-8 object-contain" 
-            >
+         <NuxtImg 
+          :src="getImageUrl(project.logoUrl)" 
+          :alt="`${project.title} Logo`" 
+          placeholder
+          format="webp"
+          class="h-8 w-8 object-contain" 
+         />
       </div>
     </figure>
     
@@ -56,7 +59,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import type { Project } from '@api'
 import { getImageUrl } from '~/utils/image-helper'
 import Tag from '~/components/tag/Tag.vue'
@@ -66,16 +68,4 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-
-const image = computed((): string => {
-  if (!props.project?.logoUrl) return 'https://via.placeholder.com/320x200'
-
-  return getImageUrl(props.project.logoUrl)
-})
-
-const backgroundImage = computed((): string => {
-  if (!props.project?.cardUrl) return 'https://via.placeholder.com/320x200'
-
-  return getImageUrl(props.project.cardUrl)
-})
 </script>

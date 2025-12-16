@@ -1,5 +1,14 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl">
+    <NuxtLink to="/search" class="group card bg-base-100 hover:bg-base-200/50 shadow-md hover:shadow-2xl transition-all duration-300 border border-base-200 hover:border-info/50 hover:-translate-y-1">
+      <div class="card-body items-center text-center p-8">
+        <div class="p-4 rounded-full bg-info/10 group-hover:bg-info/20 transition-colors duration-300 mb-4">
+          <Icon name="mdi:robot-happy-outline" class="w-10 h-10 text-info" />
+        </div>
+        <h2 class="card-title text-2xl mb-2">AI Search</h2>
+        <p class="text-base-content/70">Ask usage questions</p>
+      </div>
+    </NuxtLink>
     <NuxtLink to="/projects" class="group card bg-base-100 hover:bg-base-200/50 shadow-md hover:shadow-2xl transition-all duration-300 border border-base-200 hover:border-primary/50 hover:-translate-y-1">
       <div class="card-body items-center text-center p-8">
         <div class="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300 mb-4">

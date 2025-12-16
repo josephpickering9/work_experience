@@ -48,7 +48,7 @@
               <p class="whitespace-pre-wrap leading-relaxed text-base-content/90">{{ searchResult }}</p>
             </div>
             <div class="flex justify-end pt-2">
-                <button @click="searchResult = null" class="btn btn-ghost btn-xs text-base-content/50 hover:text-base-content">Clear Result</button>
+                <button class="btn btn-ghost btn-xs text-base-content/50 hover:text-base-content" @click="searchResult = null">Clear Result</button>
             </div>
           </div>
         </div>
