@@ -22,19 +22,19 @@
         </li>
         <li>
           <NuxtLink to="/projects">
-            <Icon name="mdi:view-dashboard-outline" size="1.2em" />
+            <Icon name="heroicons:rectangle-stack" size="1.2em" />
             Projects
           </NuxtLink>
         </li>
         <li>
           <NuxtLink to="/companies">
-            <Icon name="mdi:domain" size="1.2em" />
+            <Icon name="heroicons:building-office" size="1.2em" />
             Companies
           </NuxtLink>
         </li>
         <li>
           <NuxtLink to="/tags">
-            <Icon name="mdi:tag-multiple-outline" size="1.2em" />
+            <Icon name="heroicons:tag" size="1.2em" />
             Tags
           </NuxtLink>
         </li>
