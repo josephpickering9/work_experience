@@ -1,6 +1,6 @@
 <template>
   <ListLayout
-    title="Tags"
+    title="Technologies"
     description="Browse and manage project technologies and categories."
     :loading="loading"
     :is-empty="Object.keys(filteredTags).length === 0"
@@ -35,7 +35,7 @@
           icon="heroicons:plus"
           type="primary"
           size="md"
-          href="/tags/new"
+          href="/technologies/new"
           :disabled="loading"
           class="w-full shadow-lg shadow-primary/20 sm:w-auto"
         />

@@ -27,9 +27,9 @@
           </NuxtLink>
         </li>
         <li class="animate-fade-in-up" style="animation-delay: 350ms">
-          <NuxtLink to="/tags" class="active:bg-primary/10 active:text-primary" @click="$emit('close')">
+          <NuxtLink to="/technologies" class="active:bg-primary/10 active:text-primary" @click="$emit('close')">
             <Icon name="mdi:tag-multiple-outline" size="1.5em" class="text-info" />
-            Tags
+            Technologies
           </NuxtLink>
         </li>
 
