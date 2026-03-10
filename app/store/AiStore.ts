@@ -64,7 +64,7 @@ export const useAiStore = defineStore('aiStore', {
 
                     try {
                         return (await getProjectById({ path: { id: c.id! } })).data
-                    } catch (e) {
+                    } catch {
                         return undefined
                     }
                 })
