@@ -31,7 +31,7 @@
       <ClientOnly>
         <FormButton
           v-if="isAuthenticated"
-          label="Add Tag"
+          label="Add Technology"
           icon="heroicons:plus"
           type="primary"
           size="md"
@@ -73,7 +73,6 @@ import FormButton from '~/components/ui/form/FormButton.vue'
 import TagTypeSelectList from '~/components/tag/form/TagTypeSelectList.vue'
 import TagListItem from './TagListItem.vue'
 import TextInput from '~/components/ui/input/TextInput.vue'
-
 
 const { isAuthenticated } = useAuth()
 const tagStore = useTagStore()
