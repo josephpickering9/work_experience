@@ -8,6 +8,8 @@
     :max-width="maxWidth"
   >
     <template #actions>
+      <FilterBar v-model:filters="filters" />
+      <ViewToggle v-model="viewMode" :disabled="loading" class="hidden md:flex" />
       <ClientOnly>
         <FormButton
           v-if="isAuthenticated"
@@ -18,11 +20,6 @@
           :disabled="loading"
         />
       </ClientOnly>
-    </template>
-
-    <template #filters>
-      <FilterBar v-model:filters="filters" />
-      <ViewToggle v-model="viewMode" :disabled="loading" class="hidden md:flex ml-auto" />
     </template>
 
     <ProjectTableView

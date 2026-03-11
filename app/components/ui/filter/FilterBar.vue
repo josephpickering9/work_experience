@@ -1,13 +1,15 @@
 <template>
-  <div class="flex flex-wrap items-center gap-2">
-    <FilterChip
-      v-for="(filter, index) in filters"
-      :key="`${filter.type}-${index}`"
-      :filter="filter"
-      @remove="removeFilter(index)"
-    />
+  <div class="flex items-center gap-2 flex-1">
+    <div class="flex flex-wrap items-center gap-2 flex-1">
+      <FilterChip
+        v-for="(filter, index) in filters"
+        :key="`${filter.type}-${index}`"
+        :filter="filter"
+        @remove="removeFilter(index)"
+      />
+    </div>
 
-    <div v-if="!isMobile" ref="container" class="dropdown" :class="{ 'dropdown-open': isOpen }">
+    <div v-if="!isMobile" ref="container" class="dropdown flex-shrink-0" :class="{ 'dropdown-open': isOpen }">
       <button
         type="button"
         class="btn btn-sm gap-2"
@@ -15,7 +17,7 @@
         @click="toggle"
       >
         <Icon name="heroicons:funnel" size="1.2em" />
-        <span>{{ filters.length > 0 ? 'Add Filter' : 'Filter' }}</span>
+        <span>Filter</span>
       </button>
 
       <div
@@ -90,12 +92,12 @@
     <button
       v-else
       type="button"
-      class="btn btn-sm gap-2"
+      class="btn btn-sm gap-2 flex-shrink-0"
       :class="filters.length > 0 ? 'btn-ghost' : 'btn-outline'"
       @click="toggle"
     >
       <Icon name="heroicons:funnel" size="1.2em" />
-      <span>{{ filters.length > 0 ? 'Add Filter' : 'Filter' }}</span>
+      <span>Filter</span>
     </button>
 
     <Teleport to="body">
