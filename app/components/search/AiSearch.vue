@@ -1,9 +1,7 @@
 <template>
-  <div 
-    class="w-full max-w-4xl transition-all duration-700 ease-in-out flex flex-col gap-4 md:gap-8"
-    :class="[
-      hasSearched || searchResult ? 'py-6 md:py-8' : 'translate-y-[-10vh]'
-    ]"
+  <div
+    class="w-full max-w-4xl flex flex-col gap-4 md:gap-8 transition-all duration-700 ease-in-out"
+    :class="hasSearched || searchResult ? 'pt-8 md:pt-10 mb-auto' : 'my-auto'"
   >
     <AiSearchHeader :has-searched="hasSearched || !!searchResult" />
 
@@ -23,7 +21,7 @@
       />
     </div>
 
-    <AiSearchResult 
+    <AiSearchResult
       v-if="hasSearched || searchResult"
       :loading="aiStore.queryForm.loading ?? false"
       :result="searchResult"
