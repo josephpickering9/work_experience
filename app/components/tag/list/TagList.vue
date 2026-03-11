@@ -4,7 +4,7 @@
     description="Browse and manage project technologies and categories."
     :loading="loading"
     :is-empty="Object.keys(filteredTags).length === 0"
-    empty-title="No tags found"
+    empty-title="No technologies found"
   >
     <template #actions>
       <div class="group relative">
@@ -15,7 +15,7 @@
           v-model="search"
           class="w-full md:max-w-48" 
           size="md"
-          placeholder="Search tags..."
+          placeholder="Search technologies..."
           :disabled="loading"
         />
       </div>
