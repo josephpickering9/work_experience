@@ -198,6 +198,7 @@ const currentIndex = ref(0)
 const lightboxOpen = ref(false)
 const lightboxIndex = ref(0)
 const lightboxTransition = ref('slide-next')
+let observer: IntersectionObserver | null = null
 
 const images = computed({
   get(): string[] {
@@ -235,9 +236,6 @@ function goTo(index: number) {
   }
 }
 
-// Track active slide via IntersectionObserver
-let observer: IntersectionObserver | null = null
-
 function setupObserver() {
   if (observer) observer.disconnect()
   const carouselEl = getCarouselElement()
@@ -270,7 +268,6 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeydown)
 })
 
-// Lightbox
 function openLightbox(index: number) {
   lightboxIndex.value = index
   lightboxOpen.value = true

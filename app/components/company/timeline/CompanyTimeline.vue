@@ -68,9 +68,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { compareDesc, format, formatDuration, intervalToDuration, parseISO } from 'date-fns'
+import { compareDesc, parseISO } from 'date-fns'
 import type { Company, Project  } from '@api'
 import { getImageUrl } from '~/utils/image-helper'
+import { getDateRange, getDuration } from '~/utils/date-helper'
 import useAuth from '~/composables/useAuth'
 import FormButton from '~/components/ui/form/FormButton.vue'
 
@@ -96,29 +97,11 @@ function getCompanyProjects(companyId: string): Project[] {
   return props.projects.filter(p => p.companyId === companyId)
 }
 
-function getDuration(company: Company): string {
-  if (!company.startDate) return ''
-  const end = company.endDate ? parseISO(company.endDate) : new Date()
-  const duration = intervalToDuration({ start: parseISO(company.startDate), end })
-  return formatDuration(duration, { format: ['years', 'months'] })
-}
-
-function getDateRange(company: Company): string {
-  const start = company.startDate ? format(parseISO(company.startDate), 'MMM yyyy') : ''
-  const end = company.endDate ? format(parseISO(company.endDate), 'MMM yyyy') : 'Present'
-
-  if (!start) return ''
-  return `${start} - ${end}`
-}
 </script>
 
 <style scoped>
 .company-description {
   text-align: left;
-}
-
-.company-description p {
-  margin-bottom: 0;
 }
 
 .company-description :deep(ul) {
