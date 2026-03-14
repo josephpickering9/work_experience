@@ -163,7 +163,7 @@
               </div>
 
               <div v-else class="flex flex-col flex-1 overflow-hidden" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
-                <div class="px-4 pb-3 flex-shrink-0">
+                <div class="px-4 pb-3 pt-1 flex-shrink-0">
                   <TextInput
                     ref="mobileSearchInputRef"
                     v-model="searchValue"
@@ -237,7 +237,7 @@ const filterTypes = [
   { value: FilterType.SEARCH, label: 'Search', icon: 'heroicons:magnifying-glass' },
   { value: FilterType.COMPANY, label: 'Company', icon: 'heroicons:building-office' },
   { value: FilterType.TAG_TYPE, label: 'Technology Type', icon: 'heroicons:squares-2x2' },
-  { value: FilterType.TAG, label: 'Technology', icon: 'heroicons:hashtag' },
+  { value: FilterType.TAG, label: 'Technology', icon: 'heroicons:code-bracket' },
 ]
 
 const availableFilterTypes = computed(() => filterTypes.filter(ft => ft.value !== FilterType.SEARCH))

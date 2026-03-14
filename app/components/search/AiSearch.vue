@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full max-w-4xl flex flex-col gap-4 md:gap-8 transition-all duration-700 ease-in-out"
+    class="w-full max-w-4xl flex flex-col gap-4 md:gap-8 transition-all duration-700 pb-2 ease-in-out"
     :class="hasSearched || searchResult ? 'pt-8 md:pt-10 mb-auto' : 'my-auto'"
   >
     <AiSearchHeader :has-searched="hasSearched || !!searchResult" />
