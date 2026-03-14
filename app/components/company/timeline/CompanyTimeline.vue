@@ -113,12 +113,14 @@ function getDateRange(company: Company): string {
 </script>
 
 <style scoped>
-/* Ensure description is always left-aligned regardless of timeline side */
 .company-description {
   text-align: left;
 }
 
-/* Visual separator between intro paragraph and bullet list */
+.company-description p {
+  margin-bottom: 0;
+}
+
 .company-description :deep(ul) {
   border-top: 1px solid oklch(var(--bc) / 0.1);
   padding-top: 0.5rem;
@@ -131,7 +133,6 @@ function getDateRange(company: Company): string {
   padding-left: 0.25rem;
 }
 
-/* Remove excess bottom margin on last paragraph before list */
 .company-description :deep(p:has(+ ul)) {
   margin-bottom: 0;
 }
