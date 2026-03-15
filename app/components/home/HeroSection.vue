@@ -2,7 +2,7 @@
   <div class="text-center space-y-4 max-w-3xl">
     <div class="avatar mb-2 animate-fade-in-up" style="animation-delay: 0ms">
       <div class="w-32 rounded-full shadow-xl ring ring-primary ring-offset-base-100 ring-offset-2">
-        <NuxtImg src="/profile.png" alt="Joseph Pickering" placeholder format="webp" />
+        <NuxtImg src="/profile.png" alt="Joseph Pickering" format="webp" loading="eager" />
       </div>
     </div>
 
