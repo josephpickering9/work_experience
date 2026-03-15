@@ -52,7 +52,13 @@
       />
     </div>
     <div class="flex-none lg:hidden">
-      <button class="btn-square flex" @click="toggleMobileMenu">
+      <button
+        class="btn btn-square btn-ghost"
+        :aria-label="showMobileMenu ? 'Close navigation menu' : 'Open navigation menu'"
+        :aria-expanded="showMobileMenu"
+        aria-controls="mobile-menu"
+        @click="toggleMobileMenu"
+      >
         <Icon v-if="!showMobileMenu" name="mdi:hamburger-menu" size="2em" />
         <Icon v-else name="mdi:close" size="2em" />
       </button>
@@ -107,7 +113,7 @@ const linkedInUrl = computed((): string => {
 })
 
 const optimising = computed((): boolean => {
-  return projectImageStore.optimising
+  return projectImageStore.optimising ?? false
 })
 
 const optimiseError = computed((): string | undefined => {

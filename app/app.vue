@@ -33,4 +33,15 @@ const theme = computed(() => themeStore.selectedTheme)
   opacity: 0;
   filter: blur(1rem);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-active,
+  .page-leave-active {
+    transition: opacity 0.01ms;
+  }
+  .page-enter-from,
+  .page-leave-to {
+    filter: none;
+  }
+}
 </style>

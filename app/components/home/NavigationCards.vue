@@ -5,7 +5,7 @@
         <div class="p-4 rounded-full bg-info/10 group-hover:bg-info/20 transition-colors duration-300 mb-4">
           <Icon name="mdi:robot-happy-outline" class="!w-10 !h-10 !text-info" />
         </div>
-        <h2 class="card-title text-2xl mb-2">AI Search</h2>
+        <p class="card-title text-2xl mb-2 font-bold">AI Search</p>
         <p class="text-base-content/70">Ask questions about my work experience, projects and skills</p>
       </div>
     </NuxtLink>
@@ -14,7 +14,7 @@
         <div class="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300 mb-4">
           <Icon name="heroicons:rectangle-stack" class="!w-10 !h-10 !text-primary" />
         </div>
-        <h2 class="card-title text-2xl mb-2">Projects</h2>
+        <p class="card-title text-2xl mb-2 font-bold">Projects</p>
         <p class="text-base-content/70">View all my projects</p>
       </div>
     </NuxtLink>
@@ -23,7 +23,7 @@
         <div class="p-4 rounded-full bg-secondary/10 group-hover:bg-secondary/20 transition-colors duration-300 mb-4">
           <Icon name="heroicons:building-office" class="!w-10 !h-10 !text-secondary" />
         </div>
-        <h2 class="card-title text-2xl mb-2">Companies</h2>
+        <p class="card-title text-2xl mb-2 font-bold">Companies</p>
         <p class="text-base-content/70">See companies I've worked with</p>
       </div>
     </NuxtLink>
@@ -32,7 +32,7 @@
         <div class="p-4 rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors duration-300 mb-4">
           <Icon name="heroicons:code-bracket" class="!w-10 !h-10 !text-accent" />
         </div>
-        <h2 class="card-title text-2xl mb-2">Technologies</h2>
+        <p class="card-title text-2xl mb-2 font-bold">Technologies</p>
         <p class="text-base-content/70">Browse by technologies</p>
       </div>
     </NuxtLink>
