@@ -6,7 +6,8 @@
         <NuxtLink
           v-if="isAuthenticated"
           to="/projects/new"
-          class="flex h-6 w-6 items-center justify-center rounded-full border border-dashed border-base-content/30"
+          class="flex h-11 w-11 items-center justify-center rounded-full border border-dashed border-base-content/30"
+          aria-label="Create new project"
         >
           <Icon name="mdi:plus" />
         </NuxtLink>

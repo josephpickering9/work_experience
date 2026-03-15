@@ -110,7 +110,7 @@ defineEmits<{
 
 <style scoped>
 .mobile-menu {
-  height: calc(100vh - 64px);
+  height: calc(100dvh - 4rem);
 }
 
 @keyframes slideInRight {
