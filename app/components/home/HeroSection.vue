@@ -50,3 +50,28 @@ const linkedInUrl = computed((): string => {
   return runtimeConfig.public.linkedInUrl ?? 'https://www.linkedin.com/in/josephpickering'
 })
 </script>
+
+<style scoped>
+.social-linkedin :deep(svg),
+.social-github :deep(svg),
+.social-cv :deep(svg),
+.social-email :deep(svg) {
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.social-linkedin:hover :deep(svg) {
+  transform: scale(1.2) translateY(-2px);
+}
+
+.social-github:hover :deep(svg) {
+  transform: rotate(-15deg) scale(1.15);
+}
+
+.social-cv:hover :deep(svg) {
+  transform: translateY(-3px) scale(1.1);
+}
+
+.social-email:hover :deep(svg) {
+  transform: rotate(8deg) scale(1.1);
+}
+</style>
