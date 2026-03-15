@@ -1,26 +1,26 @@
 <template>
-  <div class="text-center space-y-4 animate-fade-in-up max-w-3xl">
-    <div class="avatar mb-2">
+  <div class="text-center space-y-4 max-w-3xl">
+    <div class="avatar mb-2 animate-fade-in-up" style="animation-delay: 0ms">
       <div class="w-32 rounded-full shadow-xl ring ring-primary ring-offset-base-100 ring-offset-2">
         <NuxtImg src="/profile.png" alt="Joseph Pickering" placeholder format="webp" />
       </div>
     </div>
-    
+
     <div class="space-y-4">
-      <h1 class="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent pb-2">
+      <h1 class="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent pb-2 animate-fade-in-up" style="animation-delay: 120ms">
         Joseph Pickering
       </h1>
-      <p class="text-xl md:text-2xl font-medium text-base-content/80">
+      <p class="text-xl md:text-2xl font-medium text-base-content/80 animate-fade-in-up" style="animation-delay: 220ms">
         Full Stack Developer
       </p>
-       <p class="text-lg text-base-content/70 leading-relaxed max-w-2xl mx-auto">
-          I'm a passionate developer building cleaner, faster, and more intuitive applications. 
-          My journey spans from <span class="font-semibold text-primary">Vue, React &amp; TypeScript</span> to <span class="font-semibold text-secondary">.NET, C# &amp; Kotlin</span>. 
-          I love solving complex problems and turning ideas into reality.
+      <p class="text-lg text-base-content/70 leading-relaxed max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 320ms">
+        I'm a passionate developer building cleaner, faster, and more intuitive applications.
+        My journey spans from <span class="font-semibold text-primary">Vue, React &amp; TypeScript</span> to <span class="font-semibold text-secondary">.NET, C# &amp; Kotlin</span>.
+        I love solving complex problems and turning ideas into reality.
       </p>
     </div>
 
-    <div class="flex justify-center gap-4 pt-4">
+    <div class="flex justify-center gap-4 pt-4 animate-fade-in-up" style="animation-delay: 420ms">
       <Tooltip text="LinkedIn" position="bottom">
         <a :href="linkedInUrl" target="_blank" aria-label="LinkedIn profile" class="btn btn-circle btn-lg btn-ghost hover:text-[#0077b5] hover:bg-[#0077b5]/10 transition-colors">
           <Icon name="mdi:linkedin" class="!w-6 !h-6" />

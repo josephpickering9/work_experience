@@ -175,7 +175,8 @@ onUnmounted(() => {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+  animation: fadeInUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 @keyframes shake {
