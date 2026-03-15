@@ -6,7 +6,7 @@
         <NuxtLink
           v-if="isAuthenticated"
           to="/projects/new"
-          class="flex h-6 w-6 items-center justify-center rounded-full border border-dashed border-gray-300"
+          class="flex h-6 w-6 items-center justify-center rounded-full border border-dashed border-base-content/30"
         >
           <Icon name="mdi:plus" />
         </NuxtLink>

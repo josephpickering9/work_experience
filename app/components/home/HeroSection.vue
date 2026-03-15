@@ -7,7 +7,7 @@
     </div>
 
     <div class="space-y-4">
-      <h1 class="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent pb-2 animate-fade-in-up" style="animation-delay: 120ms">
+      <h1 class="text-5xl md:text-7xl font-extrabold text-base-content pb-2 animate-fade-in-up" style="animation-delay: 120ms">
         Joseph Pickering
       </h1>
       <p class="text-xl md:text-2xl font-medium text-base-content/80 animate-fade-in-up" style="animation-delay: 220ms">
@@ -22,7 +22,7 @@
 
     <div class="flex justify-center gap-4 pt-4 animate-fade-in-up" style="animation-delay: 420ms">
       <Tooltip text="LinkedIn" position="bottom">
-        <a :href="linkedInUrl" target="_blank" aria-label="LinkedIn profile" class="btn btn-circle btn-lg btn-ghost hover:text-[#0077b5] hover:bg-[#0077b5]/10 transition-colors">
+        <a :href="linkedInUrl" target="_blank" aria-label="LinkedIn profile" class="btn btn-circle btn-lg btn-ghost hover:text-[var(--color-linkedin)] hover:bg-[var(--color-linkedin)]/10 transition-colors">
           <Icon name="mdi:linkedin" class="!w-6 !h-6" />
         </a>
       </Tooltip>

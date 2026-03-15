@@ -40,9 +40,9 @@
             :href="linkedInUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn btn-outline border-base-content/10 hover:bg-[#0077b5] hover:border-[#0077b5] hover:text-white justify-start gap-4 normal-case text-base font-normal"
+            class="btn btn-outline border-base-content/10 hover:bg-[var(--color-linkedin)] hover:border-[var(--color-linkedin)] hover:text-white justify-start gap-4 normal-case text-base font-normal"
           >
-            <Icon name="mdi:linkedin" size="1.5em" class="text-[#0077b5] group-hover:text-white" />
+            <Icon name="mdi:linkedin" size="1.5em" class="text-[var(--color-linkedin)] group-hover:text-white" />
             <span>LinkedIn</span>
             <Icon name="heroicons:arrow-top-right-on-square" class="ml-auto w-4 h-4 opacity-50" />
           </a>
@@ -51,9 +51,9 @@
           <a
             href="/Joseph Pickering CV.pdf"
             download="Joseph-Pickering-CV"
-            class="btn btn-outline border-base-content/10 hover:bg-[#FF5722] hover:border-[#FF5722] hover:text-white justify-start gap-4 normal-case text-base font-normal mt-2"
+            class="btn btn-outline border-base-content/10 hover:bg-secondary hover:border-secondary hover:text-white justify-start gap-4 normal-case text-base font-normal mt-2"
           >
-            <Icon name="mdi:file-pdf" size="1.5em" class="text-[#FF5722] group-hover:text-white" />
+            <Icon name="mdi:file-pdf" size="1.5em" class="text-secondary group-hover:text-white" />
             Download CV
             <Icon name="heroicons:arrow-down-tray" class="ml-auto w-4 h-4 opacity-50" />
           </a>

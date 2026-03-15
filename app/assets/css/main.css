@@ -161,10 +161,14 @@ body {
   margin-bottom: 0.35rem;
 }
 
-/* ─── Animation easing tokens ─────────────────────────────────────────────── */
+/* ─── Design tokens ───────────────────────────────────────────────────────── */
 :root {
+  /* Animation easing */
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* External service brand colors — intentionally hard-coded, never theme-dependent */
+  --color-linkedin: #0077b5;
 }
 
 /* ─── Entrance animation ──────────────────────────────────────────────────── */
