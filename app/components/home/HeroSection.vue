@@ -20,34 +20,29 @@
       </p>
     </div>
 
-    <div class="flex justify-center gap-4 pt-4 animate-fade-in-up" style="animation-delay: 420ms">
-      <Tooltip text="LinkedIn" position="bottom">
-        <a :href="linkedInUrl" target="_blank" aria-label="LinkedIn profile" class="btn btn-circle btn-lg btn-ghost hover:text-[var(--color-linkedin)] hover:bg-[var(--color-linkedin)]/10 transition-colors">
-          <Icon name="mdi:linkedin" class="!w-6 !h-6" />
-        </a>
-      </Tooltip>
-      <Tooltip text="GitHub" position="bottom">
-        <a href="https://github.com/josephpickering9" target="_blank" aria-label="GitHub profile" class="btn btn-circle btn-lg btn-ghost hover:text-base-content hover:bg-base-content/10 transition-colors">
-          <Icon name="mdi:github" class="!w-6 !h-6" />
-        </a>
-      </Tooltip>
-      <Tooltip text="Download CV" position="bottom">
-        <a href="/Joseph Pickering CV.pdf" download="Joseph Pickering CV" class="btn btn-circle btn-lg btn-ghost hover:text-secondary hover:bg-secondary/10 transition-colors" aria-label="Download CV">
-          <Icon name="mdi:file-document-outline" class="!w-6 !h-6" />
-        </a>
-      </Tooltip>
-      <Tooltip text="Email Me" position="bottom">
-        <a href="mailto:josephpickering9@gmail.com" aria-label="Send email" class="btn btn-circle btn-lg btn-ghost hover:text-primary hover:bg-primary/10 transition-colors">
-          <Icon name="heroicons:envelope" class="!w-6 !h-6" />
-        </a>
-      </Tooltip>
+    <div class="flex flex-wrap justify-center gap-3 pt-4 animate-fade-in-up" style="animation-delay: 420ms">
+      <a :href="linkedInUrl" target="_blank" aria-label="LinkedIn profile" class="btn btn-ghost btn-sm rounded-full gap-2 hover:text-[var(--color-linkedin)] hover:bg-[var(--color-linkedin)]/10 transition-colors">
+        <Icon name="mdi:linkedin" class="!w-4 !h-4" />
+        LinkedIn
+      </a>
+      <a href="https://github.com/josephpickering9" target="_blank" aria-label="GitHub profile" class="btn btn-ghost btn-sm rounded-full gap-2 hover:text-base-content hover:bg-base-content/10 transition-colors">
+        <Icon name="mdi:github" class="!w-4 !h-4" />
+        GitHub
+      </a>
+      <a href="/Joseph Pickering CV.pdf" download="Joseph Pickering CV" aria-label="Download CV" class="btn btn-ghost btn-sm rounded-full gap-2 hover:text-secondary hover:bg-secondary/10 transition-colors">
+        <Icon name="mdi:file-document-outline" class="!w-4 !h-4" />
+        Download CV
+      </a>
+      <a href="mailto:josephpickering9@gmail.com" aria-label="Send email" class="btn btn-ghost btn-sm rounded-full gap-2 hover:text-primary hover:bg-primary/10 transition-colors">
+        <Icon name="heroicons:envelope" class="!w-4 !h-4" />
+        Email Me
+      </a>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import Tooltip from '~/components/ui/tooltip/Tooltip.vue'
 
 const runtimeConfig = useRuntimeConfig()
 
