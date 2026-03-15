@@ -6,7 +6,7 @@
           <ThemeController variant="menu-item" />
         </li>
 
-        <li role="separator" class="divider my-4 animate-menu-item" style="animation-delay: 150ms" />
+        <li role="separator" class="divider h-px my-4 animate-menu-item" style="animation-delay: 150ms" />
 
         <li class="animate-menu-item" style="animation-delay: 200ms">
           <NuxtLink to="/search" class="active:bg-primary/10 active:text-primary flex items-center gap-4" @click="$emit('close')">
@@ -33,7 +33,7 @@
           </NuxtLink>
         </li>
 
-        <li role="separator" class="divider my-4 animate-menu-item" style="animation-delay: 400ms" />
+        <li role="separator" class="divider h-px my-4 animate-menu-item" style="animation-delay: 400ms" />
 
         <li class="animate-menu-item" style="animation-delay: 450ms">
           <a
@@ -67,7 +67,7 @@
         </li>
 
         <ClientOnly>
-          <li role="separator" class="divider my-4 animate-menu-item" style="animation-delay: 600ms" />
+          <li role="separator" class="divider h-px my-4 animate-menu-item" style="animation-delay: 600ms" />
 
           <li v-if="isAuthenticated" class="animate-menu-item" style="animation-delay: 650ms">
             <button type="button" class="btn btn-ghost bg-base-200 justify-start gap-4 normal-case text-base font-normal" @click="$emit('optimiseImages')">
