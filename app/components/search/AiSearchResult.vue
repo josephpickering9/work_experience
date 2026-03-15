@@ -38,7 +38,7 @@
                   <Icon name="heroicons:arrow-path" class="w-4 h-4" />
                   Ask another question
                 </button>
-                <button class="btn btn-sm btn-ghost rounded-full transition-all duration-200" :title="copied ? 'Copied!' : 'Copy'" @click="copyToClipboard">
+                <button class="btn btn-sm btn-ghost rounded-full transition-all duration-200" :class="{ 'copy-pulse': copied }" :title="copied ? 'Copied!' : 'Copy'" @click="copyToClipboard">
                   <Icon :name="copied ? 'heroicons:check' : 'heroicons:clipboard'" class="w-4 h-4" :class="copied ? 'text-success' : ''" />
                 </button>
               </div>
@@ -192,5 +192,15 @@ onUnmounted(() => {
 
 .animate-shake {
   animation: shake 0.4s ease-in-out;
+}
+
+@keyframes copy-bounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.copy-pulse {
+  animation: copy-bounce 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 }
 </style>
