@@ -130,7 +130,6 @@ function typeAnswer(text: string) {
 
   if (typeInterval) clearInterval(typeInterval)
 
-  // Batch 4 chars per 30ms tick — same perceived speed, ~75% fewer markdown parses
   const CHARS_PER_TICK = 4
   const TICK_MS = 30
 
