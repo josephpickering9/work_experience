@@ -18,7 +18,7 @@
         <span v-if="dateRange && duration" class="text-base-content/40">•</span>
         <p v-if="duration" class="m-0">{{ duration }}</p>
       </div>
-      <div class="prose prose-lg max-w-none pb-2 italic" v-html="company.description" />
+      <div class="prose max-w-none pb-2 italic" v-html="company.description" />
     </div>
     <FormButton
       v-if="isAuthenticated"
