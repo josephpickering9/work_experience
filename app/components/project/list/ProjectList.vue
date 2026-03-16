@@ -4,6 +4,7 @@
     title="Projects"
     :loading="loading"
     :is-empty="filteredProjects.length === 0"
+    description="A collection of projects I have worked on over the years"
     empty-title="No projects found"
     :max-width="maxWidth"
   >
