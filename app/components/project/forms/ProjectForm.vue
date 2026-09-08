@@ -106,8 +106,13 @@ async function validate(tab: number): Promise<boolean> {
 }
 
 async function save() {
-  const isValid = await validate(activeTab.value)
-  if (!isValid) return
+  for (let tab = 0; tab < 4; tab++) {
+    const isValid = await validate(tab)
+    if (!isValid) {
+      activeTab.value = tab
+      return
+    }
+  }
 
   let response: Project | undefined
 
