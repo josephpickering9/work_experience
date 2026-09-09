@@ -32,6 +32,7 @@ logs
 
 .vscode
 
-.claude
+.claude/*
+!.claude/skills/
 .agents
 skills-lock.json
