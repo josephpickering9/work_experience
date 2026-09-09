@@ -21,7 +21,10 @@ already exists and what could kill this idea, not a pitch for it.
 Use WebSearch and WebFetch. Run at least eight distinct searches, and open at least
 four pages beyond the search results (competitor pricing pages, review sites, forum
 threads, market reports). Listicles are a starting point, not evidence: follow them to
-the product's own site to confirm pricing and positioning.
+the product's own site to confirm pricing and positioning. If page fetches are blocked
+in your environment, say so in `confidence_rationale`, run extra searches targeted at
+pricing pages (`"<product> pricing"`, `site:` queries) to compensate, and cap your
+confidence at `medium`.
 
 1. **Existing products.** Find the five to eight closest products or services. For
    each: name, URL, pricing (actual numbers for the main paid tier; if pricing is hidden
