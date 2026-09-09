@@ -56,7 +56,7 @@
                 label="Desktop Images"
                 :disabled="loading"
                 :multiple="true"
-                @update:file="desktop = $event"
+                @update:image-files="desktopFiles = $event"
               />
             </FormGroup>
 
@@ -66,7 +66,7 @@
                 label="Mobile Images"
                 :disabled="loading"
                 :multiple="true"
-                @update:file="mobile = $event"
+                @update:image-files="mobileFiles = $event"
               />
             </FormGroup>
           </div>
@@ -120,8 +120,8 @@ const v$ = useVuelidate()
 const tabs = ['Banner', 'Logo', 'Card', 'Gallery']
 const activeTab = ref(0)
 const form = ref<CreateProject>(props.modelValue)
-const desktop = ref<FileList | null>(null)
-const mobile = ref<FileList | null>(null)
+const desktopFiles = ref<Record<string, File>>({})
+const mobileFiles = ref<Record<string, File>>({})
 const logo = ref<FileList | null>(null)
 const banner = ref<FileList | null>(null)
 const card = ref<FileList | null>(null)
@@ -148,6 +148,21 @@ const bannerStyle = computed((): StyleValue => {
   }
 })
 
+function buildOrderedImages(urls: string[], files: Record<string, File>, type: ImageType): CreateProjectImage[] {
+  return urls
+    .map((url, index): CreateProjectImage | null => {
+      const order = index + 1
+      const newFile = files[url]
+      if (newFile) return { type, image: newFile, order }
+
+      const existing = project.value?.images.find(
+        (image) => image.type === type && getImageUrl(image.image) === url,
+      )
+      return existing ? { id: existing.id, type, order } : null
+    })
+    .filter((image): image is CreateProjectImage => image !== null)
+}
+
 const createProjectImageValue = computed((): CreateProjectImage[] => {
   const images: CreateProjectImage[] = []
 
@@ -169,41 +184,8 @@ const createProjectImageValue = computed((): CreateProjectImage[] => {
     images.push({ id: project.value.card.id, type: ImageType.CARD })
   }
 
-  if (desktop.value?.length) {
-    for (let i = 0; i < desktop.value.length; i++) {
-      images.push({ type: ImageType.DESKTOP, image: desktop.value.item(i) as Blob })
-    }
-  }
-  const desktops = project.value?.images.filter(
-    (image) => image.type === ImageType.DESKTOP && desktopUrls.value.includes(getImageUrl(image.image)),
-  )
-  if (desktops) {
-    desktops.forEach((image) =>
-      images.push({
-        id: image.id,
-        type: ImageType.DESKTOP,
-        order: desktopUrls.value.indexOf(getImageUrl(image.image)) + 1,
-      }),
-    )
-  }
-
-  if (mobile.value?.length) {
-    for (let i = 0; i < mobile.value.length; i++) {
-      images.push({ type: ImageType.MOBILE, image: mobile.value.item(i) as Blob })
-    }
-  }
-  const mobiles = project.value?.images.filter(
-    (image) => image.type === ImageType.MOBILE && mobileUrls.value.includes(getImageUrl(image.image)),
-  )
-  if (mobiles) {
-    mobiles.forEach((image) =>
-      images.push({
-        id: image.id,
-        type: ImageType.MOBILE,
-        order: mobileUrls.value.indexOf(getImageUrl(image.image)) + 1,
-      }),
-    )
-  }
+  images.push(...buildOrderedImages(desktopUrls.value, desktopFiles.value, ImageType.DESKTOP))
+  images.push(...buildOrderedImages(mobileUrls.value, mobileFiles.value, ImageType.MOBILE))
 
   return images
 })
@@ -252,7 +234,7 @@ watch(form, (newValue) => {
   emit('update:modelValue', newValue)
 }, { deep: true })
 
-watch([logo, banner, card, desktop, mobile, desktopUrls, mobileUrls], () => {
+watch([logo, banner, card, desktopFiles, mobileFiles, desktopUrls, mobileUrls], () => {
   form.value.images = createProjectImageValue.value
 })
 </script>
