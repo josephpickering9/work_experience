@@ -1,0 +1,317 @@
+{
+  "id": "couples-habit-tracker",
+  "name": "Couples habit tracker",
+  "one_liner": "Shared goals, joint streaks and partner nudges for two people in a relationship.",
+  "target_customer": "Cohabiting or long-distance couples aged roughly 20-40 who already use (or have abandoned) a solo habit tracker and want mutual accountability for routines such as exercise, saving, chores, sleep or screen-time; one partner buys, both use.",
+  "existing_products": [
+    {
+      "name": "PairHabit",
+      "url": "https://pairhabit.app/",
+      "pricing": "Free tier (3 habits, 1 reward stake); Premium $4.99/month or $39.99/year, one subscription covers both partners (from App Store listing snippet; site itself could not be opened).",
+      "positioning": "Couples habit tracker built around 5-minute daily rituals, shared streaks that belong to the couple, and reward stakes.",
+      "strengths": "Exactly the pitch of this idea: shared (not solo) streaks, lock-screen check-ins, couple-wide subscription. Clear, narrow positioning.",
+      "weaknesses": "Very new (App Store id 6759855681 implies a 2026 release), no visible review volume or press; feature set is thin and easily replicated.",
+      "traction_signal": "No public download, rating-count or revenue figures found; iOS-only listing seen. Launched within the last 12 months.",
+      "type": "direct"
+    },
+    {
+      "name": "Cutest Couple: Habit Tracker",
+      "url": "https://apps.apple.com/us/app/cutest-couple-habit-tracker/id6755106578",
+      "pricing": "Freemium; premium advertised at $4.99/month (some reviewers report being charged $5.98). Annual price not confirmed.",
+      "positioning": "Gamified couple habit tracker with a dating-app aesthetic: joint streaks, coins earned together, love-language and attachment-style quizzes.",
+      "strengths": "Polished design praised in reviews; combines habit tracking with relationship quizzes so it doubles as a couples app; on both iOS and Google Play.",
+      "weaknesses": "Reviews include 'scam app' complaints over billing discrepancies; game layer described as wearing thin and 'saccharine' for long-married couples.",
+      "traction_signal": "Listed on iOS and Android; mixed reviews; Google Play download bracket could not be retrieved. Released 2025-26 based on App Store id range.",
+      "type": "direct"
+    },
+    {
+      "name": "Cooked: Couple Habit Tracker",
+      "url": "https://apps.apple.com/us/app/cooked-couple-habit-tracker/id6770724720",
+      "pricing": "Hidden: in-app purchase prices could not be retrieved (App Store page blocked); listing implies freemium.",
+      "positioning": "Private wall for two where every check-in, milestone and streak posts and partners can react and reply.",
+      "strengths": "Social-feed framing (react/reply) is a slightly different take on accountability than a grid of ticks.",
+      "weaknesses": "Listed as of July 2026 so has no track record; no reviews found; single-platform.",
+      "traction_signal": "None found; launched July 2026.",
+      "type": "direct"
+    },
+    {
+      "name": "Habi",
+      "url": "https://habi.app/insights/best-couple-apps/",
+      "pricing": "Free with unlimited core features and streak protection; Pro from $1.99 (per comparison-site snippet; billing period not confirmed).",
+      "positioning": "Habit tracker plus focus timer, screen-time limits and shared projects with nudge notifications, marketed heavily to couples via SEO content.",
+      "strengths": "Founders with Microsoft, Life360, YC and Amazon backgrounds; aggressive content marketing already ranks for 'best couple apps', 'accountability apps', 'Habitica alternatives'.",
+      "weaknesses": "Launched early 2026; partners track habits independently rather than sharing a single streak; broad feature set may dilute focus.",
+      "traction_signal": "Launched early 2026; Capterra listing exists; no user or revenue numbers found.",
+      "type": "direct"
+    },
+    {
+      "name": "HabitShare",
+      "url": "https://habitshareapp.com/",
+      "pricing": "100% free, no paid tier.",
+      "positioning": "Social habit tracker: track habits with friends (or a partner) for accountability, with per-habit privacy controls and gif reactions.",
+      "strengths": "Long-standing (App Store id from 2015), 4.5 iOS / 4.4 Android ratings, roughly 410k downloads reported; free, so the obvious first thing a couple tries.",
+      "weaknesses": "No web/desktop version; useless without an existing accountability partner; updates and design described as dated; no couple-specific shared streak.",
+      "traction_signal": "Approximately 410k downloads (aggregator estimate), 100k+ on Google Play, 4.5-star iOS rating.",
+      "type": "indirect"
+    },
+    {
+      "name": "Habitica",
+      "url": "https://habitica.com/",
+      "pricing": "Free core app; optional subscription $4.99/month, $14.99/3 months, $29.99/6 months, $47.99/year; group plans for parties.",
+      "positioning": "RPG-gamified habit tracker where a party (which can be a couple) shares quests and takes damage when members miss habits.",
+      "strengths": "Over 900k users, open source, web + iOS + Android, mature community and party system usable by two people at no cost.",
+      "weaknesses": "Steep learning curve; users report spending more time managing Habitica than habits; punishment mechanic hurts the partner and creates guilt spirals; accountability evaporates when the party goes quiet.",
+      "traction_signal": "900k+ users as of 2026; established since 2013.",
+      "type": "indirect"
+    },
+    {
+      "name": "Paired",
+      "url": "https://www.paired.com/",
+      "pricing": "Freemium; Premium about $6.99/month billed annually (~$83.99/year); one premium unlocks both partners.",
+      "positioning": "The #1 couples relationship app: daily questions, quizzes, courses and date ideas to make connection a daily habit.",
+      "strengths": "8 million downloads, 100k+ daily active couples, $7.3M raised, Apple App of the Day (Aug 2026); owns the couples-app category and the two-account linking pattern.",
+      "weaknesses": "Not a habit tracker: no shared goals or streak mechanics for real-world habits; reviewers say it is not worth it if one partner will not engage; criticised for being prompts rather than help.",
+      "traction_signal": "Sensor Tower estimates ~90k monthly iOS downloads and ~$200k monthly US iOS revenue plus ~$100k on Google Play (Dec 2025); total funding $7.32M.",
+      "type": "indirect"
+    },
+    {
+      "name": "Finch",
+      "url": "https://finchcare.com/",
+      "pricing": "Free core app; Finch Plus $9.99/month or $69.99/year (friends goal-sharing is a premium feature).",
+      "positioning": "Self-care pet app where daily goals grow a bird; 'buddy up on a goal' with friends who see progress and send encouragement.",
+      "strengths": "4.9 stars from ~737k US App Store ratings, ~$2M monthly revenue and ~$30M ARR bootstrapped; already has a friend/buddy goal mechanic many couples use.",
+      "weaknesses": "Buddy goals are a side feature, not a couples product; heavy gamification is polarising for adults.",
+      "traction_signal": "~400k monthly downloads and ~$2M monthly revenue (Sensor Tower estimate, April 2026); ~$30M ARR without VC.",
+      "type": "indirect"
+    },
+    {
+      "name": "Notion couples habit tracker templates",
+      "url": "https://www.notion.com/templates/daily-couples-habit-tracker-his-her-habits-progress-cha",
+      "pricing": "Free and paid templates on Notion Marketplace and Etsy; typical Etsy Notion habit templates sell for a few dollars one-off.",
+      "positioning": "'His/Her' shared habit grids and 'Companion' trackers for two or more people inside Notion.",
+      "strengths": "Zero-cost, fully customisable, no new app to convince a partner to install.",
+      "weaknesses": "No push nudges, no streak logic without formulas, manual upkeep; evidence that Etsy sellers complain of low buyer volume for habit templates.",
+      "traction_signal": "Multiple couples-specific templates exist on Notion Marketplace and Etsy; no sales figures available.",
+      "type": "substitute"
+    }
+  ],
+  "demand_signals": [
+    "At least a dozen couples-specific habit apps have shipped in the last 18 months (PairHabit, Cutest Couple, Cooked, BetterUs, Couple Goal Tracker, Couple Habits, Couple Habits Tracker, Habit Huddle, Streakmate, TinyAct, Twin Flame Widget, Aura's couples landing page) - strong evidence builders see demand, weak evidence that any of them found it.",
+    "Content-marketing pages titled 'habit tracker for couples' from HabitBox, Habit Huddle, Flamme, Calmevo, Aura and Habi indicate the keyword is worth chasing for SEO; no absolute search-volume number could be retrieved.",
+    "Couples already improvise with general tools: Notion 'his/her' habit templates on Notion Marketplace and Etsy, HabitShare friend sharing, Habitica parties, Finch buddy goals.",
+    "Willingness to pay for couple-wide subscriptions is proven adjacent to this idea: Paired at ~$84/year with ~$300k/month estimated revenue, Cupla ~$44.99/year per couple.",
+    "Cited complaints about incumbents: Habitica's punishment mechanics create guilt between party members; HabitShare has no couple-specific streak and no desktop app; Cutest Couple has billing complaints and novelty fade.",
+    "Counter-signal: comparison articles recommend most couples use two solo trackers and a weekly check-in rather than a shared app, and habit apps are widely reported as abandoned within a week."
+  ],
+  "market": {
+    "size_estimate": "Parent market: habit-tracking apps valued at roughly $1.1-1.9B in 2025 across aggregator reports (Straits Research $1.94B; 360 Research Reports $1.15B). Couples-habit sub-segment (own estimate): ~10-15M English-speaking couples who would try a shared habit app, ~3-5% converting at ~$40/year = roughly $15-30M/year addressable revenue, of which a solo entrant could realistically capture a low six-figure ARR.",
+    "sizing_method": "Top-down from aggregator market reports for habit-tracking apps (low-quality sources, wide variance), cross-checked bottom-up against comparable revenue: Paired ~$3.6M/year estimated, Finch ~$30M ARR, HabitKit (solo dev) $15-30k/month.",
+    "growth": "Growing: reports cite 13-15% CAGR for habit apps; couples-app category leader Paired hit 8M downloads and Apple App of the Day in Aug 2026; the count of new couples-habit apps roughly doubled in 2025-26. Drivers are wellness-app spending and TikTok/Instagram couple-goals culture; headwind is chronic habit-app churn.",
+    "is_own_estimate": true
+  },
+  "monetisation": {
+    "payer": "One partner in the couple, typically the one who initiates; the subscription unlocks both accounts.",
+    "model": "Freemium consumer subscription with a couple-wide plan (monthly and annual), possibly a lifetime tier as indie habit apps (HabitKit) do.",
+    "price_point": "$4.99/month or $39.99/year per couple, matching PairHabit, Cutest Couple and Habitica; $60-90/year is only defensible with Paired-style content.",
+    "comparable_pricing": "PairHabit $4.99/mo or $39.99/yr; Cutest Couple $4.99/mo; Habitica $4.99/mo or $47.99/yr; Finch $9.99/mo or $69.99/yr; Paired ~$83.99/yr; Cupla $4.99/mo or $44.99/yr; HabitShare and SnapHabit free.",
+    "acquisition_and_serving_costs": "Serving is cheap (a small backend plus push notifications), but Apple/Google take 15-30% of subscriptions; two-sided onboarding means every conversion needs a second person to install and engage, which roughly halves activation; habit apps are abandoned within a week by most users so annual plans and streak-loss mechanics are needed to hold revenue; paid UA in the habit category competes with Finch, Habitica and dozens of newcomers."
+  },
+  "build": {
+    "mvp_scope": "Account creation with partner pairing via invite link; shared and individual habits with daily/weekly schedules; joint streak that requires both check-ins; push (and web push) nudges when one partner has not checked in; a simple reaction/note per check-in; basic stats; couple-wide subscription via app-store IAP or Stripe on web; PWA first, then native wrappers (Capacitor) for store presence.",
+    "effort_estimate": "8-12 weeks of evenings and weekends for a Nuxt/Vue full-stack developer to a web/PWA MVP with Stripe; another 4-8 weeks to wrap for iOS/Android, wire RevenueCat-style IAP and pass store review. Roughly 3-5 months to a store-listed, sellable product.",
+    "dependencies": [
+      {
+        "name": "Apple App Store and Google Play distribution and in-app purchase (15-30% fee, review process)",
+        "access_risk": "medium"
+      },
+      {
+        "name": "Push notification services (APNs, FCM, Web Push)",
+        "access_risk": "low"
+      },
+      {
+        "name": "Stripe or RevenueCat for subscription billing",
+        "access_risk": "low"
+      },
+      {
+        "name": "Auth provider (Auth0/Firebase/Supabase) and hosted database",
+        "access_risk": "low"
+      }
+    ]
+  },
+  "distribution_channels": [
+    "App Store / Google Play ASO on 'couples habit tracker' and 'habit tracker for two' - reachable but now contested by 10+ near-identical apps launched in 2025-26 and by Habi's content team.",
+    "SEO comparison content ('best habit tracker for couples', 'Habitica alternatives for couples') - already saturated by HabitBox, Habit Huddle, Calmevo, Habi, Flamme and Aura, each pushing its own app.",
+    "Reddit (r/getdisciplined, r/productivity, r/LongDistance, r/relationship_advice) and Hacker News 'Show HN' - moderate reach; self-promotion rules limit repeat posting.",
+    "TikTok/Instagram couple-goals and 'we did X together for 30 days' content - the channel most likely to produce a spike, but requires on-camera couples, which a solo dev without an audience must recruit.",
+    "Product Hunt launch and indie-hacker build-in-public (the route HabitKit used to reach $15k/month) - one-off spike plus long-tail credibility.",
+    "Partnerships with couples-therapy content creators, wedding/newlywed newsletters and long-distance-relationship communities - untested, low cost."
+  ],
+  "differentiation_angles": [
+    "Web-first with a real desktop/web app: HabitShare, PairHabit and Cutest Couple are mobile-only, and a full-stack web founder can ship browser, PWA and widgets that mobile-first indies neglect - a UX difference, not a moat.",
+    "Adult, non-cute positioning (chores, money, sleep, screen time) for long-term partners who find Cutest Couple 'saccharine' and Habitica juvenile.",
+    "Joint streak with asymmetric forgiveness (one partner can 'cover' the other a limited number of times) to avoid the Habitica guilt-spiral and the all-or-nothing TinyAct streak.",
+    "Money-stake nudges (loser pays for date night) as a lightweight commitment device, already partly done by PairHabit's 'reward stakes'.",
+    "Integration wedge: pull shared calendar/finance data (Cupla-style calendars, bank feeds for savings goals) so habits auto-verify - the only angle here that could compound via data, but it adds dependency risk."
+  ],
+  "kill_risks": [
+    "The niche is already saturated at the indie level: check the App Store for 'couple habit' and count the apps with 2025-26 ids (PairHabit 6759855681, Cutest Couple 6755106578, Cooked 6770724720, Couple Habits Tracker 6761107839, TinyAct 6758723462); if none has passed ~1k ratings by early 2027 the demand is thinner than the supply of builders.",
+    "Two-sided onboarding: verify with a landing-page test whether partner-invite acceptance exceeds ~50%; couples-app reviewers repeatedly say Paired is worthless if one partner will not engage.",
+    "Free substitutes are good enough: HabitShare (free, 410k downloads, 4.5 stars), SnapHabit (free), Habitica parties (free) and Notion templates cover the core use case at zero cost.",
+    "Incumbent copy: Paired (8M downloads, funded) or Finch (~$30M ARR, already has 'buddy up on a goal') could add a couples-goal streak in one release; watch Paired's 2026-27 changelog for goals/habits features.",
+    "Habit-app churn: comparison articles and indie post-mortems say most habit apps are abandoned within a week; HabitKit's revenue halves from January to summer, so annual revenue must be modelled on seasonal, high-churn subscriptions.",
+    "Platform take rate and review: 15-30% store commission on a $40/year product leaves ~$28-34 per couple per year, which does not cover paid acquisition in this category."
+  ],
+  "recent_moves": [
+    "Habi launched early 2026 with couples shared projects and nudge notifications, backed by ex-Microsoft/Life360/YC founders, and is running an SEO content programme targeting couples and Habitica-alternative keywords.",
+    "Paired named Apple App of the Day (August 2026) and passed 8M downloads; no shared-habit feature announced, but it owns the couples-app audience an entrant would need.",
+    "Finch continued growth to ~$2M/month (April 2026 estimate) with friend goal-sharing gated behind its $69.99/year plan.",
+    "Cooked: Couple Habit Tracker (July 2026), PairHabit, Cutest Couple, Streakmate (web, free, iPhone app pending) and TinyAct all launched or relaunched couples-streak products within the last 12 months."
+  ],
+  "scores": {
+    "problem_severity": {
+      "score": 2,
+      "rationale": "Real but mild problem with visible workarounds: couples repurpose HabitShare, Habitica parties, Finch buddies and Notion his/her templates, and a dozen indie apps have been built for it; no evidence of urgency or budgets, and comparison sites even advise two solo trackers plus a weekly chat."
+    },
+    "market_size": {
+      "score": 2,
+      "rationale": "Habit apps are a ~$1-2B market growing ~13-15% and couples apps support several-million-dollar players (Paired ~$3.6M/year estimated, Finch ~$30M ARR), so a small player can reach seven figures in the adjacent space; the couples-habit slice itself looks lifestyle-scale, hence not a 4."
+    },
+    "competition": {
+      "score": 2,
+      "rationale": "Several established players (HabitShare free, Habitica free, Finch with buddy goals, Paired owning the couples audience) plus 10+ near-identical couples-habit apps launched in 2025-26 and a funded 2026 entrant (Habi); the only visible underserved sliver is adult, non-gamified couples who want a web app."
+    },
+    "differentiation": {
+      "score": 1,
+      "rationale": "'Shared goals, streaks and nudges for two' is the literal feature list of PairHabit, Cutest Couple, Cooked and TinyAct; anything proposed here (joint streak, forgiveness, stakes, web app) is a feature-level difference an incumbent could copy in a sprint."
+    },
+    "monetisation": {
+      "score": 3,
+      "rationale": "Clear payer and comparable pricing ($4.99/month or ~$40/year per couple, with Paired proving ~$300k/month of couple-wide subscriptions) but churn is documented as severe in habit apps, free substitutes are strong, and store fees eat 15-30%."
+    },
+    "feasibility": {
+      "score": 3,
+      "rationale": "Standard stack the founder already uses (auth, database, push, Stripe/IAP) but a sellable product needs store-listed mobile apps, two-account pairing and reliable notifications, which is a few months of evenings and weekends rather than weeks."
+    },
+    "distribution": {
+      "score": 2,
+      "rationale": "The channels exist (ASO, SEO comparison posts, Reddit, TikTok, Product Hunt) but 'habit tracker' is described as the most crowded App Store category and the couples keyword is already contested by 10+ apps and Habi's content team; paid UA does not pencil at $40/year."
+    },
+    "founder_fit_and_risk": {
+      "score": 3,
+      "rationale": "Adequate fit: a full-stack web developer can build this, but has no audience, no relationship-domain credibility and no mobile track record; external risks (store take-rate, incumbent copy by Paired/Finch) are real but manageable and not regulatory."
+    }
+  },
+  "confidence": "low",
+  "confidence_rationale": "Every attempt to open a page beyond search results (App Store, Google Play, competitor sites, Sensor Tower, market-report sites, Reddit, Product Hunt) was blocked by the network egress proxy, so all pricing, traction and market figures come from search-result snippets rather than primary pages. Cooked's pricing is hidden, Cutest Couple's annual price and download bracket are unconfirmed, market sizing rests on low-quality aggregator reports plus my own bottom-up estimate, and revenue figures for Paired and Finch are third-party Sensor Tower estimates with 5-25% stated error.",
+  "sources": [
+    {
+      "title": "PairHabit - Couples Habit Tracker App",
+      "url": "https://pairhabit.app/",
+      "used_for": "Direct competitor positioning; pricing ($4.99/mo, $39.99/yr, one subscription per couple) confirmed via its App Store listing snippet"
+    },
+    {
+      "title": "PairHabit - Couples Habits App - App Store",
+      "url": "https://apps.apple.com/us/app/pairhabit-couples-habits/id6759855681",
+      "used_for": "PairHabit pricing tiers and free-tier limits; 2026 App Store id as launch-date proxy"
+    },
+    {
+      "title": "Cutest Couple: Habit Tracker - App Store",
+      "url": "https://apps.apple.com/us/app/cutest-couple-habit-tracker/id6755106578",
+      "used_for": "Direct competitor positioning, $4.99/month premium, billing complaints in reviews"
+    },
+    {
+      "title": "Cooked: Couple Habit Tracker - App Store",
+      "url": "https://apps.apple.com/us/app/cooked-couple-habit-tracker/id6770724720",
+      "used_for": "Direct competitor launched July 2026; private-wall positioning; pricing hidden"
+    },
+    {
+      "title": "Habi - 7 Best Couple Apps in 2026",
+      "url": "https://habi.app/insights/best-couple-apps/",
+      "used_for": "Habi launch (early 2026), founder backgrounds, Pro from $1.99, shared projects and nudges; evidence of SEO competition on couples keywords"
+    },
+    {
+      "title": "HabitShare - A Social Habit Tracker",
+      "url": "https://habitshareapp.com/",
+      "used_for": "Indirect competitor; free pricing; ~410k downloads; 4.5/4.4 ratings; no desktop app weakness"
+    },
+    {
+      "title": "Habitica",
+      "url": "https://habitica.com/",
+      "used_for": "Indirect competitor; subscription tiers ($4.99/mo to $47.99/yr); 900k+ users; party mechanics and complaints"
+    },
+    {
+      "title": "Paired - App For Couples",
+      "url": "https://www.paired.com/",
+      "used_for": "Category leader for couples apps; 8M downloads, 100k+ daily active couples, Apple App of the Day Aug 2026; ~$83.99/yr pricing"
+    },
+    {
+      "title": "Paired announces $3.6 million seed round",
+      "url": "https://www.paired.com/press/paired-announces-dollar36-million-seed-round",
+      "used_for": "Funding history ($4.6M then, $7.32M total per Tracxn) as market-size evidence"
+    },
+    {
+      "title": "Sensor Tower - Paired US App Store overview",
+      "url": "https://app.sensortower.com/overview/1469609343?country=US",
+      "used_for": "Estimated ~90k monthly iOS downloads and ~$200k monthly US iOS revenue (Dec 2025) for Paired"
+    },
+    {
+      "title": "Finch - Self-Care Best Friend",
+      "url": "https://finchcare.com/",
+      "used_for": "Indirect competitor with buddy goals; $9.99/mo or $69.99/yr; ~$2M monthly revenue and ~$30M ARR"
+    },
+    {
+      "title": "Grow Together: Couples Habit Tracker Template - Notion Marketplace",
+      "url": "https://www.notion.com/templates/daily-couples-habit-tracker-his-her-habits-progress-cha",
+      "used_for": "Substitute: couples improvising with Notion templates"
+    },
+    {
+      "title": "Habit Tracker for Couples: 5 Apps That Work for Two (2026) - HabitBox Blog",
+      "url": "https://habitbox.app/blog/habit-tracker-for-couples",
+      "used_for": "Competitor landscape, 'two solo apps plus weekly check-in' advice as a demand counter-signal, Cutest Couple weaknesses"
+    },
+    {
+      "title": "Habitica Alternatives: 8 Apps Matched to Why You Are Leaving (2026) - Habit Huddle",
+      "url": "https://habithuddle.com/blog/habitica-alternatives",
+      "used_for": "Incumbent complaints: Habitica guilt spiral, party accountability evaporating; SnapHabit free and sparse updates"
+    },
+    {
+      "title": "Habit Tracking Apps Market Size, Share, Growth, Analysis, 2034 - Straits Research",
+      "url": "https://straitsresearch.com/report/habit-tracking-apps-market",
+      "used_for": "Top-down market size ($1.94B 2025, 14.2% CAGR) - low-quality aggregator"
+    },
+    {
+      "title": "Habit Tracking App Market Size & Trend - 360 Research Reports",
+      "url": "https://www.360researchreports.com/market-reports/habit-tracking-app-market-211454",
+      "used_for": "Alternative market size ($1.15B 2025, 15.18% CAGR) showing wide variance between reports"
+    },
+    {
+      "title": "How building in public got my habit-tracking mobile app to $15k/mo - Indie Hackers",
+      "url": "https://www.indiehackers.com/post/tech/how-building-in-public-got-my-habit-tracking-mobile-app-to-15k-mo-DCOYyF9O14dBnuGkkaQR",
+      "used_for": "Solo-founder revenue ceiling in habit apps (HabitKit $15-30k/month, seasonal halving) and Product Hunt/build-in-public as a channel"
+    },
+    {
+      "title": "Best Habit Tracker Apps for Your Phone in 2026 - Singularity App",
+      "url": "https://singularity-app.com/blog/best-habit-tracker-apps-for-your-phone/",
+      "used_for": "Claim that habit trackers are the most crowded App Store category and most are abandoned within a week"
+    },
+    {
+      "title": "13 Best Couples Apps in 2026 (Honest Review With Real Prices) - Emira",
+      "url": "https://emira.io/articles/best-couples-apps",
+      "used_for": "Couples-app price band ($60-200/year), Cupla $4.99/mo or $44.99/yr per couple, Couply ~$69.99/yr"
+    },
+    {
+      "title": "Is the Paired App Worth It in 2026? - LoveFix",
+      "url": "https://lovefix.app/resources/apps/is-paired-app-worth-it-2026/",
+      "used_for": "Two-sided engagement risk: Paired 'not worth it if your partner will not use it'"
+    },
+    {
+      "title": "TinyAct - App Store",
+      "url": "https://apps.apple.com/app/tinyact/id6758723462",
+      "used_for": "Another 2026 partner-streak app (both must check in or both lose the streak) showing feature-level parity"
+    }
+  ],
+  "calibration_notes": [
+    "problem_severity: 3 -> 2. Lowered 3 to 2: the rationale says the problem is mild, has no urgency or budget, and that comparison sites advise two solo trackers plus a weekly chat; that is 'people live with it', the anchor-2 wording.",
+    "market_size: 3 -> 2. Lowered 3 to 2: the agent's own conclusion is that the couples-habit slice is lifestyle-scale; the larger figures cited are for the adjacent habit and couples-app markets, not this idea's segment."
+  ]
+}

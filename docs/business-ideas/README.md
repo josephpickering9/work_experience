@@ -26,6 +26,9 @@ Each run creates `docs/business-ideas/<date>-<slug>/` containing:
 | `scores.json` | Weighted totals and per-criterion scores, machine-readable |
 | `research/<idea>.json` | Raw research per idea, including every source used |
 
+A sample run on the three example ideas is in `2026-09-09-example-batch/`; read its
+`report.md` to see what a finished report looks like.
+
 ## Founder profile
 
 Fill in `founder-profile.md` once. It feeds the "founder fit and risk" criterion so the

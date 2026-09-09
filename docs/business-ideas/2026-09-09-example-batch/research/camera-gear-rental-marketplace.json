@@ -1,0 +1,484 @@
+{
+  "id": "camera-gear-rental-marketplace",
+  "name": "Camera gear rental marketplace",
+  "one_liner": "Peer-to-peer lending of camera bodies and lenses between photographers and filmmakers, with damage and theft cover built into every booking.",
+  "target_customer": "Two-sided: (renters) freelance videographers, indie filmmakers, wedding and event photographers and serious hobbyists who need a specific body or lens for a shoot and want it cheaper and more local than Lensrentals; (owners) the same population on days their gear is idle, plus small rental houses using marketplaces as a demand channel.",
+  "existing_products": [
+    {
+      "name": "ShareGrid (Backstage / Cast & Crew)",
+      "url": "https://www.sharegrid.com/",
+      "pricing": "Owner pays a fixed 15% service fee; renter pays a dynamic community fee of typically 10% plus 2.45% + $0.30 card processing. Coverage is mandatory: 'Damage Only' waiver makes the renter liable for 12% of item value on eligible damage (e.g. $180 on a $1,500 item); 'Damage + Theft', Athos short-term and annual insurance are priced at checkout and not published.",
+      "positioning": "Largest US peer-to-peer marketplace for film and photo production gear, local pickup in 100+ US cities plus the UK (absorbed BorrowFox 2019 and KitSplit 2019), with ID verification, an Owner Guarantee and Athos-underwritten insurance.",
+      "strengths": "Category leader since 2013; 150,000+ members; insurance partnership with Athos (specialist entertainment insurer) including voluntary-parting cover; backed since Jan 2022 by Backstage, itself owned by Cast & Crew; deep supply of cinema-grade kit and rental-house listings, not just individuals.",
+      "weaknesses": "Combined take of roughly 25-27% before coverage; owners on forums report rental requests declined and verification friction; coverage pricing opaque until checkout; community fee non-refundable on cancellation; only ~10 employees as of May 2026 per Tracxn, so product velocity is low; effectively US/UK only.",
+      "traction_signal": "Raised ~$1M seed (2016), acquired KitSplit and BorrowFox (2019), acquired by Backstage Jan 2022 (Backstage framed it as entry to a '$10B US production rentals' market). 150,000+ members claimed; Trustpilot only 10 reviews (4 stars); employee count ~10 (Tracxn, May 2026).",
+      "type": "direct"
+    },
+    {
+      "name": "Hygglo (formerly Fat Llama)",
+      "url": "https://hygglo.com/uk/fatllama",
+      "pricing": "After the 24 Nov 2025 brand merge, lender commission 20% + renter fee 10% (Fat Llama previously charged 25% + 25%). Lender Guarantee up to £25,000 per rental in the UK (Fat Llama era figure); protection via Omocom insurance in Nordic markets and a Hygglo Lender Guarantee in UK/US/Canada.",
+      "positioning": "General-purpose 'rent anything' peer-to-peer marketplace (cameras are the largest category) with a lender guarantee; Nordic-founded, operating in Sweden, Norway, Finland, UK, US and Canada.",
+      "strengths": "Scale across categories and countries; Y Combinator alumnus (Fat Llama) that pioneered integrated Hiscox-backed rental insurance; app-store presence; lower fees since the merge; June 2026 rules push all pricing and payment on-platform.",
+      "weaknesses": "Trustpilot (1,500+ reviews for fatllama.com) is full of complaints: lenders say damage claims are 'dodged', support has no phone line, 25% fees each side with 'very little guarantee' (pre-merge); renters rejected after intrusive KYC (passport, bank statements, employment contract, 20-question call); a £140 late fee on a £175 rental; being held liable for a parcel lost in the post. Not camera-specialist, so no cine-grade verification or production-house supply.",
+      "traction_signal": "Fat Llama acquired by Hygglo for £34.5M/$41.5M in Aug 2022; brand retired Nov 2025; HYGGLO LTD active at Companies House; ~1,500 Trustpilot reviews and 288 reviews.io reviews for Fat Llama.",
+      "type": "direct"
+    },
+    {
+      "name": "Wedio",
+      "url": "https://www.wedio.com/",
+      "pricing": "Commission percentages not published in anything I could reach (site blocked from this environment); marketing says rentals include 'global on-demand insurance up to €40,000 per rental'; Trustpilot reviewers cite a £580 excess. Rent-to-own subscriptions from about $63/month for cameras and $69/month for lenses over 3 months.",
+      "positioning": "'Airbnb of professional film gear' for Europe (Denmark HQ), peer-to-peer rental plus subscription/rent-to-own, insurance included as the headline feature.",
+      "strengths": "18,000-20,000 active listings worth €36-40M across 1,000+ lenders; ~100,000 monthly creators claimed; €1.25M seed (VF Venture, Founderment, Apr 2023) plus ~€150k Wefunder crowdfunding; strong SEO content footprint in Europe.",
+      "weaknesses": "Trustpilot (~104 reviews) shows repeated claims of £0 payouts on theft, Wedio deducting the owner's rental earnings from reimbursement, the £580 excess leaving smaller items uncovered, and slow claims handling; fee structure not transparent up front.",
+      "traction_signal": "€1.25M seed round April 2023; 18k-20k listings; no 2025-2026 funding or exit news found, which for a 2023 seed company is itself a signal.",
+      "type": "direct"
+    },
+    {
+      "name": "KitSplit",
+      "url": "https://kitsplit.com/gear-owners",
+      "pricing": "Historically 15-17% owner service fee and 6% renter fee; Damage Waiver from $5; instant insurance (Heffins / OneBeacon) from $150 for rentals over $20k; Owner Guarantee up to $20,000 with a 20% deductible.",
+      "positioning": "New York-founded 'Airbnb for cameras' aimed at professional filmmakers and production companies; acquired by ShareGrid in 2019 but the site still markets to gear owners.",
+      "strengths": "Renters historically paid 30-50% less than rental houses; free automatic owner guarantee; production-company demand side.",
+      "weaknesses": "20% deductible on the owner guarantee (ShareGrid has none); now a shell brand inside ShareGrid, little independent development since 2019.",
+      "traction_signal": "Raised seed round Feb 2018 (TechCrunch); bought CameraLends 2017; acquired by ShareGrid 2019; most recent public traction data is 2019.",
+      "type": "direct"
+    },
+    {
+      "name": "FriendWithA",
+      "url": "https://friendwitha.com/",
+      "pricing": "Owner pays 10% service fee plus an insurance charge (some owners report ~20% all-in); renter pays 20% service fee plus optional damage protection. Lender Damage Protection up to $10,000 and Lender Liability Guarantee up to $100,000 per rental.",
+      "positioning": "US general-purpose peer-to-peer gear marketplace (sports, outdoor, cameras) with 'camera rentals near me' city landing pages.",
+      "strengths": "Simple protection story with published limits; low listing friction; national SEO coverage per city.",
+      "weaknesses": "Not camera-specialist; coverage capped at $10k which excludes most cine packages; thin supply per city; combined fees ~30-40%.",
+      "traction_signal": "Small: no funding news found; reviews concentrated on affiliate-style review sites rather than Trustpilot.",
+      "type": "direct"
+    },
+    {
+      "name": "Beazy",
+      "url": "https://www.beazy.co/",
+      "pricing": "Fees not published on pages reachable by search; markets itself as free to list with secure payments and verified providers.",
+      "positioning": "European production marketplace combining camera/lighting gear rental with studios and photoshoot locations, targeting content-production teams rather than hobbyists.",
+      "strengths": "Broader wedge (gear + locations + crew logistics) that a pure gear marketplace lacks; Europe-focused.",
+      "weaknesses": "Opaque fees and insurance terms; small brand; overlaps Wedio in the same geography.",
+      "traction_signal": "No funding, user or review-count numbers found.",
+      "type": "direct"
+    },
+    {
+      "name": "Gearbooker",
+      "url": "https://www.gearbooker.com/en",
+      "pricing": "Fees not published in reachable pages; marketing states rentals come with insurance included.",
+      "positioning": "Dutch/Benelux and Nordic city-level peer-to-peer camera, drone and audio rental marketplace ('rent in your own city at low prices').",
+      "strengths": "Dense city landing pages (Amsterdam, Utrecht, Groningen, Copenhagen); insurance included in the rental price.",
+      "weaknesses": "Small, regional; no visible traction numbers; same claim-handling opacity as peers.",
+      "traction_signal": "None found beyond SEO presence.",
+      "type": "direct"
+    },
+    {
+      "name": "Lensrentals (incl. BorrowLenses)",
+      "url": "https://www.lensrentals.com/",
+      "pricing": "Example: Sony FX3 body $219-232 for 7 days; LensCap accidental-damage plan ~15% of rental cost, LensCap+ (adds theft/loss) ~25%, renter's maximum liability 10% of replacement value with a plan; shipping extra.",
+      "positioning": "Dominant US owned-inventory rental house shipping nationally, with the Keeper buy-what-you-rent programme and used-gear sales.",
+      "strengths": "400,000+ copies of 6,000+ products after acquiring BorrowLenses (Mar 2024); reliable, inspected gear; clear protection plans; strong brand and SEO; publishes annual most-rented data.",
+      "weaknesses": "Shipping lead time and cost; typically 15-30% dearer than peer-to-peer; no local same-day pickup outside its Memphis base.",
+      "traction_signal": "Acquired BorrowLenses March 2024; largest inventory in the category; Canon R6 II, Sony FX3 and A7 IV top the 2025 most-rented list.",
+      "type": "indirect"
+    },
+    {
+      "name": "Local rental houses, retailer rental desks and informal borrowing",
+      "url": "https://www.adoramarentals.com/",
+      "pricing": "Daily rates roughly 3-5% of item value per day at rental houses (e.g. Adorama Rentals, Camera Rentals NYC, Hunt's, Mike's Camera); informal borrowing via Facebook groups, Discord and film-school networks is free or cash-in-hand with no cover.",
+      "positioning": "The way most working shooters actually solve the problem today: a trusted local house with a certificate-of-insurance requirement, or a friend.",
+      "strengths": "Trust, inspected kit, immediate pickup, relationships; production insurance (COI) already covers house rentals.",
+      "weaknesses": "Requires a COI or large deposits for individuals; limited to big cities; informal borrowing carries the whole theft/damage risk uninsured.",
+      "traction_signal": "Adorama and B&H both run rental arms; the Burbank $100k Arri Alexa theft (2025) and the $34k fake-ID theft from Impulse Cameras show houses bear real fraud losses.",
+      "type": "substitute"
+    }
+  ],
+  "demand_signals": [
+    "Renting rather than buying is already a mainstream paid behaviour: Lensrentals holds 400,000+ rental copies and analyst reports put global camera-equipment rental at $1.0-3.2B; Backstage justified buying ShareGrid as entry to a '$10B US production rentals' market.",
+    "Multiple 'make money renting out your camera gear' guides (ShareGrid, KitSplit, 1kcreatives, howtofilmschool, NCJ Digital, Quora) and side-hustle review sites (sidehusl.com, lushdollar.com) exist, indicating steady owner-side search intent for passive income from idle gear.",
+    "Vendor-side listicles ('Top 10 peer-to-peer camera rental marketplaces', PhotoWorkout best-rentals guides, Wedio's own alternatives page) and Quora threads from people asking which apps let them rent gear to others, including someone asking specifically about building 'AirBnb for camera equipment'.",
+    "Incumbent complaints are concentrated exactly on the insurance promise: Fat Llama/Hygglo Trustpilot reviews about dodged damage claims and 25% fees; Wedio reviews about £0 payouts, a £580 excess and earnings deducted from reimbursements; KitSplit's 20% deductible criticised in owner comparisons.",
+    "Supply-side hardware growth: CIPA reports 9.44M digital camera shipments in 2025 (highest since the pandemic), ~6.3M mirrorless bodies, and consecutive-year growth for the first time in ~20 years, so the idle-gear pool is expanding.",
+    "Fraud pressure is a live topic in the segment (Burbank $100k Alexa 35 theft, $34k fake-ID theft from a rental shop, ID-verification vendors such as POY Verify marketing 'fraud prevention for camera rental'), which keeps 'insurance built in' as the buying criterion renters and owners search on."
+  ],
+  "market": {
+    "size_estimate": "Global camera equipment rental roughly $1.0-3.2B in 2025 depending on the report (MarketGrowthReports $1.03B; Verified/other report mills up to $3.2B), growing 5.8-8.6% CAGR. The peer-to-peer slice is much smaller: my estimate is $100-200M GMV globally (ShareGrid + Hygglo cameras + Wedio + long tail), which at a 25% take rate is $25-50M of platform revenue worldwide. For a solo founder in one country or a handful of cities, the serviceable market is on the order of $5-20M GMV, i.e. $1-5M revenue at best.",
+    "sizing_method": "Top-down from the report-mill figures cross-checked against known player scale: Wedio's 18-20k listings worth ~€40M and 100k monthly creators; ShareGrid's 150k members with ~10 staff; Fat Llama's £34.5M exit price for a multi-category marketplace. Bottom-up sanity check: BLS counts ~50k employed US photographers, other sources 110k+ professionals; if 300k US pros and prosumers rent 3 times a year at ~$150, that is ~$135M of US rental spend addressable by P2P, consistent with the top-down range.",
+    "growth": "Growing single digits. Drivers: creator economy and short-form video demand for cine-style bodies (FX3, R6 II), camera shipments rebounding in 2025-2026, and rising gear prices pushing rent-over-buy. Headwinds: rental houses consolidating (Lensrentals + BorrowLenses) and subscription/rent-to-own models (Grover, Wedio subscription) absorbing part of the demand.",
+    "is_own_estimate": true
+  },
+  "monetisation": {
+    "payer": "Both sides of each transaction: the renter (service fee plus mandatory coverage/damage waiver) and the owner (commission). Insurance/waiver margin is the second revenue line.",
+    "model": "Marketplace take rate on GMV plus a per-booking coverage fee; possible add-ons are verification fees, promoted listings, and annual owner cover.",
+    "price_point": "Defensible envelope from comparables is 15-20% owner commission plus 5-10% renter fee, with a damage-waiver charge of roughly 10-15% of the rental price and renter liability capped at 10-12% of item value. A newcomer would need to undercut the ~25-30% combined take of ShareGrid/Hygglo to attract supply, leaving perhaps 18-22% total.",
+    "comparable_pricing": "ShareGrid 15% owner + ~10% renter + card fees, 12% of value renter liability under Damage Only; Hygglo 20% + 10%; KitSplit 15-17% + 6%, waiver from $5; FriendWithA 10% + insurance from owner, 20% from renter; Lensrentals LensCap ~15% and LensCap+ ~25% of rental; Fat Llama pre-merge 25% + 25% was widely called excessive.",
+    "acquisition_and_serving_costs": "Two-sided cold start per city (no listings means no renters, no renters means owners churn); ID/KYC verification cost per user ($1-3 via Stripe Identity or Persona) and manual review for high-value rentals; insurance loss ratio and fraud (voluntary parting is excluded by most policies and must be self-funded or bought as a rider); dispute handling and customer support that incumbents are criticised for skimping on; chargebacks. Average booking value is low (a $1,500 lens rents for ~$50-75/day), so each dispute can cost more than a month of margin from that owner."
+  },
+  "build": {
+    "mvp_scope": "Listings with photos, replacement value and availability calendar; search by city and mount/brand; booking request and owner approval; Stripe Connect payments with pre-authorised security hold; Stripe Identity or Persona KYC for both sides; pickup/return condition photos with timestamps; a written damage-waiver programme (renter liability capped at X% of value) backed by a reserve fund, plus a partner insurance quote flow for high-value items; review system; admin dispute console. Defer: shipping, app, instant book, subscriptions.",
+    "effort_estimate": "Roughly 4-6 months of evenings and weekends (about 400-600 hours) for the software using Nuxt/Vue plus Stripe Connect, Stripe Identity and a hosted search index. The insurance piece is not a software task: expect 2-4 months of parallel effort to get a broker (e.g. Athos, Front Row, Hiscox via a wholesaler, or an embedded provider such as Omocom, Wakim or SureAPX) to quote a contingent/inland-marine programme for a zero-history marketplace, and it may simply be refused until volume exists.",
+    "dependencies": [
+      {
+        "name": "Stripe Connect (marketplace payments, holds, payouts)",
+        "access_risk": "low"
+      },
+      {
+        "name": "Identity verification (Stripe Identity / Persona / Veriff)",
+        "access_risk": "low"
+      },
+      {
+        "name": "Insurance partner willing to underwrite P2P short-term gear cover incl. theft/voluntary parting for a new platform (Athos, Front Row, Hiscox, Omocom, Wakim, SureAPX)",
+        "access_risk": "high"
+      },
+      {
+        "name": "Insurance distribution licensing if selling regulated cover rather than a contractual damage waiver (FCA in UK, state producer licences in US)",
+        "access_risk": "high"
+      },
+      {
+        "name": "Maps/geocoding for local search (Google Maps or Mapbox)",
+        "access_risk": "low"
+      },
+      {
+        "name": "Marketplace liquidity: owners must list before renters see value; no third-party API can supply this",
+        "access_risk": "medium"
+      }
+    ]
+  },
+  "distribution_channels": [
+    "Local filmmaker and photographer communities in one launch city: r/videography, r/cinematography, r/photography, city-specific Facebook gear groups and Discords, film-school and university media departments (ShareGrid already runs a student programme, so contested but reachable).",
+    "Owner recruitment by hand: message people posting gear for sale on MPB/eBay/Facebook Marketplace and Craigslist, and wedding/event photographers with visible kit lists; this is the incumbent playbook (BorrowFox, KitSplit) and is labour-intensive but uncontested per city.",
+    "SEO on long-tail 'rent [lens/body] in [city]' terms: ShareGrid, Wedio, Gearbooker and FriendWithA all already run programmatic city pages, so this is contested and slow for a new domain.",
+    "Partnering with small rental houses and camera shops as anchor supply (they list on ShareGrid today), which gives a launch city instant inventory and a trusted brand next to the listings.",
+    "Content and YouTube collaborations with gear reviewers ('rent before you buy'), and rent-before-you-buy affiliate arrangements with used-gear sellers (MPB, KEH) who lack a rental arm."
+  ],
+  "differentiation_angles": [
+    "Transparent claims: publish the waiver terms, excess, payout timelines and an annual claims report; every incumbent is being hammered on Trustpilot for opaque or denied claims, and a small platform can credibly promise a founder-handled 48-hour claim decision. This is positioning and process, not a moat, but it is what owners say they want.",
+    "Single-city depth before breadth: incumbents are spread across 100+ cities with thin supply in each; a founder who gets one mid-sized city (not LA/NYC/London) to 300+ verified listings would have better local liquidity than ShareGrid there. Liquidity compounds within a city but does not transfer to the next one.",
+    "Owner-first economics: 10-12% owner commission with a small renter fee and coverage priced as a percentage of item value, undercutting the 25-30% combined take at ShareGrid/Hygglo; copyable by incumbents but they have shown reluctance (Hygglo only moved from 50% to 30% combined in 2025).",
+    "Specialist verticals incumbents ignore: a specific mount ecosystem (e.g. RF/E-mount telephoto for wildlife and sports), analogue/medium-format, or drone-with-pilot rentals, where community trust and listing quality matter more than scale.",
+    "Rental-house-as-supplier hybrid: onboard small houses as verified 'pro' suppliers alongside individuals, giving reliability where P2P is weakest, similar to what ShareGrid already does, so only a wedge, not defensible."
+  ],
+  "kill_risks": [
+    "No insurer will bind cover: ask Athos, Front Row and two Lloyd's-market brokers for a contingent inland-marine/rental-gear programme for a zero-history P2P platform; if the answer is 'not until $1M+ annual premium' or exclusions for voluntary parting, the 'insurance built in' promise cannot be delivered and the idea collapses into a self-funded waiver with the founder's savings as the reserve.",
+    "Regulatory exposure of the coverage product: check whether a per-booking 'damage waiver' sold by the platform counts as insurance distribution in the launch jurisdiction (FCA in the UK; state insurance departments in the US); several sharing-economy platforms have had to restructure or partner to comply.",
+    "Cold-start failure in the launch city: run a 60-day test where 100 owners are hand-recruited in one city and measure whether 30+ real bookings happen without paid acquisition; ShareGrid's 10-person team and Wedio's stall after a 2023 seed suggest liquidity is expensive to buy.",
+    "Fraud loss on a single booking wipes out months of margin: one fake-ID renter walking away with a $6,000 FX3 kit (as happened for $34k and $100k at rental shops in 2025) exceeds the total take from ~150 average bookings; check whether ID vendors will guarantee synthetic-ID detection and at what cost.",
+    "Incumbent response: ShareGrid (Cast & Crew-backed) and Hygglo can match a lower take rate in a launch city with a promotion; verify whether ShareGrid already has 100+ listings in the intended launch city by searching its city pages before committing.",
+    "Owner willingness to lend high-value kit to strangers is thinner than the guides imply: ShareGrid and Wedio reviews include owners who quit after one bad claim, so churn of the supply side after a first incident should be tested early."
+  ],
+  "recent_moves": [
+    "Hygglo retired the Fat Llama brand (24 Nov 2025), moved all Fat Llama users to hygglo.com, and cut combined fees from 25%+25% to 20%+10%; a further June 2026 policy change requires all pricing and payment to stay on-platform and repositions its protection as 'Hygglo Care'.",
+    "Lensrentals acquired BorrowLenses (March 2024) consolidating US owned-inventory rentals to 400,000+ copies and published a 2025 most-rented list dominated by Sony FX3, A7 IV and Canon R6 II — the exact bodies P2P owners list.",
+    "Wedio expanded into subscription and rent-to-own (cameras from ~$63/month, lenses ~$69/month) rather than deepening pure peer-to-peer, suggesting P2P alone was not producing enough revenue after its April 2023 €1.25M seed.",
+    "ShareGrid shows no public product announcements in 2025-2026 and roughly 10 employees (Tracxn, May 2026) under Backstage/Cast & Crew, i.e. maintained rather than aggressively developed.",
+    "Camera shipments grew for consecutive years for the first time in ~20 years (CIPA, reported Feb 2026), expanding the base of owners with rentable gear."
+  ],
+  "scores": {
+    "problem_severity": {
+      "score": 3,
+      "rationale": "People already pay for rentals at scale (Lensrentals 400k+ copies, multi-billion rental market) and pay incumbents' 25-30% take rates for peer-to-peer; the specific pain around unreliable insurance is loudly documented on Trustpilot for Fat Llama/Hygglo and Wedio, but for most shooters renting is occasional rather than daily, which keeps this off a 5."
+    },
+    "market_size": {
+      "score": 3,
+      "rationale": "Global camera rental is $1-3B growing 6-9% by report-mill figures, but the peer-to-peer slice is my estimate of $100-200M GMV, and the observable players are small (ShareGrid ~10 staff, Wedio a €1.25M seed company, Fat Llama sold for £34.5M across all categories); a small player in one country can plausibly reach low-single-digit millions of revenue, not more."
+    },
+    "competition": {
+      "score": 2,
+      "rationale": "Several established players already own the exact positioning 'peer-to-peer gear with insurance built in': ShareGrid (Cast & Crew-backed, US/UK), Hygglo (UK/US/Nordics), Wedio, Beazy and Gearbooker (Europe), FriendWithA (US), plus Lensrentals dominating shipped rentals; incumbents have repeatedly cited weaknesses (claims handling, fees) but the underserved segment visible is narrow — individual owners who want transparent claims and lower take."
+    },
+    "differentiation": {
+      "score": 2,
+      "rationale": "'Insurance built in' is every incumbent's headline feature, so the idea as stated is feature parity; the open angles (transparent claims process, lower owner commission, single-city depth) are positioning and process differences that ShareGrid or Hygglo could copy with effort, and city liquidity does not compound across cities."
+    },
+    "monetisation": {
+      "score": 3,
+      "rationale": "Clear payers on both sides and well-documented comparable pricing (15-20% owner, 6-10% renter, waiver ~10-15% of rental), but margins are uncertain: insurance loss ratios and fraud on high-value items are unknown for a new platform, average booking values are small, and review evidence shows incumbents cut support and claims to protect margin."
+    },
+    "feasibility": {
+      "score": 2,
+      "rationale": "The marketplace software is a 4-6 month solo build on a standard stack (Stripe Connect, Stripe Identity), but the sellable version depends on an insurer or embedded-insurance partner agreeing to cover a zero-history platform including theft/voluntary parting, and on possible insurance-distribution licensing; either can refuse or delay indefinitely."
+    },
+    "distribution": {
+      "score": 3,
+      "rationale": "Reachable, concentrated communities exist (city filmmaker groups, subreddits, film schools, small rental houses) and hand-recruiting owners is feasible in one city, but ShareGrid already runs student programmes and programmatic city SEO, and the two-sided cold start means channels must be worked on both sides simultaneously."
+    },
+    "founder_fit_and_risk": {
+      "score": 2,
+      "rationale": "A full-stack developer can build the platform, but the founder has no audience, no stated film/photo network and no insurance background, while the idea carries a meaningful external risk in insurance underwriting and licensing plus fraud exposure that sits outside the founder's control."
+    }
+  },
+  "confidence": "low",
+  "confidence_rationale": "Every WebFetch to competitor sites, support pages, Trustpilot and market-report pages was blocked by the network egress proxy, so all pricing and traction figures come from search-result snippets quoting those pages rather than the pages themselves (ShareGrid and KitSplit fee figures are quoted from their own support articles; Hygglo fees from its Fat Llama migration page; Lensrentals prices from product listings). Wedio, Beazy and Gearbooker fees are effectively hidden. Market sizing rests on low-quality report mills that disagree by 3x, and the peer-to-peer slice is my own estimate. Trustpilot complaint themes are from search summaries, not a read of the review pages.",
+  "sources": [
+    {
+      "title": "ShareGrid homepage",
+      "url": "https://www.sharegrid.com/",
+      "used_for": "ShareGrid positioning and existence of 100+ city coverage"
+    },
+    {
+      "title": "Understanding ShareGrid Fees (ShareGrid Support)",
+      "url": "https://support.sharegrid.com/en/articles/733957-understanding-sharegrid-fees",
+      "used_for": "15% owner fee, ~10% dynamic renter community fee, 2.45% + $0.30 processing"
+    },
+    {
+      "title": "Understanding ShareGrid's Damage + Theft Option (ShareGrid Support)",
+      "url": "https://support.sharegrid.com/en/articles/733952-understanding-sharegrid-s-damage-theft-option",
+      "used_for": "Coverage options (Damage Only, Damage + Theft, Short Term, Annual, Third-Party) and the 12%-of-value damage fee example"
+    },
+    {
+      "title": "Understanding ShareGrid's Damage Only Option (ShareGrid Support)",
+      "url": "https://support.sharegrid.com/en/articles/733940-understanding-sharegrid-s-damage-only-option",
+      "used_for": "Renter liable for 12% of value under Damage Only"
+    },
+    {
+      "title": "ShareGrid Owner Guarantee (ShareGrid Support)",
+      "url": "https://support.sharegrid.com/en/articles/3282176-sharegrid-owner-guarantee",
+      "used_for": "Owner guarantee process, voluntary parting <0.01% of rentals claim"
+    },
+    {
+      "title": "Athos Insurance partners with ShareGrid (PR Newswire)",
+      "url": "https://www.prnewswire.com/news-releases/athos-insurance-partners-with-sharegrid-to-insure-the-gear-of-the-camera-sharing-community-301102584.html",
+      "used_for": "Athos as ShareGrid's insurance partner; insurance dependency"
+    },
+    {
+      "title": "Backstage acquires ShareGrid (PR Newswire)",
+      "url": "https://www.prnewswire.com/news-releases/backstage-acquires-sharegrid-a-peer-to-peer-marketplace-for-content-production-equipment-301458979.html",
+      "used_for": "Jan 2022 acquisition, '$10 billion production rentals' claim, 150,000 members"
+    },
+    {
+      "title": "ShareGrid company profile (Tracxn)",
+      "url": "https://tracxn.com/d/companies/sharegrid/__bkMQdcqOBXEhmJXyoKobb0bmZTusLYdiVJt2I651Sfo",
+      "used_for": "~10 employees as of May 2026, acquired status"
+    },
+    {
+      "title": "ShareGrid acquires BorrowFox (TechCrunch)",
+      "url": "https://techcrunch.com/2019/10/30/sharegrid-acquires-borrowfox/",
+      "used_for": "UK entry via BorrowFox acquisition, consolidation pattern"
+    },
+    {
+      "title": "Trying out Sharegrid (AnandTech forum thread)",
+      "url": "https://forums.anandtech.com/threads/trying-out-sharegrid-peer-to-peer-renting.2468425/latest",
+      "used_for": "Renter experience: ~half rental-house price, request declined by owner"
+    },
+    {
+      "title": "ShareGrid on Trustpilot",
+      "url": "https://www.trustpilot.com/review/sharedgrid.com",
+      "used_for": "Only 10 Trustpilot reviews, 4-star"
+    },
+    {
+      "title": "Fat Llama is now Hygglo (Hygglo)",
+      "url": "https://hygglo.com/uk/fatllama",
+      "used_for": "Brand retirement 24 Nov 2025; fee change from 25%+25% to 20%+10%"
+    },
+    {
+      "title": "What's changing on Hygglo: safer, simpler and more flexible rentals (Hygglo blog, June 2026)",
+      "url": "https://blog.hygglo.com/2026/06/24/whats-changing-on-hygglo-safer-simpler-and-more-flexible-rentals/",
+      "used_for": "Recent incumbent move: on-platform pricing rules and Hygglo Care"
+    },
+    {
+      "title": "How am I protected when I rent through Hygglo? (Hygglo help centre)",
+      "url": "https://help.hygglo.info/en/articles/10449719-how-am-i-protected-when-i-rent-through-hygglo",
+      "used_for": "Omocom insurance in Nordics vs Lender Guarantee in UK/US/Canada"
+    },
+    {
+      "title": "The Lender Guarantee (Fat Llama FAQ)",
+      "url": "https://faq.fatllama.com/en/articles/10391149-the-lender-guarantee",
+      "used_for": "£25,000 per-rental lender guarantee limit in the UK"
+    },
+    {
+      "title": "Fat Llama reviews on Trustpilot",
+      "url": "https://www.trustpilot.com/review/fatllama.com",
+      "used_for": "~1,500 reviews; complaints about dodged damage claims, 25% fees, KYC rejection, late fees"
+    },
+    {
+      "title": "Rent 'anything' platform Fat Llama acquired by Hygglo for £34.5m (UKTN)",
+      "url": "https://www.uktech.news/ecommerce/fat-llama-acquisition-hygglo-20220816",
+      "used_for": "Exit price as a scale signal for P2P rental"
+    },
+    {
+      "title": "Fat Llama (Y Combinator)",
+      "url": "https://www.ycombinator.com/companies/fat-llama",
+      "used_for": "YC-backed; pioneered integrated Hiscox insurance model"
+    },
+    {
+      "title": "Wedio homepage",
+      "url": "https://www.wedio.com/",
+      "used_for": "Wedio positioning"
+    },
+    {
+      "title": "Wedio raises €1.25M seed (Tech.eu)",
+      "url": "https://tech.eu/2023/04/18/danish-camera-sharing-platform-wedio-raises-eur125-million/",
+      "used_for": "Seed funding, investors, listing counts"
+    },
+    {
+      "title": "Wedio is a 'Photo Gear Airbnb' (PetaPixel)",
+      "url": "https://petapixel.com/2023/04/11/wedio-is-a-photo-gear-airbnb-for-renting-from-other-photographers/",
+      "used_for": "€40,000 per-rental insurance claim; 100k monthly creators; 20k listings worth €40M"
+    },
+    {
+      "title": "Wedio reviews on Trustpilot",
+      "url": "https://www.trustpilot.com/review/wedio.com",
+      "used_for": "~104 reviews; £0 payouts, £580 excess, earnings deducted from reimbursement"
+    },
+    {
+      "title": "Wedio Camera Sharing Review 2026 (FixThePhoto)",
+      "url": "https://fixthephoto.com/wedio-review.html",
+      "used_for": "Subscription prices ($63 cameras, $69 lenses), 18k listings, 1,000+ lenders"
+    },
+    {
+      "title": "Peer to Peer Camera Rental: Top 10 Marketplaces (Wedio)",
+      "url": "https://www.wedio.com/en/learn/peer-to-peer-camera-rental",
+      "used_for": "Competitor landscape listicle (followed to individual sites)"
+    },
+    {
+      "title": "Make money renting out your camera equipment (KitSplit)",
+      "url": "https://kitsplit.com/gear-owners",
+      "used_for": "KitSplit owner marketing, still live after ShareGrid acquisition"
+    },
+    {
+      "title": "KitSplit and ShareGrid unveil $20K owner guarantees (PetaPixel)",
+      "url": "https://petapixel.com/2019/08/26/kitsplit-and-sharegrid-unveil-20k-owner-guarantees/",
+      "used_for": "$20k owner guarantee, 20% KitSplit deductible"
+    },
+    {
+      "title": "Renting Out Photography Equipment with KitSplit: Pros & Cons (SideHusl)",
+      "url": "https://sidehusl.com/kitsplit/",
+      "used_for": "KitSplit 15-17% owner / 6% renter fees, $5 waiver, $150 instant insurance"
+    },
+    {
+      "title": "KitSplit and ShareGrid review from an equipment owner (Becky Stern)",
+      "url": "https://beckystern.com/2019/11/19/kitsplit-and-sharegrid-review-and-comparison-from-an-equipment-owner/",
+      "used_for": "Owner-side comparison, 30-50% cheaper than rental houses"
+    },
+    {
+      "title": "FriendWithA homepage",
+      "url": "https://friendwitha.com/",
+      "used_for": "FriendWithA positioning and city camera-rental pages"
+    },
+    {
+      "title": "Insurance on FriendWithA",
+      "url": "https://friendwitha.com/insurance/",
+      "used_for": "$10,000 lender damage protection, $100,000 liability guarantee"
+    },
+    {
+      "title": "What is the pricing / service fee to rent out my equipment on FriendWithA",
+      "url": "https://support.friendwitha.com/hc/en-us/articles/360046116012-What-is-the-pricing-service-fee-to-rent-out-my-equipment-on-FriendWithA",
+      "used_for": "10% owner fee plus insurance; 20% renter fee"
+    },
+    {
+      "title": "Beazy homepage",
+      "url": "https://www.beazy.co/",
+      "used_for": "Beazy positioning (gear + locations, Europe)"
+    },
+    {
+      "title": "Gearbooker homepage",
+      "url": "https://www.gearbooker.com/en",
+      "used_for": "Gearbooker positioning, insurance included, Benelux/Nordic cities"
+    },
+    {
+      "title": "Lensrentals homepage",
+      "url": "https://www.lensrentals.com/",
+      "used_for": "Lensrentals positioning"
+    },
+    {
+      "title": "Lensrentals acquires BorrowLenses (TechCrunch)",
+      "url": "https://techcrunch.com/2024/03/07/lensrentals-acquires-borrowlenses/",
+      "used_for": "March 2024 consolidation; 400,000 copies of 6,000 products"
+    },
+    {
+      "title": "Lensrentals: Rent a Sony FX3 (Body Only)",
+      "url": "https://www.lensrentals.com/rent/sony-fx3-body-only",
+      "used_for": "$222 / 7-day rental price comparable"
+    },
+    {
+      "title": "Lensrentals: What are the LensCap Protection Plans?",
+      "url": "https://help.lensrentals.com/26475-damage-lenscap-protection-plans/204118-what-are-the-lenscap-protection-plans",
+      "used_for": "LensCap ~15%, LensCap+ ~25% of rental, 10% of value max liability"
+    },
+    {
+      "title": "Top Photography and Videography Rentals for 2025 (Lensrentals blog)",
+      "url": "https://www.lensrentals.com/blog/2025/12/top-photography-and-videography-rentals-for-2025/",
+      "used_for": "Most-rented bodies (R6 II, FX3, A7 IV) — demand mix"
+    },
+    {
+      "title": "Adorama Rentals",
+      "url": "https://www.adoramarentals.com/",
+      "used_for": "Retailer rental desk as substitute"
+    },
+    {
+      "title": "Camera Equipment Rental Market Size 2025-2035 (MarketGrowthReports)",
+      "url": "https://www.marketgrowthreports.com/market-reports/camera-equipment-rental-market-105031",
+      "used_for": "$1.03B 2025 to $2.35B 2035, 8.6% CAGR"
+    },
+    {
+      "title": "Camera Equipment Rental Market (Verified Market Research)",
+      "url": "https://www.verifiedmarketresearch.com/product/camera-equipment-rental-market/",
+      "used_for": "Alternative $3.2B 2024 sizing showing report disagreement"
+    },
+    {
+      "title": "Camera Rental Service Market (MarketReportsWorld)",
+      "url": "https://www.marketreportsworld.com/market-reports/camera-rental-service-market-14714033",
+      "used_for": "$1.08B 2025 to $1.79B 2034, 5.77% CAGR"
+    },
+    {
+      "title": "Photographers: Occupational Outlook Handbook (BLS)",
+      "url": "https://www.bls.gov/ooh/media-and-communication/photographers.htm",
+      "used_for": "~50k US photographer jobs for bottom-up sizing"
+    },
+    {
+      "title": "Camera shipments increased for consecutive years for first time in nearly 20 years (PetaPixel, CIPA data)",
+      "url": "https://petapixel.com/2026/02/03/camera-shipments-increased-for-consecutive-years-for-the-first-time-in-nearly-20-years/",
+      "used_for": "9.44M shipments in 2025; supply-side growth"
+    },
+    {
+      "title": "Why gear rental marketplace Lumoid shut down (TechCrunch)",
+      "url": "https://techcrunch.com/2017/12/10/why-gear-rental-marketplace-lumoid-shut-down/",
+      "used_for": "Prior failure: ~$6M raised, could not fund scale for Best Buy deal"
+    },
+    {
+      "title": "Understanding the insurance risks of renting out your camera gear (Athos Insurance)",
+      "url": "https://www.athosinsurance.com/Blogs/renting-out-your-camera-gear-risks",
+      "used_for": "Voluntary parting exclusion and need for false-pretence cover"
+    },
+    {
+      "title": "Man accused of stealing $100K of camera gear in rental scam arrested in Burbank (FOX 11)",
+      "url": "https://www.foxla.com/news/man-accused-stealing-100k-professional-camera-rental-scam-arrested-burbank",
+      "used_for": "Fraud severity example"
+    },
+    {
+      "title": "They rented over $34K in gear from us and never returned (Impulse Cameras)",
+      "url": "https://www.impulsecameras.com/blogs/news/help-us-find-these-thieves-%F0%9F%9A%A8-they-rented-over-34k-in-gear-from-us-and-never-returned",
+      "used_for": "Fake-ID rental theft example"
+    },
+    {
+      "title": "Fraud prevention for camera rental (POY Verify)",
+      "url": "https://poyverify.com/solutions/fraud-prevention-for-camera-rental",
+      "used_for": "Synthetic-ID growth claims and ID-verification vendor category"
+    },
+    {
+      "title": "Sharetribe pricing",
+      "url": "https://www.sharetribe.com/pricing/",
+      "used_for": "No-code alternative build path ($99-299/month) for MVP effort comparison"
+    },
+    {
+      "title": "Embedded insurance markets (SureAPX)",
+      "url": "https://sureapx.com/markets/embedded-insurance/",
+      "used_for": "Embedded P2P asset cover providers as insurance dependency options"
+    },
+    {
+      "title": "How to make money renting out your gear on ShareGrid and KitSplit (1kcreatives)",
+      "url": "https://1kcreatives.com/how-to-make-money-renting-out-your-gear-on-sharegrid-and-kitsplit/",
+      "used_for": "Owner-side demand signal (side-hustle content)"
+    },
+    {
+      "title": "Can I make money by renting out my camera gear? (Quora)",
+      "url": "https://www.quora.com/Can-I-make-money-by-renting-out-my-camera-gear",
+      "used_for": "Owner-side search intent"
+    }
+  ],
+  "calibration_notes": [
+    "problem_severity: 4 -> 3. Lowered 4 to 3: the rationale itself says renting is occasional for most shooters and Lensrentals plus the P2P incumbents already serve the need; the pain is unreliable claims handling, a workaround-level complaint, not a frequent costly gap."
+  ]
+}

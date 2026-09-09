@@ -65,7 +65,9 @@ where the raw research score was changed and why.}}
 
 #### Sources
 
-{{Markdown links, one per line, with what each was used for.}}
+{{Markdown links, one per line, with what each was used for. Include every source a
+claim in this deep-dive rests on; if the research file has many more, say how many and
+point to it rather than pasting them all.}}
 
 ## Cross-cutting observations
 

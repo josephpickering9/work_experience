@@ -1,0 +1,69 @@
+{
+  "weights": {
+    "problem_severity": 15,
+    "market_size": 15,
+    "competition": 15,
+    "differentiation": 10,
+    "monetisation": 15,
+    "feasibility": 10,
+    "distribution": 10,
+    "founder_fit_and_risk": 10
+  },
+  "ideas": [
+    {
+      "id": "ai-invoice-chaser",
+      "name": "AI invoice chaser",
+      "total": 56.0,
+      "scores": {
+        "problem_severity": 4,
+        "market_size": 3,
+        "competition": 2,
+        "differentiation": 1,
+        "monetisation": 3,
+        "feasibility": 4,
+        "distribution": 2,
+        "founder_fit_and_risk": 3
+      },
+      "confidence": "low",
+      "calibrated": true,
+      "rank": 1
+    },
+    {
+      "id": "camera-gear-rental-marketplace",
+      "name": "Camera gear rental marketplace",
+      "total": 51.0,
+      "scores": {
+        "problem_severity": 3,
+        "market_size": 3,
+        "competition": 2,
+        "differentiation": 2,
+        "monetisation": 3,
+        "feasibility": 2,
+        "distribution": 3,
+        "founder_fit_and_risk": 2
+      },
+      "confidence": "low",
+      "calibrated": true,
+      "rank": 2
+    },
+    {
+      "id": "couples-habit-tracker",
+      "name": "Couples habit tracker",
+      "total": 45.0,
+      "scores": {
+        "problem_severity": 2,
+        "market_size": 2,
+        "competition": 2,
+        "differentiation": 1,
+        "monetisation": 3,
+        "feasibility": 3,
+        "distribution": 2,
+        "founder_fit_and_risk": 3
+      },
+      "confidence": "low",
+      "calibrated": true,
+      "rank": 3
+    }
+  ],
+  "invalid": {}
+}
