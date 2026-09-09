@@ -1,18 +1,24 @@
-| Rank | Idea | Total /100 | Problem (15) | Market (15) | Whitespace (15) | Differentiation (10) | Monetisation (15) | Feasibility (10) | Distribution (10) | Fit & risk (10) | Confidence |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | AI invoice chaser | 56.0 | 4 | 3 | 2 | 1 | 3 | 4 | 2 | 3 | low |
-| 2 | Camera gear rental marketplace | 51.0 | 3 | 3 | 2 | 2 | 3 | 2 | 3 | 2 | low |
-| 3 | Couples habit tracker | 45.0 | 2 | 2 | 2 | 1 | 3 | 3 | 2 | 3 | low |
+| Rank | Idea | Adjusted | Raw | Problem (12) | Market (8) | Whitespace (12) | Edge (8) | Monetisation (14) | Retention (10) | Feasibility (12) | Distribution (12) | Fit (6) | Timing/risk (6) | Flags |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | AI invoice chaser | 57.0 | 55.6 | 4s | 3w | 2m | 1m | 3m | 3w | 4m | 2m | 3w | 2s | low confidence |
+| 2 | Camera gear rental marketplace | 55.1 | 52.8 | 3m | 3w | 3m | 2m | 3m | 2w | 2m | 3m | 3w | 2m | low confidence |
+| 3 | Couples habit tracker | 49.9 | 46.0 | 2m | 2w | 2m | 1m | 3m | 2m | 3m | 2m | 3w | 3m | low confidence |
 
-Criterion scores are 1 to 5; the bracketed number is the weight. Total = sum(score x weight) / 5.
+Weight profile: `bootstrap-side` (bracketed numbers). Scores are 1 to 5 with an evidence grade: s = strong, m = moderate, w = weak. Raw = sum(score x weight) / 5. Adjusted pulls moderate scores 25% and weak scores 50% of the way towards 3 before weighting; ideas rank on Adjusted. A score of 1 on Problem, Monetisation, Feasibility or Timing/risk gates the idea below all ungated ideas.
 
-**Leads each criterion:**
+**Weakest criterion per idea:**
 
-- Problem: AI invoice chaser
-- Market: AI invoice chaser, Camera gear rental marketplace
-- Whitespace: AI invoice chaser, Camera gear rental marketplace, Couples habit tracker
-- Differentiation: Camera gear rental marketplace
-- Monetisation: AI invoice chaser, Camera gear rental marketplace, Couples habit tracker
-- Feasibility: AI invoice chaser
-- Distribution: Camera gear rental marketplace
-- Fit & risk: AI invoice chaser, Couples habit tracker
+- AI invoice chaser: Edge (1)
+- Camera gear rental marketplace: Edge (2)
+- Couples habit tracker: Edge (1)
+
+**Ranking under each weight profile:**
+
+- `bootstrap-side`: AI invoice chaser > Camera gear rental marketplace > Couples habit tracker
+- `bootstrap-full-time`: AI invoice chaser > Camera gear rental marketplace > Couples habit tracker
+- `venture`: Camera gear rental marketplace > AI invoice chaser > Couples habit tracker
+
+**Sensitivity of the top two:**
+
+- AI invoice chaser leads Camera gear rental marketplace by 1.9 adjusted points.
+- Any one of these single-point changes would swap them: AI invoice chaser: Problem 4 -> 3; AI invoice chaser: Monetisation 3 -> 2; Camera gear rental marketplace: Monetisation 3 -> 4.

@@ -27,9 +27,10 @@ Ideas arrive one of three ways. Take the first that applies:
    for the ideas.
 
 Also read `docs/business-ideas/founder-profile.md` if it exists and has been filled in
-(not just the template placeholders). It feeds the founder-fit criterion. Without it,
-score founder fit as a solo technical founder building evenings and weekends, and say so
-in the report.
+(not just the template placeholders). It feeds the founder-fit criterion and chooses the
+weight profile (`bootstrap-side`, `bootstrap-full-time` or `venture`; the profile file
+has a line for it). Without it, use `bootstrap-side`, score founder fit 3 with weak
+evidence, and say so in the report.
 
 ## Workflow
 
@@ -62,32 +63,37 @@ consistency of the report depends on every agent getting the same instructions.
 Agents research independently and therefore score independently. That is fine for
 evidence gathering but means their scores are not yet comparable; step 4 fixes that.
 
-### 3. Score and validate
+### 3. Validate
 
 ```
-python3 .claude/skills/business-ideas-report/scripts/score_ideas.py <run-dir>
+python3 .claude/skills/business-ideas-report/scripts/score_ideas.py <run-dir> --profile <profile>
 ```
 
 The script validates every research file against the schema (missing fields, scores
-outside 1 to 5, fewer than the required sources), computes weighted totals from the
-rubric weights, ranks the ideas and writes `scores.json` and `comparison.md`.
+outside 1 to 5, missing evidence grades, fewer than the required sources), then scores,
+ranks and writes `scores.json` and `comparison.md`. At this stage the scores are the
+researchers' proposals; the ranking is not final until step 4.
 
 If it reports validation errors, re-run the affected agent with the error message
 appended to its prompt rather than patching the JSON by hand; a hand-patched file
 usually hides a research gap.
 
-### 4. Calibrate across ideas
+Also sanity-check the evidence before scoring. An agent that claims a market size should
+cite where the number came from; a competitor list with no pricing usually means the
+agent stopped at the first listicle. Send it back for a second pass if the gaps would
+change a score.
 
-Read all the research files together and check that equal scores mean equal things.
-Common drift: one agent gives a 4 for "competition" to a market with fifteen funded
-incumbents because it found a niche, another gives a 2 to a market with three small
-players. Use the anchors in `references/scoring-rubric.md` as the tie-breaker and adjust
-the `score` values in the research JSON directly, recording every change in that file's
-`calibration_notes` array with the reason. Re-run the script after adjusting.
+### 4. Comparative scoring pass
 
-Also sanity-check the evidence. An agent that claims a market size should cite where the
-number came from; a competitor list with no pricing usually means the agent stopped at
-the first listicle. Send it back for a second pass if the gaps would change the score.
+Follow `references/scoring-pass.md`: for each criterion, order all ideas weakest to
+strongest, then assign anchor scores and evidence grades, then write the final scores
+and any changes into each research file's `scores` and `calibration_notes`. This is
+what makes scores comparable across ideas; skipping it produces a ranking that reflects
+which researcher was most generous.
+
+Re-run the script afterwards and read its sensitivity output. It ranks under all three
+weight profiles and reports whether a single one-point change would swap the top two;
+both go into the report.
 
 ### 5. Write the report
 
@@ -96,7 +102,9 @@ The template's structure is fixed so reports are comparable across runs; the con
 should be specific and opinionated. Rules that keep it useful:
 
 - The executive summary names a winner, says why in two or three sentences, and states
-  what new information would change the ranking.
+  what new information would change the ranking. If the script found single-point flips
+  between the top two, or the order changes under another weight profile, say so here.
+- A gated idea gets a sentence in its deep-dive saying what would lift the gate.
 - Every existing-product table has pricing. "Freemium" alone is not pricing; give the
   paid tier's price.
 - Every score in a scorecard has a one-line rationale that points at evidence.
@@ -121,8 +129,9 @@ the record and should be committed alongside the report.
 
 ## Reference files
 
-- `references/scoring-rubric.md`: the eight criteria, their weights and the 1 to 5
-  anchors. Read it before calibrating.
+- `references/scoring-rubric.md`: the ten criteria, weight profiles, evidence grades,
+  gates and the 1 to 5 anchors. Read it before the scoring pass.
+- `references/scoring-pass.md`: the comparative scoring procedure.
 - `references/research-brief.md`: the prompt template for the research agents.
 - `assets/idea-research.schema.json`: the JSON shape every research file must follow.
 - `assets/report-template.md`: the report structure.

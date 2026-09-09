@@ -3,41 +3,50 @@
 **Date:** 2026-09-09
 **Ideas evaluated:** 3
 **Founder context:** Solo full-stack web developer building evenings and weekends, no existing audience, bootstrapping (default assumption; `founder-profile.md` not filled in).
+**Weight profile:** `bootstrap-side`, the default when no founder profile is filled in.
 
 This is the sample run shipped with the skill, on the three ideas in `ideas.example.md`. It was generated in a sandbox where page fetches were blocked, so every idea is low confidence: prices and traction come from search snippets corroborated across two or more sources rather than from the vendor pages themselves. Treat the ranking as provisional.
 
 ## Executive summary
 
-The AI invoice chaser ranks first, but none of the three clears 60/100 and the gap between first and last is 11 points. The invoice chaser wins on the strength of its problem: 97% of small agencies chase late payments, the average US small business is owed $17,500, and freelancers already pay $22-42/hour for someone to chase on their behalf. It is also the only idea a solo developer can ship in weeks. It loses points because the exact product already exists at $9-19/month from at least five indie tools, and QuickBooks and Xero now bundle AI-written reminders for free.
+The AI invoice chaser ranks first, but the margin over the camera gear marketplace is 1.9 adjusted points and three different single-point score changes would swap them. Under the `venture` weight profile the marketplace wins outright. Treat this as "invoice chaser, narrowly, for a side-project bootstrapper" rather than a clear verdict. Nothing clears 60/100 and no idea is gated.
 
-The camera gear marketplace has real spend behind it but depends on an insurer agreeing to cover a zero-history platform, which is outside the founder's control. The couples habit tracker is the weakest: a dozen near-identical apps launched in the last 18 months at $4.99/month and none shows traction, while free substitutes cover the core use case.
+The invoice chaser leads on the strength of its problem, the only strongly evidenced score in the batch: 97% of small agencies chase late payments, the average US small business is owed $17,500, and freelancers already pay $22-42/hour for someone to chase on their behalf. It is also the only idea a solo developer can ship in weeks. It loses points because the exact product already exists at $9-19/month from at least five indie tools, QuickBooks and Xero have shipped or announced AI-written reminders, and the need is episodic for the freelancers who are easiest to reach.
 
-Two findings would change the ranking. If Xero's JAX payment follow-ups reach the Starter and Standard plans by early 2027, the invoice chaser's accounting-software segment closes and it drops below the marketplace. If a broker will quote gear cover for a new platform at a workable premium, the marketplace's feasibility score rises from 2 to 3 or 4 and it takes first place.
+The camera gear marketplace has the best-served-but-unhappy customer base (every incumbent is hammered on claims handling) and the most open channel, but depends on an insurer agreeing to cover a zero-history platform and has no "why now". The couples habit tracker is clearly last: a dozen near-identical apps launched in 18 months at $4.99/month with no visible traction, free substitutes cover the core use case, and habit-app churn undermines the daily-use design.
+
+Three findings would settle the top two. If Xero's JAX payment follow-ups reach the Starter and Standard plans by early 2027, the invoice chaser's timing score stays at 2 and its accounting-software segment closes. If a broker will quote gear cover for a new platform at a workable premium, the marketplace's feasibility rises from 2 to 3 or 4 and it takes first place under every profile. And if a retention test shows agencies keep paying between overdue invoices, the invoice chaser's retention score moves from a weakly evidenced 3 to a strong one and the margin widens.
 
 ## Ranking
 
-| Rank | Idea | Total /100 | Problem (15) | Market (15) | Whitespace (15) | Differentiation (10) | Monetisation (15) | Feasibility (10) | Distribution (10) | Fit & risk (10) | Confidence |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | AI invoice chaser | 56.0 | 4 | 3 | 2 | 1 | 3 | 4 | 2 | 3 | low |
-| 2 | Camera gear rental marketplace | 51.0 | 3 | 3 | 2 | 2 | 3 | 2 | 3 | 2 | low |
-| 3 | Couples habit tracker | 45.0 | 2 | 2 | 2 | 1 | 3 | 3 | 2 | 3 | low |
+| Rank | Idea | Adjusted | Raw | Problem (12) | Market (8) | Whitespace (12) | Edge (8) | Monetisation (14) | Retention (10) | Feasibility (12) | Distribution (12) | Fit (6) | Timing/risk (6) | Flags |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | AI invoice chaser | 57.0 | 55.6 | 4s | 3w | 2m | 1m | 3m | 3w | 4m | 2m | 3w | 2s | low confidence |
+| 2 | Camera gear rental marketplace | 55.1 | 52.8 | 3m | 3w | 3m | 2m | 3m | 2w | 2m | 3m | 3w | 2m | low confidence |
+| 3 | Couples habit tracker | 49.9 | 46.0 | 2m | 2w | 2m | 1m | 3m | 2m | 3m | 2m | 3w | 3m | low confidence |
 
-Criterion scores are 1 to 5; the bracketed number is the weight. Total = sum(score x weight) / 5.
+Weight profile: `bootstrap-side` (bracketed numbers). Scores are 1 to 5 with an evidence grade: s = strong, m = moderate, w = weak. Raw = sum(score x weight) / 5. Adjusted pulls moderate scores 25% and weak scores 50% of the way towards 3 before weighting; ideas rank on Adjusted. A score of 1 on Problem, Monetisation, Feasibility or Timing/risk gates the idea below all ungated ideas.
 
-**Leads each criterion:**
+**Weakest criterion per idea:**
 
-- Problem: AI invoice chaser
-- Market: AI invoice chaser, Camera gear rental marketplace
-- Whitespace: all three tied at 2
-- Differentiation: Camera gear rental marketplace
-- Monetisation: all three tied at 3
-- Feasibility: AI invoice chaser
-- Distribution: Camera gear rental marketplace
-- Fit & risk: AI invoice chaser, Couples habit tracker
+- AI invoice chaser: Edge (1)
+- Camera gear rental marketplace: Edge (2)
+- Couples habit tracker: Edge (1)
+
+**Ranking under each weight profile:**
+
+- `bootstrap-side`: AI invoice chaser > Camera gear rental marketplace > Couples habit tracker
+- `bootstrap-full-time`: AI invoice chaser > Camera gear rental marketplace > Couples habit tracker
+- `venture`: Camera gear rental marketplace > AI invoice chaser > Couples habit tracker
+
+**Sensitivity of the top two:**
+
+- AI invoice chaser leads Camera gear rental marketplace by 1.9 adjusted points.
+- Any one of these single-point changes would swap them: AI invoice chaser: Problem 4 -> 3; AI invoice chaser: Monetisation 3 -> 2; Camera gear rental marketplace: Monetisation 3 -> 4.
 
 ## Idea deep-dives
 
-### 1. AI invoice chaser (56.0/100, low confidence)
+### 1. AI invoice chaser (57.0 adjusted, 55.6 raw, low confidence)
 
 **One-liner:** Sends polite, escalating payment reminders on behalf of freelancers and small agencies so they get paid without writing awkward follow-up emails.
 **Target customer:** Freelancers and 1-15 person agencies who invoice business clients on net terms, often from PDFs, Stripe or an invoicing app, and currently chase late payers by hand or with a basic built-in reminder.
@@ -58,13 +67,15 @@ Criterion scores are 1 to 5; the bracketed number is the weight. Total = sum(sco
 
 The target customer is well served at both ends. Anyone on QuickBooks, Xero, FreshBooks, Zoho or Wave already has reminders, and freelancers who invoice from PDFs have at least five $0-19/month tools with the identical pitch. The only visible gap is reply-aware chasing for freelancers outside accounting software: nothing found reads the client's "will pay Friday" and adjusts.
 
-#### Demand and market
+#### Demand, frequency and market
 
 - Ignition's April 2025 survey of 273 US agencies: 97% deal with late payments regularly, 71% say at least one in four invoices is late, 84% spend 3-10+ hours a month chasing.
 - QuickBooks 2025 report of 2,487 US small businesses: 56% are owed money, average $17,500 outstanding.
 - Remote 2025: 85% of freelancers are paid late at least sometimes. IPSE 2025 (UK): 71% have experienced late payment, average overdue invoice 23 days past due.
 - People are building their own: 88 GitHub repositories for "invoice reminder freelancer", Gumroad spreadsheet automations, and a cluster of indie tools launched in 2025-26.
 - Regulation is arriving: UK 60-day statutory payment cap and mandatory 8%-plus-base-rate interest announced March 2026; California SB-988 makes late-paying clients liable for double the amount owed to freelancers.
+
+**Frequency of need:** Episodic for solo freelancers (only while an invoice is overdue, a few times a year); closer to monthly for agencies with a rolling book of 10-50 invoices, which is where any recurring subscription revenue would come from.
 
 | Market figure | Value | Source and basis |
 |---|---|---|
@@ -97,16 +108,27 @@ Channels: long-tail SEO on "polite payment reminder template" and "X alternative
 
 #### Scorecard
 
-| Criterion | Score | Rationale |
-|---|---|---|
-| Problem severity | 4 | Frequent and costly with people already paying for partial solutions (Ignition, QuickBooks and Remote surveys; $22-42/hour VAs). Regulation targets payers, not chasing budgets, so short of a 5 |
-| Market size | 3 | Millions of potential buyers, but the SMB chasing niche has only ever supported lifestyle-to-few-million businesses; sizing is the agent's own estimate |
-| Competitive whitespace | 2 | Free incumbents cover accounting-software users; five-plus $0-19 clones cover PDF freelancers; only reply-aware chasing is visibly underserved |
-| Differentiation | 1 | Polite escalating AI reminders are a feature Intuit and Xero have shipped and RemindFox and ChaseAI replicate; nothing here is beyond a sprint for an incumbent |
-| Monetisation | 3 | Clear payer and abundant comparables, but squeezed between free substitutes and an episodic need with no retention evidence for freelancer-tier tools |
-| Feasibility | 4 | Weeks of work on a standard stack; medium-risk dependencies can be deferred past launch |
-| Distribution | 2 | Every channel exists but is saturated; the founder has no audience or accountant network to shortcut it |
-| Founder fit and risk | 3 | Calibrated up from 2: the agent's "external risk" was incumbents bundling reminders, already penalised under whitespace and differentiation; remaining platform risks (OAuth, deliverability) are manageable |
+| Criterion | Score | Evidence | Rationale |
+|---|---|---|---|
+| Problem severity | 4 | strong | Frequent and costly with people already paying to cope: Ignition 2025 (n=273) 97% chase late payments and 84% spend 3-10+ hours a month; QuickBooks 2025 (n=2,487) average $17,500 owed; AR virtual assistants at $22-42/hour. Regulation targets payers, not chasing budgets, so short of 5. |
+| Market size | 3 | weak | Serviceable segment is the agent's own bottom-up estimate ($300-700M theoretical at $12-15/month), but observable capture is small: Chaser ~$3.3M ARR after 12 years, Paidnice 'hundreds' of customers. Fits the $10-100M realistic band. |
+| Competitive whitespace | 2 | moderate | Free incumbents (QuickBooks, Xero, Zoho, Wave, FreshBooks Plus) cover accounting-software users and five-plus $0-19 clones cover PDF freelancers; only reply-aware chasing for freelancers outside accounting software is visibly underserved. Pricing corroborated across two or more snippets each. |
+| Differentiation | 1 | moderate | As stated, polite escalating AI reminders are a feature Intuit and Xero have shipped and RemindFox and ChaseAI replicate; reply-aware chasing would be a 3 but is not in the idea as written and is equally copyable. |
+| Monetisation | 3 | moderate | Clear payer and abundant comparables ($9-69/month) corroborated across snippets, but squeezed between free substitutes and an episodic need; no retention data for freelancer-tier tools. |
+| Retention | 3 | weak | Freelancers only need it while an invoice is late (episodic), but agencies with a rolling invoice book have a monthly need; Bonsai and HoneyBook had to bundle to hold freelancers. No retention figures found for any comparable, so this is inference. |
+| Feasibility | 4 | moderate | Weeks of work on a standard stack (upload, LLM extraction, scheduler, transactional email, Stripe); the medium-risk Gmail OAuth and Xero/QBO dependencies can be deferred past launch. MVP scope and dependencies are listed; effort is the agent's estimate. |
+| Distribution | 2 | moderate | Every channel exists but is saturated: Paidnice holds the Xero App Store slot with 81 five-star reviews, six-plus competitors own the SEO long tail, and the founder has no audience or accountant network. |
+| Founder fit | 3 | weak | No founder profile filled in; scored as an adequate-fit solo full-stack developer with no stated domain network or interest. |
+| Timing and risk | 2 | strong | The incumbents have announced and shipped this: Intuit's Payments Agent (press release, 1 July 2025) and Xero's JAX follow-ups (Accounting Today, Xerocon 2026). LLM cost and 2026 legislation are real enabling shifts, but with no mitigation for incumbent absorption this sits at the anchor-2 wording. |
+
+Scores were assigned in a comparative pass across all three ideas. Changes from the researcher's proposed scores:
+
+- founder_fit_and_risk: 2 -> 3. Raised 2 to 3: the rationale's 'external risk' is incumbents bundling AI reminders, which is already penalised under competition and differentiation; the remaining platform risks (Gmail OAuth, deliverability) are manageable, matching the anchor-3 wording.
+- timing_and_risk: 3 -> 2 in the comparative pass; see rationale.
+
+#### Why now
+
+LLMs make reply-aware, tone-adjusted chasing cheap to build, and 2026 legislation (UK 60-day cap and statutory interest; California SB-988 double damages) is raising awareness. Against that, QuickBooks (July 2025) and Xero (Xerocon 2026) have already shipped or announced AI reminder agents, so the window for a standalone tool is closing rather than opening.
 
 #### Kill risks
 
@@ -147,7 +169,7 @@ Selected from the 49 in `research/ai-invoice-chaser.json`.
 - [GitHub search: invoice reminder freelancer](https://github.com/search?q=invoice+reminder+freelancer&type=repositories): 88 self-built tools
 - [Upwork accounts receivable managers](https://www.upwork.com/hire/accounts-receivable-managers/): $22-42/hour substitute
 
-### 2. Camera gear rental marketplace (51.0/100, low confidence)
+### 2. Camera gear rental marketplace (55.1 adjusted, 52.8 raw, low confidence)
 
 **One-liner:** Peer-to-peer lending of camera bodies and lenses between photographers and filmmakers, with damage and theft cover built into every booking.
 **Target customer:** Renters are freelance videographers, indie filmmakers, wedding and event photographers and serious hobbyists who need a specific body or lens for a shoot. Owners are the same people on days their gear is idle, plus small rental houses using marketplaces as a demand channel.
@@ -168,13 +190,15 @@ Selected from the 49 in `research/ai-invoice-chaser.json`.
 
 "Insurance built in" is not a differentiator. It is the headline feature of every incumbent, and it is also exactly where their complaints concentrate. The open gap is transparent, reliably paid claims and a lower take rate, which is a process and pricing difference rather than a product one.
 
-#### Demand and market
+#### Demand, frequency and market
 
 - Renting is mainstream paid behaviour: Lensrentals holds 400,000+ rental copies; Backstage justified buying ShareGrid as entry to a "$10B US production rentals" market.
 - Steady owner-side intent: "make money renting out your camera gear" guides from ShareGrid, KitSplit, side-hustle sites and Quora.
 - Incumbent complaints cluster on the insurance promise: dodged claims (Fat Llama), £0 payouts and £580 excess (Wedio), 20% deductible (KitSplit).
 - Supply is growing: CIPA reports 9.44M camera shipments in 2025, the first consecutive-year growth in about 20 years.
 - Fraud is live: a $100k Arri Alexa rental theft in Burbank and a $34k fake-ID theft from a rental shop, both 2025.
+
+**Frequency of need:** Occasional: most renters need specific gear a few times a year for a shoot; owners list continuously but transact only when a local renter appears. Professional videographers in dense cities may rent monthly, but the agent's bottom-up sizing assumed roughly three rentals a year per active user.
 
 | Market figure | Value | Source and basis |
 |---|---|---|
@@ -208,16 +232,28 @@ Channels: local filmmaker communities and film schools in one launch city (Share
 
 #### Scorecard
 
-| Criterion | Score | Rationale |
-|---|---|---|
-| Problem severity | 3 | Calibrated down from 4: renting is occasional for most shooters and Lensrentals plus the P2P incumbents already serve the need; the pain is unreliable claims handling, a workaround-level complaint |
-| Market size | 3 | Global rental is $1-3B, but the P2P slice is an estimated $100-200M GMV and observable players are small (ShareGrid ~10 staff, Wedio a €1.25M seed company) |
-| Competitive whitespace | 2 | Seven direct players own the exact "P2P with insurance built in" positioning; the underserved segment is narrow |
-| Differentiation | 2 | Transparent claims, lower commission and single-city depth are positioning and process differences incumbents could copy; city liquidity does not compound across cities |
-| Monetisation | 3 | Clear payers and documented comparables, but loss ratios, fraud and small booking values make margins uncertain |
-| Feasibility | 2 | 4-6 month solo build, but the sellable version depends on an insurer covering a zero-history platform and possibly on distribution licensing; either can refuse indefinitely |
-| Distribution | 3 | Concentrated, reachable communities exist and hand-recruiting owners in one city is feasible, but both sides must be worked at once |
-| Founder fit and risk | 2 | A developer can build the platform, but has no film or insurance background, and insurance underwriting, licensing and fraud exposure sit outside their control |
+| Criterion | Score | Evidence | Rationale |
+|---|---|---|---|
+| Problem severity | 3 | moderate | Renting is occasional for most shooters and Lensrentals plus seven P2P incumbents already serve the need; the live pain is unreliable claims handling, a workaround-level complaint. Rental volume figures come from acquisition press coverage, complaints from Trustpilot summaries. |
+| Market size | 3 | weak | Global camera rental is $1-3B by report mills that disagree threefold; the P2P slice is the agent's own $100-200M GMV estimate, implying $25-50M platform revenue worldwide and a $1-5M ceiling for a one-country player. |
+| Competitive whitespace | 3 | moderate | Seven direct players own the 'P2P with insurance built in' positioning, but their weaknesses are loud and repeated: dodged claims and intrusive KYC at Hygglo (1,500+ Trustpilot reviews), £0 payouts and a £580 excess at Wedio, a 20% deductible at KitSplit. Crowded but fragmented with cited weaknesses is the anchor-3 wording. |
+| Differentiation | 2 | moderate | Transparent claims, lower commission and single-city depth are positioning and process differences ShareGrid or Hygglo could copy with effort; city liquidity does not compound across cities. |
+| Monetisation | 3 | moderate | Both sides pay and comparables are documented (ShareGrid 15% + ~10%, Hygglo 20% + 10%, KitSplit 15-17% + 6%), but insurance loss ratios, fraud and small booking values make margins uncertain. |
+| Retention | 2 | weak | Episodic need: a few rentals a year for most users, with owner churn after a first bad claim reported in ShareGrid and Wedio reviews. Frequency is the agent's assumption, not measured. |
+| Feasibility | 2 | moderate | 4-6 months of solo software work, but the sellable version depends on an insurer covering a zero-history platform including theft (Athos documents the voluntary-parting exclusion) and possibly on insurance-distribution licensing; either can refuse indefinitely. |
+| Distribution | 3 | moderate | Concentrated, reachable communities (city filmmaker groups, film schools, gear-sale listings) and hand-recruiting owners in one city is feasible, but ShareGrid runs student programmes and city SEO, and both sides must be worked at once. |
+| Founder fit | 3 | weak | No founder profile filled in; scored as an adequate-fit solo full-stack developer with no film, photo or insurance background. |
+| Timing and risk | 2 | moderate | No enabling shift: the model has existed since 2013 and Lumoid, KitSplit and Fat Llama have already been absorbed or shut. Meaningful external risk in insurance underwriting, distribution licensing and fraud exposure with no mitigation. |
+
+Scores were assigned in a comparative pass across all three ideas. Changes from the researcher's proposed scores:
+
+- problem_severity: 4 -> 3. Lowered 4 to 3: the rationale itself says renting is occasional for most shooters and Lensrentals plus the P2P incumbents already serve the need; the pain is unreliable claims handling, a workaround-level complaint, not a frequent costly gap.
+- competition: 2 -> 3 in the comparative pass; see rationale.
+- founder_fit: 2 -> 3 in the comparative pass; see rationale.
+
+#### Why now
+
+Camera shipments grew for consecutive years in 2025 for the first time in about 20 years (CIPA), expanding the idle-gear pool, and creator-economy demand for cine-style bodies is rising. There is no technology or regulatory shift that makes a new P2P platform newly possible; the incumbents have run the same model since 2013.
 
 #### Kill risks
 
@@ -257,7 +293,7 @@ Selected from the 53 in `research/camera-gear-rental-marketplace.json`.
 - [$100K camera rental scam arrest in Burbank (FOX 11)](https://www.foxla.com/news/man-accused-stealing-100k-professional-camera-rental-scam-arrested-burbank): fraud severity
 - [Why Lumoid shut down (TechCrunch)](https://techcrunch.com/2017/12/10/why-gear-rental-marketplace-lumoid-shut-down/): prior failure in the category
 
-### 3. Couples habit tracker (45.0/100, low confidence)
+### 3. Couples habit tracker (49.9 adjusted, 46.0 raw, low confidence)
 
 **One-liner:** Shared goals, joint streaks and partner nudges for two people in a relationship.
 **Target customer:** Cohabiting or long-distance couples aged roughly 20-40 who already use, or have abandoned, a solo habit tracker and want mutual accountability for exercise, saving, chores, sleep or screen time. One partner buys, both use.
@@ -278,12 +314,14 @@ Selected from the 53 in `research/camera-gear-rental-marketplace.json`.
 
 The niche is saturated at the indie level. At least a dozen couples-specific habit apps shipped in the last 18 months with essentially the same feature list and price, and none shows visible traction. Meanwhile the free tools (HabitShare, Habitica parties, Finch buddies, Notion) cover the core use case at zero cost.
 
-#### Demand and market
+#### Demand, frequency and market
 
 - A dozen couples habit apps launched in 18 months: strong evidence builders see demand, weak evidence any found it.
 - "Habit tracker for couples" content pages from six vendors indicate the keyword is worth chasing; no absolute search volume retrievable.
 - Willingness to pay for couple-wide subscriptions is proven adjacent to this idea: Paired at ~$84/year with an estimated ~$300k/month revenue; Cupla at ~$45/year.
 - Counter-signal: comparison articles recommend most couples use two solo trackers and a weekly check-in, and habit apps are widely reported as abandoned within a week.
+
+**Frequency of need:** Daily by design (check-ins and streaks), but habit apps are widely reported as abandoned within a week and HabitKit's revenue halves from January to summer; sustained daily use is the exception, not the norm.
 
 | Market figure | Value | Source and basis |
 |---|---|---|
@@ -310,16 +348,27 @@ Channels: app-store search on "couples habit tracker" (contested by 10+ apps and
 
 #### Scorecard
 
-| Criterion | Score | Rationale |
-|---|---|---|
-| Problem severity | 2 | Calibrated down from 3: the agent's own rationale says the problem is mild with no urgency or budget, and comparison sites advise two solo trackers plus a weekly chat; people live with it |
-| Market size | 2 | Calibrated down from 3: the agent concluded the couples-habit slice is lifestyle-scale; the larger figures are for adjacent habit and couples-app markets |
-| Competitive whitespace | 2 | Free incumbents plus 10+ near-identical couples apps and a funded 2026 entrant; the only sliver is adult, non-gamified couples who want a web app |
-| Differentiation | 1 | "Shared goals, streaks and nudges for two" is the literal feature list of PairHabit, Cutest Couple, Cooked and TinyAct; every proposed angle is copyable in a sprint |
-| Monetisation | 3 | Clear payer and comparable pricing, with Paired proving couple-wide subscriptions, but severe churn, strong free substitutes and store fees |
-| Feasibility | 3 | Standard stack, but a sellable product needs store-listed mobile apps and two-account pairing; a few months rather than weeks |
-| Distribution | 2 | Habit trackers are described as the most crowded App Store category; paid acquisition does not work at $40/year |
-| Founder fit and risk | 3 | Adequate fit; no audience, relationship-domain credibility or mobile track record; external risks are store take rate and incumbent copying, not regulation |
+| Criterion | Score | Evidence | Rationale |
+|---|---|---|---|
+| Problem severity | 2 | moderate | Mild problem with no urgency or budget: comparison sites advise two solo trackers plus a weekly chat, and couples improvise with HabitShare, Habitica parties and Notion templates. People live with it, the anchor-2 wording. Evidence is comparison articles and app listings from search snippets. |
+| Market size | 2 | weak | The agent's $15-30M addressable figure assumes 3-5% conversion of 10-15M couples with no evidence for the rate; the observable comparables for a solo entrant (HabitKit $15-30k/month, seasonal) are lifestyle-scale, which is the anchor-2 band. |
+| Competitive whitespace | 2 | moderate | Free incumbents (HabitShare 410k downloads at 4.5 stars, Habitica, Finch buddy goals) plus 10+ near-identical couples apps and a funded 2026 entrant (Habi); only adult, non-gamified couples who want a web app are visibly underserved. |
+| Differentiation | 1 | moderate | 'Shared goals, streaks and nudges for two' is the literal feature list of PairHabit, Cutest Couple, Cooked and TinyAct; web-first, adult positioning and forgiveness mechanics are all copyable in a sprint. |
+| Monetisation | 3 | moderate | Clear payer and comparable pricing ($4.99/month, ~$40/year per couple) with Paired proving couple-wide subscriptions at ~$300k/month (Sensor Tower estimate), but severe churn, strong free substitutes and 15-30% store fees. |
+| Retention | 2 | moderate | Daily-use design undermined by documented habit-app churn: abandonment within a week per comparison articles, HabitKit revenue halving from January to summer, and two-sided activation that fails when one partner disengages (Paired reviews). |
+| Feasibility | 3 | moderate | Standard stack the founder already uses, but a sellable product needs store-listed mobile apps, two-account pairing and reliable notifications: 3-5 months of evenings and weekends rather than weeks. |
+| Distribution | 2 | moderate | Habit trackers are described as the most crowded App Store category, the couples keyword is contested by 10+ apps and Habi's content team, and paid acquisition does not work at $40/year after store fees. |
+| Founder fit | 3 | weak | No founder profile filled in; scored as an adequate-fit solo full-stack developer with no audience, relationship-domain credibility or mobile track record. |
+| Timing and risk | 3 | moderate | No strong reason it is now rather than three years ago; external risks (store take rate, Paired or Finch adding a couples streak) are real but manageable and not regulatory. |
+
+Scores were assigned in a comparative pass across all three ideas. Changes from the researcher's proposed scores:
+
+- problem_severity: 3 -> 2. Lowered 3 to 2: the rationale says the problem is mild, has no urgency or budget, and that comparison sites advise two solo trackers plus a weekly chat; that is 'people live with it', the anchor-2 wording.
+- market_size: 3 -> 2. Lowered 3 to 2: the agent's own conclusion is that the couples-habit slice is lifestyle-scale; the larger figures cited are for the adjacent habit and couples-app markets, not this idea's segment.
+
+#### Why now
+
+Couples-app spending is proven (Paired at 8M downloads and Apple App of the Day, August 2026) and TikTok couple-goals culture is a live distribution vector, but nothing new makes a shared streak product possible or demanded: a dozen indie apps shipped the same thing in 2025-26 without visible traction.
 
 #### Kill risks
 
@@ -360,7 +409,9 @@ Selected from the 21 in `research/couples-habit-tracker.json`.
 - **All three ideas score 2 on whitespace and 1 or 2 on differentiation.** Each is a well-known idea with multiple direct clones. None of them, as stated, is something a competitor would struggle to copy. The batch would benefit from ideas with a narrower wedge: a specific customer segment, integration or data source that incumbents ignore.
 - **Two of the three are being absorbed by larger platforms.** Accounting software is bundling invoice reminders; Paired and Finch sit one release away from couples streaks. Ideas that live as a feature inside a category leader's product need a reason the leader will not build it.
 - **The evidence quality was uniformly low** because page fetches were blocked in this run. Re-running in an environment with page access would firm up pricing and traction, and might move confidence to medium on the invoice chaser and marketplace, where vendor pricing pages exist.
-- **Feasibility is the criterion that separates the ideas most.** The invoice chaser is weeks of work; the marketplace is months plus an insurer's consent. For a bootstrapping solo founder, that gap matters more than the weights alone reflect.
+- **Feasibility is the criterion that separates the ideas most.** The invoice chaser is weeks of work; the marketplace is months plus an insurer's consent. That is why the order flips under the `venture` profile, where feasibility carries a third of the weight it does for a side project.
+- **Retention is weak everywhere.** Two ideas are episodic by nature and the third lives in a category where abandonment within a week is normal. None of them has a mechanism that makes leaving costly, which is the main reason the differentiation scores are 1 and 2.
+- **Only one score in the batch is strongly evidenced.** The invoice chaser's problem severity rests on three surveys with stated samples. Everything else is corroborated snippets or estimates, which the adjusted totals reflect: the raw margin between first and second (2.8) shrinks to 1.9 after evidence adjustment.
 
 ## Recommended next steps
 
@@ -378,4 +429,4 @@ The couples habit tracker does not warrant validation spend in its current form.
 
 ## Method
 
-Each idea was researched independently by an agent following a fixed brief (at least eight web searches; competitor pricing verified on the vendor's own site where possible, though page fetches were blocked in this run), scored 1 to 5 on eight weighted criteria, then calibrated across ideas so equal scores mean equal things. Four calibration adjustments were made and are noted in each scorecard. Confidence describes evidence quality, not idea quality. Weights: problem severity 15, market size 15, competitive whitespace 15, differentiation 10, monetisation 15, feasibility 10, distribution 10, founder fit and risk 10. Raw research, including all sources, is in `research/` next to this report.
+Each idea was researched independently by an agent following a fixed brief (at least eight web searches; competitor pricing verified on the vendor's own site where possible, though page fetches were blocked in this run). All ideas were then scored together, one criterion at a time, on ten criteria with 1 to 5 anchors and an evidence grade per score. Weakly evidenced scores are pulled towards the midpoint before weighting; a 1 on problem severity, monetisation, feasibility or timing gates an idea below all ungated ideas, and none was gated here. Weight profile `bootstrap-side`: problem severity 12, market size 8, competitive whitespace 12, differentiation 8, monetisation 14, retention 10, feasibility 12, distribution 12, founder fit 6, timing and risk 6. Confidence describes evidence quality, not idea quality. Raw research, including all sources and every score change, is in `research/` next to this report.

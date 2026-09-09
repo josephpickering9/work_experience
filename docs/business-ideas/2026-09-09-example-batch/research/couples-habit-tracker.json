@@ -138,6 +138,7 @@
       }
     ]
   },
+  "usage_frequency": "Daily by design (check-ins and streaks), but habit apps are widely reported as abandoned within a week and HabitKit's revenue halves from January to summer; sustained daily use is the exception, not the norm.",
   "distribution_channels": [
     "App Store / Google Play ASO on 'couples habit tracker' and 'habit tracker for two' - reachable but now contested by 10+ near-identical apps launched in 2025-26 and by Habi's content team.",
     "SEO comparison content ('best habit tracker for couples', 'Habitica alternatives for couples') - already saturated by HabitBox, Habit Huddle, Calmevo, Habi, Flamme and Aura, each pushing its own app.",
@@ -153,6 +154,7 @@
     "Money-stake nudges (loser pays for date night) as a lightweight commitment device, already partly done by PairHabit's 'reward stakes'.",
     "Integration wedge: pull shared calendar/finance data (Cupla-style calendars, bank feeds for savings goals) so habits auto-verify - the only angle here that could compound via data, but it adds dependency risk."
   ],
+  "why_now": "Couples-app spending is proven (Paired at 8M downloads and Apple App of the Day, August 2026) and TikTok couple-goals culture is a live distribution vector, but nothing new makes a shared streak product possible or demanded: a dozen indie apps shipped the same thing in 2025-26 without visible traction.",
   "kill_risks": [
     "The niche is already saturated at the indie level: check the App Store for 'couple habit' and count the apps with 2025-26 ids (PairHabit 6759855681, Cutest Couple 6755106578, Cooked 6770724720, Couple Habits Tracker 6761107839, TinyAct 6758723462); if none has passed ~1k ratings by early 2027 the demand is thinner than the supply of builders.",
     "Two-sided onboarding: verify with a landing-page test whether partner-invite acceptance exceeds ~50%; couples-app reviewers repeatedly say Paired is worthless if one partner will not engage.",
@@ -170,35 +172,53 @@
   "scores": {
     "problem_severity": {
       "score": 2,
-      "rationale": "Real but mild problem with visible workarounds: couples repurpose HabitShare, Habitica parties, Finch buddies and Notion his/her templates, and a dozen indie apps have been built for it; no evidence of urgency or budgets, and comparison sites even advise two solo trackers plus a weekly chat."
+      "evidence": "moderate",
+      "rationale": "Mild problem with no urgency or budget: comparison sites advise two solo trackers plus a weekly chat, and couples improvise with HabitShare, Habitica parties and Notion templates. People live with it, the anchor-2 wording. Evidence is comparison articles and app listings from search snippets."
     },
     "market_size": {
       "score": 2,
-      "rationale": "Habit apps are a ~$1-2B market growing ~13-15% and couples apps support several-million-dollar players (Paired ~$3.6M/year estimated, Finch ~$30M ARR), so a small player can reach seven figures in the adjacent space; the couples-habit slice itself looks lifestyle-scale, hence not a 4."
+      "evidence": "weak",
+      "rationale": "The agent's $15-30M addressable figure assumes 3-5% conversion of 10-15M couples with no evidence for the rate; the observable comparables for a solo entrant (HabitKit $15-30k/month, seasonal) are lifestyle-scale, which is the anchor-2 band."
     },
     "competition": {
       "score": 2,
-      "rationale": "Several established players (HabitShare free, Habitica free, Finch with buddy goals, Paired owning the couples audience) plus 10+ near-identical couples-habit apps launched in 2025-26 and a funded 2026 entrant (Habi); the only visible underserved sliver is adult, non-gamified couples who want a web app."
+      "evidence": "moderate",
+      "rationale": "Free incumbents (HabitShare 410k downloads at 4.5 stars, Habitica, Finch buddy goals) plus 10+ near-identical couples apps and a funded 2026 entrant (Habi); only adult, non-gamified couples who want a web app are visibly underserved."
     },
     "differentiation": {
       "score": 1,
-      "rationale": "'Shared goals, streaks and nudges for two' is the literal feature list of PairHabit, Cutest Couple, Cooked and TinyAct; anything proposed here (joint streak, forgiveness, stakes, web app) is a feature-level difference an incumbent could copy in a sprint."
+      "evidence": "moderate",
+      "rationale": "'Shared goals, streaks and nudges for two' is the literal feature list of PairHabit, Cutest Couple, Cooked and TinyAct; web-first, adult positioning and forgiveness mechanics are all copyable in a sprint."
     },
     "monetisation": {
       "score": 3,
-      "rationale": "Clear payer and comparable pricing ($4.99/month or ~$40/year per couple, with Paired proving ~$300k/month of couple-wide subscriptions) but churn is documented as severe in habit apps, free substitutes are strong, and store fees eat 15-30%."
+      "evidence": "moderate",
+      "rationale": "Clear payer and comparable pricing ($4.99/month, ~$40/year per couple) with Paired proving couple-wide subscriptions at ~$300k/month (Sensor Tower estimate), but severe churn, strong free substitutes and 15-30% store fees."
+    },
+    "retention": {
+      "score": 2,
+      "evidence": "moderate",
+      "rationale": "Daily-use design undermined by documented habit-app churn: abandonment within a week per comparison articles, HabitKit revenue halving from January to summer, and two-sided activation that fails when one partner disengages (Paired reviews)."
     },
     "feasibility": {
       "score": 3,
-      "rationale": "Standard stack the founder already uses (auth, database, push, Stripe/IAP) but a sellable product needs store-listed mobile apps, two-account pairing and reliable notifications, which is a few months of evenings and weekends rather than weeks."
+      "evidence": "moderate",
+      "rationale": "Standard stack the founder already uses, but a sellable product needs store-listed mobile apps, two-account pairing and reliable notifications: 3-5 months of evenings and weekends rather than weeks."
     },
     "distribution": {
       "score": 2,
-      "rationale": "The channels exist (ASO, SEO comparison posts, Reddit, TikTok, Product Hunt) but 'habit tracker' is described as the most crowded App Store category and the couples keyword is already contested by 10+ apps and Habi's content team; paid UA does not pencil at $40/year."
+      "evidence": "moderate",
+      "rationale": "Habit trackers are described as the most crowded App Store category, the couples keyword is contested by 10+ apps and Habi's content team, and paid acquisition does not work at $40/year after store fees."
     },
-    "founder_fit_and_risk": {
+    "founder_fit": {
       "score": 3,
-      "rationale": "Adequate fit: a full-stack web developer can build this, but has no audience, no relationship-domain credibility and no mobile track record; external risks (store take-rate, incumbent copy by Paired/Finch) are real but manageable and not regulatory."
+      "evidence": "weak",
+      "rationale": "No founder profile filled in; scored as an adequate-fit solo full-stack developer with no audience, relationship-domain credibility or mobile track record."
+    },
+    "timing_and_risk": {
+      "score": 3,
+      "evidence": "moderate",
+      "rationale": "No strong reason it is now rather than three years ago; external risks (store take rate, Paired or Finch adding a couples streak) are real but manageable and not regulatory."
     }
   },
   "confidence": "low",
@@ -312,6 +332,7 @@
   ],
   "calibration_notes": [
     "problem_severity: 3 -> 2. Lowered 3 to 2: the rationale says the problem is mild, has no urgency or budget, and that comparison sites advise two solo trackers plus a weekly chat; that is 'people live with it', the anchor-2 wording.",
-    "market_size: 3 -> 2. Lowered 3 to 2: the agent's own conclusion is that the couples-habit slice is lifestyle-scale; the larger figures cited are for the adjacent habit and couples-app markets, not this idea's segment."
+    "market_size: 3 -> 2. Lowered 3 to 2: the agent's own conclusion is that the couples-habit slice is lifestyle-scale; the larger figures cited are for the adjacent habit and couples-app markets, not this idea's segment.",
+    "Rubric v2 comparative scoring pass (ten criteria, evidence grades). Researcher scores under the old eight-criterion rubric were: problem_severity=2, market_size=2, competition=2, differentiation=1, monetisation=3, feasibility=3, distribution=2, founder_fit_and_risk=3."
   ]
 }

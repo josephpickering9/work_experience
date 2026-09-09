@@ -1,29 +1,49 @@
 {
+  "profile": "bootstrap-side",
   "weights": {
-    "problem_severity": 15,
-    "market_size": 15,
-    "competition": 15,
-    "differentiation": 10,
-    "monetisation": 15,
-    "feasibility": 10,
-    "distribution": 10,
-    "founder_fit_and_risk": 10
+    "problem_severity": 12,
+    "market_size": 8,
+    "competition": 12,
+    "differentiation": 8,
+    "monetisation": 14,
+    "retention": 10,
+    "feasibility": 12,
+    "distribution": 12,
+    "founder_fit": 6,
+    "timing_and_risk": 6
   },
   "ideas": [
     {
       "id": "ai-invoice-chaser",
       "name": "AI invoice chaser",
-      "total": 56.0,
+      "raw_total": 55.6,
+      "adjusted_total": 57.0,
       "scores": {
         "problem_severity": 4,
         "market_size": 3,
         "competition": 2,
         "differentiation": 1,
         "monetisation": 3,
+        "retention": 3,
         "feasibility": 4,
         "distribution": 2,
-        "founder_fit_and_risk": 3
+        "founder_fit": 3,
+        "timing_and_risk": 2
       },
+      "evidence": {
+        "problem_severity": "strong",
+        "market_size": "weak",
+        "competition": "moderate",
+        "differentiation": "moderate",
+        "monetisation": "moderate",
+        "retention": "weak",
+        "feasibility": "moderate",
+        "distribution": "moderate",
+        "founder_fit": "weak",
+        "timing_and_risk": "strong"
+      },
+      "gated_on": [],
+      "weakest": "differentiation",
       "confidence": "low",
       "calibrated": true,
       "rank": 1
@@ -31,17 +51,34 @@
     {
       "id": "camera-gear-rental-marketplace",
       "name": "Camera gear rental marketplace",
-      "total": 51.0,
+      "raw_total": 52.8,
+      "adjusted_total": 55.1,
       "scores": {
         "problem_severity": 3,
         "market_size": 3,
-        "competition": 2,
+        "competition": 3,
         "differentiation": 2,
         "monetisation": 3,
+        "retention": 2,
         "feasibility": 2,
         "distribution": 3,
-        "founder_fit_and_risk": 2
+        "founder_fit": 3,
+        "timing_and_risk": 2
       },
+      "evidence": {
+        "problem_severity": "moderate",
+        "market_size": "weak",
+        "competition": "moderate",
+        "differentiation": "moderate",
+        "monetisation": "moderate",
+        "retention": "weak",
+        "feasibility": "moderate",
+        "distribution": "moderate",
+        "founder_fit": "weak",
+        "timing_and_risk": "moderate"
+      },
+      "gated_on": [],
+      "weakest": "differentiation",
       "confidence": "low",
       "calibrated": true,
       "rank": 2
@@ -49,21 +86,65 @@
     {
       "id": "couples-habit-tracker",
       "name": "Couples habit tracker",
-      "total": 45.0,
+      "raw_total": 46.0,
+      "adjusted_total": 49.9,
       "scores": {
         "problem_severity": 2,
         "market_size": 2,
         "competition": 2,
         "differentiation": 1,
         "monetisation": 3,
+        "retention": 2,
         "feasibility": 3,
         "distribution": 2,
-        "founder_fit_and_risk": 3
+        "founder_fit": 3,
+        "timing_and_risk": 3
       },
+      "evidence": {
+        "problem_severity": "moderate",
+        "market_size": "weak",
+        "competition": "moderate",
+        "differentiation": "moderate",
+        "monetisation": "moderate",
+        "retention": "moderate",
+        "feasibility": "moderate",
+        "distribution": "moderate",
+        "founder_fit": "weak",
+        "timing_and_risk": "moderate"
+      },
+      "gated_on": [],
+      "weakest": "differentiation",
       "confidence": "low",
       "calibrated": true,
       "rank": 3
     }
   ],
+  "ranking_by_profile": {
+    "bootstrap-side": [
+      "AI invoice chaser",
+      "Camera gear rental marketplace",
+      "Couples habit tracker"
+    ],
+    "bootstrap-full-time": [
+      "AI invoice chaser",
+      "Camera gear rental marketplace",
+      "Couples habit tracker"
+    ],
+    "venture": [
+      "Camera gear rental marketplace",
+      "AI invoice chaser",
+      "Couples habit tracker"
+    ]
+  },
+  "top_two_sensitivity": {
+    "first": "AI invoice chaser",
+    "second": "Camera gear rental marketplace",
+    "margin": 1.9,
+    "single_point_flips": [
+      "AI invoice chaser: Problem 4 -> 3",
+      "AI invoice chaser: Monetisation 3 -> 2",
+      "Camera gear rental marketplace: Monetisation 3 -> 4"
+    ]
+  },
   "invalid": {}
 }

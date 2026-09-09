@@ -146,6 +146,7 @@
       }
     ]
   },
+  "usage_frequency": "Episodic for solo freelancers (only while an invoice is overdue, a few times a year); closer to monthly for agencies with a rolling book of 10-50 invoices, which is where any recurring subscription revenue would come from.",
   "distribution_channels": [
     "SEO on long-tail 'polite payment reminder email template' / 'how to chase an unpaid invoice' queries and 'X alternative' pages: reachable but already worked by RemindFox, Landolio, ChaseAI, Paidnice, Trove and Chaser's own blog.",
     "Xero App Store and QuickBooks App Store listings: concentrated buyer intent but requires an integration plus certification, and Paidnice already owns the category with 81 five-star reviews and two award cycles.",
@@ -160,6 +161,7 @@
     "Agency mode: one account chasing on behalf of many clients under the agency's brand, with escalation to the owner and a jurisdiction-aware late-interest calculator (UK 8%+base statutory interest, California SB-988 double damages) that turns the new legislation into copy in the reminder.",
     "Outcome data compounding: tracking which tone/cadence gets which client type to pay could become a modest proprietary dataset, but only at a scale a bootstrapped solo founder is unlikely to reach before incumbents with millions of invoices (Intuit, Xero JAX) do the same."
   ],
+  "why_now": "LLMs make reply-aware, tone-adjusted chasing cheap to build, and 2026 legislation (UK 60-day cap and statutory interest; California SB-988 double damages) is raising awareness. Against that, QuickBooks (July 2025) and Xero (Xerocon 2026) have already shipped or announced AI reminder agents, so the window for a standalone tool is closing rather than opening.",
   "kill_risks": [
     "Incumbent absorption: QuickBooks shipped an AI Payments Agent that drafts reminders on 1 July 2025 and Xero's JAX announced predictive 'payment follow-ups' in 2026; FreshBooks, Zoho (free) and Wave (free) already include scheduled reminders. Check whether Xero's JAX follow-ups are generally available on Starter/Standard plans by early 2027; if so, the accounting-software-user segment is closed.",
     "Direct clones already exist at $0-19/month (ChaseAI, RemindFox, Paidly, Landolio, Chasa) with the identical 'polite AI reminders for freelancers' pitch; verify via AlternativeTo/Product Hunt whether any of them reach hundreds of paying users, which would show the wedge is real but taken, or whether they stall, which would show demand at this price is too thin.",
@@ -179,35 +181,53 @@
   "scores": {
     "problem_severity": {
       "score": 4,
-      "rationale": "Frequent and costly with people already paying for partial solutions: 97% of agencies chase late payments and 84% spend 3-10+ hours a month on it (Ignition 2025), 56% of US small businesses are owed money averaging $17,500 (QuickBooks 2025), and freelancers pay for FreshBooks Plus, Paidnice or an AR virtual assistant at $22-42/hour. Regulation exists but is aimed at payers, not at chasing budgets, so it stops short of the 5 anchor."
+      "evidence": "strong",
+      "rationale": "Frequent and costly with people already paying to cope: Ignition 2025 (n=273) 97% chase late payments and 84% spend 3-10+ hours a month; QuickBooks 2025 (n=2,487) average $17,500 owed; AR virtual assistants at $22-42/hour. Regulation targets payers, not chasing budgets, so short of 5."
     },
     "market_size": {
       "score": 3,
-      "rationale": "Millions of freelancers and small agencies exist and the AR automation market (~$4B, ~15% CAGR) is growing, but the specific SMB chasing niche has supported only lifestyle-to-several-million businesses (Chaser est. $3.3M ARR after 12 years, Paidnice 'hundreds' of customers), and the sizing is my own bottom-up estimate."
+      "evidence": "weak",
+      "rationale": "Serviceable segment is the agent's own bottom-up estimate ($300-700M theoretical at $12-15/month), but observable capture is small: Chaser ~$3.3M ARR after 12 years, Paidnice 'hundreds' of customers. Fits the $10-100M realistic band."
     },
     "competition": {
       "score": 2,
-      "rationale": "Several established players and free incumbents cover most of the target: QuickBooks, Xero, FreshBooks, Zoho and Wave all ship reminders, Paidnice owns the Xero/QBO SMB slot, and at least five $0-19/month freelancer clones launched in 2025-2026. The only visible underserved segment is freelancers who invoice outside accounting software and want reply-aware, escalating chasing."
+      "evidence": "moderate",
+      "rationale": "Free incumbents (QuickBooks, Xero, Zoho, Wave, FreshBooks Plus) cover accounting-software users and five-plus $0-19 clones cover PDF freelancers; only reply-aware chasing for freelancers outside accounting software is visibly underserved. Pricing corroborated across two or more snippets each."
     },
     "differentiation": {
       "score": 1,
-      "rationale": "Polite, escalating AI-written reminders are a feature Intuit and Xero have already shipped and that RemindFox/ChaseAI replicate at $9-19; nothing in the idea as stated is beyond a sprint for an incumbent. Reply-aware chasing and agency white-labelling are positioning angles but are equally copyable."
+      "evidence": "moderate",
+      "rationale": "As stated, polite escalating AI reminders are a feature Intuit and Xero have shipped and RemindFox and ChaseAI replicate; reply-aware chasing would be a 3 but is not in the idea as written and is equally copyable."
     },
     "monetisation": {
       "score": 3,
-      "rationale": "Clear payer and abundant comparable pricing ($9-69/month), but willingness to pay is squeezed between free substitutes (Zoho, Wave, bundled QuickBooks agent) and an episodic need that implies high churn; no evidence yet that the freelancer-tier tools retain paying users."
+      "evidence": "moderate",
+      "rationale": "Clear payer and abundant comparables ($9-69/month) corroborated across snippets, but squeezed between free substitutes and an episodic need; no retention data for freelancer-tier tools."
+    },
+    "retention": {
+      "score": 3,
+      "evidence": "weak",
+      "rationale": "Freelancers only need it while an invoice is late (episodic), but agencies with a rolling invoice book have a monthly need; Bonsai and HoneyBook had to bundle to hold freelancers. No retention figures found for any comparable, so this is inference."
     },
     "feasibility": {
       "score": 4,
-      "rationale": "A sellable MVP (PDF/email ingestion, LLM extraction, scheduled reminders from a verified domain, Stripe billing) is weeks of work on a standard stack with well-documented services; the medium-risk dependencies (Gmail send-as-user OAuth/CASA, Xero/QBO app approval) can be deferred past launch."
+      "evidence": "moderate",
+      "rationale": "Weeks of work on a standard stack (upload, LLM extraction, scheduler, transactional email, Stripe); the medium-risk Gmail OAuth and Xero/QBO dependencies can be deferred past launch. MVP scope and dependencies are listed; effort is the agent's estimate."
     },
     "distribution": {
       "score": 2,
-      "rationale": "Channels exist (SEO templates, Xero/QBO app stores, r/freelance, Product Hunt, accountant referrals) but each is saturated: six or more micro-competitors and incumbent blogs already own the long-tail SEO, Paidnice holds the Xero App Store category with 81 five-star reviews, and the founder has no audience or accountant network to short-cut it."
+      "evidence": "moderate",
+      "rationale": "Every channel exists but is saturated: Paidnice holds the Xero App Store slot with 81 five-star reviews, six-plus competitors own the SEO long tail, and the founder has no audience or accountant network."
     },
-    "founder_fit_and_risk": {
+    "founder_fit": {
       "score": 3,
-      "rationale": "A full-stack developer can build this comfortably, but has no stated domain network, and there is a meaningful external risk already realised: the two largest SMB accounting platforms shipped AI reminder agents in July 2025 and 2026, and email deliverability/OAuth gating sits outside the founder's control. Regulatory risk is low because first-party B2B reminders fall outside FDCPA-style consumer debt rules."
+      "evidence": "weak",
+      "rationale": "No founder profile filled in; scored as an adequate-fit solo full-stack developer with no stated domain network or interest."
+    },
+    "timing_and_risk": {
+      "score": 2,
+      "evidence": "strong",
+      "rationale": "The incumbents have announced and shipped this: Intuit's Payments Agent (press release, 1 July 2025) and Xero's JAX follow-ups (Accounting Today, Xerocon 2026). LLM cost and 2026 legislation are real enabling shifts, but with no mitigation for incumbent absorption this sits at the anchor-2 wording."
     }
   },
   "confidence": "low",
@@ -460,6 +480,8 @@
     }
   ],
   "calibration_notes": [
-    "founder_fit_and_risk: 2 -> 3. Raised 2 to 3: the rationale's 'external risk' is incumbents bundling AI reminders, which is already penalised under competition and differentiation; the remaining platform risks (Gmail OAuth, deliverability) are manageable, matching the anchor-3 wording."
+    "founder_fit_and_risk: 2 -> 3. Raised 2 to 3: the rationale's 'external risk' is incumbents bundling AI reminders, which is already penalised under competition and differentiation; the remaining platform risks (Gmail OAuth, deliverability) are manageable, matching the anchor-3 wording.",
+    "Rubric v2 comparative scoring pass (ten criteria, evidence grades). Researcher scores under the old eight-criterion rubric were: problem_severity=4, market_size=3, competition=2, differentiation=1, monetisation=3, feasibility=4, distribution=2, founder_fit_and_risk=3.",
+    "timing_and_risk: 3 -> 2 in the comparative pass; see rationale."
   ]
 }

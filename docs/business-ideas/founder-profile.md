@@ -10,4 +10,5 @@ the skill treats the file as unfilled while any `<...>` placeholder remains.
 **Time available:** <e.g. evenings and weekends, full time from January>
 **Capital:** <bootstrapping, small savings runway, willing to raise>
 **Location and target markets:** <e.g. UK-based, happy to sell globally>
+**Scoring profile:** <bootstrap-side | bootstrap-full-time | venture>
 **Constraints or preferences:** <e.g. no B2C, no hardware, must be sellable within 6 months>

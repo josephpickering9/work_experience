@@ -37,11 +37,25 @@ Until it is filled in, reports assume a solo full-stack developer building on th
 
 ## How scoring works
 
-Eight criteria scored 1 to 5 against written anchors, weighted to a total out of 100.
-The rubric and weights are in `.claude/skills/business-ideas-report/references/scoring-rubric.md`.
-Change the weights there (and in `scripts/score_ideas.py`) if your priorities differ, for
-example if you care more about time to MVP than market size.
+Ten criteria scored 1 to 5 against written anchors, each with an evidence grade. The
+rubric, weight profiles, gates and anchors are in
+`.claude/skills/business-ideas-report/references/scoring-rubric.md`.
+
+- **Weight profiles.** `bootstrap-side` (default), `bootstrap-full-time` and `venture`
+  weight the same criteria differently; set yours in `founder-profile.md`. The report
+  always shows the ranking under all three.
+- **Evidence grades.** A score backed by a survey or a vendor's pricing page counts in
+  full; one backed by an estimate or a listicle is pulled towards the midpoint. Ideas rank
+  on the adjusted total; the raw total is shown alongside.
+- **Gates.** A 1 on problem severity, monetisation, feasibility or timing puts the idea
+  below every ungated idea regardless of its total.
+- **Comparative scoring.** Researchers propose scores; all ideas are then re-scored
+  together, one criterion at a time, so equal scores mean equal things. Every change is
+  recorded in the research file.
+- **Sensitivity.** The script reports the margin between the top two and whether any
+  single one-point change would swap them.
 
 Every idea also carries a confidence label describing how good the evidence was. A
 low-confidence idea at the top of the ranking is a prompt for more research, not a
-decision.
+decision. To change the weights or gates, edit `PROFILES` and `GATES` in
+`scripts/score_ideas.py` and the matching table in the rubric.

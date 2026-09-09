@@ -146,6 +146,7 @@
       }
     ]
   },
+  "usage_frequency": "Occasional: most renters need specific gear a few times a year for a shoot; owners list continuously but transact only when a local renter appears. Professional videographers in dense cities may rent monthly, but the agent's bottom-up sizing assumed roughly three rentals a year per active user.",
   "distribution_channels": [
     "Local filmmaker and photographer communities in one launch city: r/videography, r/cinematography, r/photography, city-specific Facebook gear groups and Discords, film-school and university media departments (ShareGrid already runs a student programme, so contested but reachable).",
     "Owner recruitment by hand: message people posting gear for sale on MPB/eBay/Facebook Marketplace and Craigslist, and wedding/event photographers with visible kit lists; this is the incumbent playbook (BorrowFox, KitSplit) and is labour-intensive but uncontested per city.",
@@ -160,6 +161,7 @@
     "Specialist verticals incumbents ignore: a specific mount ecosystem (e.g. RF/E-mount telephoto for wildlife and sports), analogue/medium-format, or drone-with-pilot rentals, where community trust and listing quality matter more than scale.",
     "Rental-house-as-supplier hybrid: onboard small houses as verified 'pro' suppliers alongside individuals, giving reliability where P2P is weakest, similar to what ShareGrid already does, so only a wedge, not defensible."
   ],
+  "why_now": "Camera shipments grew for consecutive years in 2025 for the first time in about 20 years (CIPA), expanding the idle-gear pool, and creator-economy demand for cine-style bodies is rising. There is no technology or regulatory shift that makes a new P2P platform newly possible; the incumbents have run the same model since 2013.",
   "kill_risks": [
     "No insurer will bind cover: ask Athos, Front Row and two Lloyd's-market brokers for a contingent inland-marine/rental-gear programme for a zero-history P2P platform; if the answer is 'not until $1M+ annual premium' or exclusions for voluntary parting, the 'insurance built in' promise cannot be delivered and the idea collapses into a self-funded waiver with the founder's savings as the reserve.",
     "Regulatory exposure of the coverage product: check whether a per-booking 'damage waiver' sold by the platform counts as insurance distribution in the launch jurisdiction (FCA in the UK; state insurance departments in the US); several sharing-economy platforms have had to restructure or partner to comply.",
@@ -178,35 +180,53 @@
   "scores": {
     "problem_severity": {
       "score": 3,
-      "rationale": "People already pay for rentals at scale (Lensrentals 400k+ copies, multi-billion rental market) and pay incumbents' 25-30% take rates for peer-to-peer; the specific pain around unreliable insurance is loudly documented on Trustpilot for Fat Llama/Hygglo and Wedio, but for most shooters renting is occasional rather than daily, which keeps this off a 5."
+      "evidence": "moderate",
+      "rationale": "Renting is occasional for most shooters and Lensrentals plus seven P2P incumbents already serve the need; the live pain is unreliable claims handling, a workaround-level complaint. Rental volume figures come from acquisition press coverage, complaints from Trustpilot summaries."
     },
     "market_size": {
       "score": 3,
-      "rationale": "Global camera rental is $1-3B growing 6-9% by report-mill figures, but the peer-to-peer slice is my estimate of $100-200M GMV, and the observable players are small (ShareGrid ~10 staff, Wedio a €1.25M seed company, Fat Llama sold for £34.5M across all categories); a small player in one country can plausibly reach low-single-digit millions of revenue, not more."
+      "evidence": "weak",
+      "rationale": "Global camera rental is $1-3B by report mills that disagree threefold; the P2P slice is the agent's own $100-200M GMV estimate, implying $25-50M platform revenue worldwide and a $1-5M ceiling for a one-country player."
     },
     "competition": {
-      "score": 2,
-      "rationale": "Several established players already own the exact positioning 'peer-to-peer gear with insurance built in': ShareGrid (Cast & Crew-backed, US/UK), Hygglo (UK/US/Nordics), Wedio, Beazy and Gearbooker (Europe), FriendWithA (US), plus Lensrentals dominating shipped rentals; incumbents have repeatedly cited weaknesses (claims handling, fees) but the underserved segment visible is narrow — individual owners who want transparent claims and lower take."
+      "score": 3,
+      "evidence": "moderate",
+      "rationale": "Seven direct players own the 'P2P with insurance built in' positioning, but their weaknesses are loud and repeated: dodged claims and intrusive KYC at Hygglo (1,500+ Trustpilot reviews), £0 payouts and a £580 excess at Wedio, a 20% deductible at KitSplit. Crowded but fragmented with cited weaknesses is the anchor-3 wording."
     },
     "differentiation": {
       "score": 2,
-      "rationale": "'Insurance built in' is every incumbent's headline feature, so the idea as stated is feature parity; the open angles (transparent claims process, lower owner commission, single-city depth) are positioning and process differences that ShareGrid or Hygglo could copy with effort, and city liquidity does not compound across cities."
+      "evidence": "moderate",
+      "rationale": "Transparent claims, lower commission and single-city depth are positioning and process differences ShareGrid or Hygglo could copy with effort; city liquidity does not compound across cities."
     },
     "monetisation": {
       "score": 3,
-      "rationale": "Clear payers on both sides and well-documented comparable pricing (15-20% owner, 6-10% renter, waiver ~10-15% of rental), but margins are uncertain: insurance loss ratios and fraud on high-value items are unknown for a new platform, average booking values are small, and review evidence shows incumbents cut support and claims to protect margin."
+      "evidence": "moderate",
+      "rationale": "Both sides pay and comparables are documented (ShareGrid 15% + ~10%, Hygglo 20% + 10%, KitSplit 15-17% + 6%), but insurance loss ratios, fraud and small booking values make margins uncertain."
+    },
+    "retention": {
+      "score": 2,
+      "evidence": "weak",
+      "rationale": "Episodic need: a few rentals a year for most users, with owner churn after a first bad claim reported in ShareGrid and Wedio reviews. Frequency is the agent's assumption, not measured."
     },
     "feasibility": {
       "score": 2,
-      "rationale": "The marketplace software is a 4-6 month solo build on a standard stack (Stripe Connect, Stripe Identity), but the sellable version depends on an insurer or embedded-insurance partner agreeing to cover a zero-history platform including theft/voluntary parting, and on possible insurance-distribution licensing; either can refuse or delay indefinitely."
+      "evidence": "moderate",
+      "rationale": "4-6 months of solo software work, but the sellable version depends on an insurer covering a zero-history platform including theft (Athos documents the voluntary-parting exclusion) and possibly on insurance-distribution licensing; either can refuse indefinitely."
     },
     "distribution": {
       "score": 3,
-      "rationale": "Reachable, concentrated communities exist (city filmmaker groups, subreddits, film schools, small rental houses) and hand-recruiting owners is feasible in one city, but ShareGrid already runs student programmes and programmatic city SEO, and the two-sided cold start means channels must be worked on both sides simultaneously."
+      "evidence": "moderate",
+      "rationale": "Concentrated, reachable communities (city filmmaker groups, film schools, gear-sale listings) and hand-recruiting owners in one city is feasible, but ShareGrid runs student programmes and city SEO, and both sides must be worked at once."
     },
-    "founder_fit_and_risk": {
+    "founder_fit": {
+      "score": 3,
+      "evidence": "weak",
+      "rationale": "No founder profile filled in; scored as an adequate-fit solo full-stack developer with no film, photo or insurance background."
+    },
+    "timing_and_risk": {
       "score": 2,
-      "rationale": "A full-stack developer can build the platform, but the founder has no audience, no stated film/photo network and no insurance background, while the idea carries a meaningful external risk in insurance underwriting and licensing plus fraud exposure that sits outside the founder's control."
+      "evidence": "moderate",
+      "rationale": "No enabling shift: the model has existed since 2013 and Lumoid, KitSplit and Fat Llama have already been absorbed or shut. Meaningful external risk in insurance underwriting, distribution licensing and fraud exposure with no mitigation."
     }
   },
   "confidence": "low",
@@ -479,6 +499,9 @@
     }
   ],
   "calibration_notes": [
-    "problem_severity: 4 -> 3. Lowered 4 to 3: the rationale itself says renting is occasional for most shooters and Lensrentals plus the P2P incumbents already serve the need; the pain is unreliable claims handling, a workaround-level complaint, not a frequent costly gap."
+    "problem_severity: 4 -> 3. Lowered 4 to 3: the rationale itself says renting is occasional for most shooters and Lensrentals plus the P2P incumbents already serve the need; the pain is unreliable claims handling, a workaround-level complaint, not a frequent costly gap.",
+    "Rubric v2 comparative scoring pass (ten criteria, evidence grades). Researcher scores under the old eight-criterion rubric were: problem_severity=3, market_size=3, competition=2, differentiation=2, monetisation=3, feasibility=2, distribution=3, founder_fit_and_risk=2.",
+    "competition: 2 -> 3 in the comparative pass; see rationale.",
+    "founder_fit: 2 -> 3 in the comparative pass; see rationale."
   ]
 }

@@ -47,17 +47,25 @@ confidence at `medium`.
    platform approvals) with their access risk.
 6. **Distribution.** The concrete channels a newcomer could use to reach the first
    hundred customers and how contested they are.
-7. **Risks.** Regulatory, platform, timing, and incumbent-response risks. Note any
-   recent moves (last 12 months) by large players into this space.
-8. **Differentiation.** Given all of the above, the angles that are actually open, and
+7. **Risks and timing.** Regulatory, platform, and incumbent-response risks. Note any
+   recent moves (last 12 months) by large players into this space. Separately, answer
+   "why now": what has changed in the last two years that makes this newly possible or
+   newly demanded, if anything. "Nothing" is a valid answer and should be said plainly.
+8. **Usage frequency.** How often the target customer actually has the need (daily,
+   weekly, monthly, a few times a year, once) and what comparables show about retention
+   or churn. This decides whether a subscription can hold.
+9. **Differentiation.** Given all of the above, the angles that are actually open, and
    whether any of them compound over time.
 
 ## Scoring
 
-Read `{{skill-dir}}/references/scoring-rubric.md` and score each criterion 1 to 5 with a
-one or two sentence rationale that points at the evidence you found. Use the anchors
-literally. Other agents are scoring other ideas with the same anchors, so a generous
-score here makes the final comparison wrong.
+Read `{{skill-dir}}/references/scoring-rubric.md` and score each of the ten criteria 1 to
+5 with a one or two sentence rationale that points at the evidence you found, plus an
+evidence grade (`strong`, `moderate`, `weak`) for that score using the rubric's
+definitions. Use the anchors literally. Your scores are proposals: a comparative pass
+will re-score all ideas together afterwards, so a generous score here does not help
+the idea, it just gets corrected. A weakly evidenced score is pulled towards 3, so a
+5 built on a vendor's marketing page is worth less than a well-sourced 4.
 
 ## Output
 

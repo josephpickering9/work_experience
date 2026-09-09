@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """Validate idea research files, compute weighted scores, rank ideas.
 
-Usage: score_ideas.py <run-dir> [--research-dir DIR] [--out DIR]
+Usage: score_ideas.py <run-dir> [--profile NAME] [--research-dir DIR] [--out DIR]
 
 Reads every *.json in <run-dir>/research, validates each against
-assets/idea-research.schema.json, and writes scores.json and comparison.md
-to <run-dir>. Exits non-zero if any file fails validation.
+assets/idea-research.schema.json, applies evidence adjustment and gates,
+ranks under the chosen weight profile, checks ranking sensitivity, and
+writes scores.json and comparison.md to <run-dir>. Exits non-zero if any
+file fails validation.
 """
 from __future__ import annotations
 
 import argparse
+import itertools
 import json
 import re
 import sys
@@ -18,26 +21,41 @@ from pathlib import Path
 SKILL_DIR = Path(__file__).resolve().parent.parent
 SCHEMA_PATH = SKILL_DIR / "assets" / "idea-research.schema.json"
 
-WEIGHTS = {
-    "problem_severity": 15,
-    "market_size": 15,
-    "competition": 15,
-    "differentiation": 10,
-    "monetisation": 15,
-    "feasibility": 10,
-    "distribution": 10,
-    "founder_fit_and_risk": 10,
+CRITERIA = [
+    "problem_severity",
+    "market_size",
+    "competition",
+    "differentiation",
+    "monetisation",
+    "retention",
+    "feasibility",
+    "distribution",
+    "founder_fit",
+    "timing_and_risk",
+]
+PROFILES = {
+    "bootstrap-side": dict(zip(CRITERIA, [12, 8, 12, 8, 14, 10, 12, 12, 6, 6])),
+    "bootstrap-full-time": dict(zip(CRITERIA, [12, 12, 12, 10, 14, 10, 8, 10, 6, 6])),
+    "venture": dict(zip(CRITERIA, [12, 18, 10, 14, 10, 8, 4, 8, 8, 8])),
 }
+DEFAULT_PROFILE = "bootstrap-side"
 LABELS = {
     "problem_severity": "Problem",
     "market_size": "Market",
     "competition": "Whitespace",
-    "differentiation": "Differentiation",
+    "differentiation": "Edge",
     "monetisation": "Monetisation",
+    "retention": "Retention",
     "feasibility": "Feasibility",
     "distribution": "Distribution",
-    "founder_fit_and_risk": "Fit & risk",
+    "founder_fit": "Fit",
+    "timing_and_risk": "Timing/risk",
 }
+GATES = ["problem_severity", "monetisation", "feasibility", "timing_and_risk"]
+GATE_SCORE = 1
+EVIDENCE_FACTOR = {"strong": 1.0, "moderate": 0.75, "weak": 0.5}
+EVIDENCE_MARK = {"strong": "s", "moderate": "m", "weak": "w"}
+MIDPOINT = 3
 MAX_SCORE = 5
 CONFIDENCE_ORDER = {"high": 0, "medium": 1, "low": 2}
 
@@ -48,6 +66,8 @@ TYPE_CHECKS = {
     "integer": lambda v: isinstance(v, int) and not isinstance(v, bool),
     "boolean": lambda v: isinstance(v, bool),
 }
+
+assert all(sum(w.values()) == 100 for w in PROFILES.values())
 
 
 def validate(value, schema: dict, path: str, errors: list[str]) -> None:
@@ -95,13 +115,9 @@ def check_cross_references(research: dict, errors: list[str]) -> None:
     for product in research.get("existing_products", []):
         if product.get("url", "").rstrip("/") not in source_urls:
             errors.append(f"existing_products: '{product.get('name')}' url is not listed in sources")
-    for key in WEIGHTS:
+    for key in CRITERIA:
         if key not in research.get("scores", {}):
             errors.append(f"scores: missing criterion '{key}'")
-
-
-def weighted_total(scores: dict) -> float:
-    return round(sum(scores[key]["score"] * weight for key, weight in WEIGHTS.items()) / MAX_SCORE, 1)
 
 
 def load_research(research_dir: Path, schema: dict) -> tuple[list[dict], dict[str, list[str]]]:
@@ -125,54 +141,116 @@ def load_research(research_dir: Path, schema: dict) -> tuple[list[dict], dict[st
     return ideas, failures
 
 
-def rank(ideas: list[dict]) -> list[dict]:
+def adjusted_score(entry: dict) -> float:
+    return MIDPOINT + (entry["score"] - MIDPOINT) * EVIDENCE_FACTOR[entry["evidence"]]
+
+
+def total(scores: dict[str, float], weights: dict[str, int]) -> float:
+    return round(sum(scores[key] * weights[key] for key in CRITERIA) / MAX_SCORE, 1)
+
+
+def build_rows(ideas: list[dict], weights: dict[str, int]) -> list[dict]:
     rows = []
     for idea in ideas:
+        raw = {key: idea["scores"][key]["score"] for key in CRITERIA}
+        adjusted = {key: adjusted_score(idea["scores"][key]) for key in CRITERIA}
+        evidence = {key: idea["scores"][key]["evidence"] for key in CRITERIA}
+        gated_on = [key for key in GATES if raw[key] <= GATE_SCORE]
         rows.append(
             {
                 "id": idea["id"],
                 "name": idea["name"],
-                "total": weighted_total(idea["scores"]),
-                "scores": {key: idea["scores"][key]["score"] for key in WEIGHTS},
+                "raw_total": total(raw, weights),
+                "adjusted_total": total(adjusted, weights),
+                "scores": raw,
+                "evidence": evidence,
+                "gated_on": gated_on,
+                "weakest": min(CRITERIA, key=lambda k: raw[k]),
                 "confidence": idea["confidence"],
                 "calibrated": bool(idea.get("calibration_notes")),
             }
         )
-    rows.sort(key=lambda r: (-r["total"], CONFIDENCE_ORDER[r["confidence"]], r["name"]))
+    return rank(rows)
+
+
+def rank(rows: list[dict]) -> list[dict]:
+    rows.sort(
+        key=lambda r: (bool(r["gated_on"]), -r["adjusted_total"], CONFIDENCE_ORDER[r["confidence"]], r["name"])
+    )
     for position, row in enumerate(rows, start=1):
         row["rank"] = position
     return rows
 
 
-def criterion_leaders(rows: list[dict]) -> dict[str, list[str]]:
-    leaders = {}
-    for key in WEIGHTS:
-        best = max(row["scores"][key] for row in rows)
-        leaders[key] = [row["name"] for row in rows if row["scores"][key] == best]
-    return leaders
+def rank_under_profiles(ideas: list[dict]) -> dict[str, list[str]]:
+    return {name: [row["name"] for row in build_rows(ideas, weights)] for name, weights in PROFILES.items()}
 
 
-def comparison_markdown(rows: list[dict]) -> str:
-    header = ["Rank", "Idea", "Total /100"] + [f"{LABELS[k]} ({WEIGHTS[k]})" for k in WEIGHTS] + ["Confidence"]
+def flip_analysis(ideas: list[dict], weights: dict[str, int]) -> dict | None:
+    rows = build_rows(ideas, weights)
+    ungated = [row for row in rows if not row["gated_on"]]
+    if len(ungated) < 2:
+        return None
+    first, second = ungated[0], ungated[1]
+    margin = round(first["adjusted_total"] - second["adjusted_total"], 1)
+    flips = []
+    for key in CRITERIA:
+        for target, delta in ((first, -1), (second, +1)):
+            entry = next(i for i in ideas if i["id"] == target["id"])["scores"][key]
+            new_score = entry["score"] + delta
+            if not 1 <= new_score <= MAX_SCORE:
+                continue
+            change = (adjusted_score({**entry, "score": new_score}) - adjusted_score(entry)) * weights[key] / MAX_SCORE
+            new_margin = margin + change if target is first else margin - change
+            if new_margin < 0 or (new_margin == 0 and target is first):
+                flips.append(f"{target['name']}: {LABELS[key]} {entry['score']} -> {new_score}")
+    return {"first": first["name"], "second": second["name"], "margin": margin, "single_point_flips": flips}
+
+
+def cell(row: dict, key: str) -> str:
+    return f"{row['scores'][key]}{EVIDENCE_MARK[row['evidence'][key]]}"
+
+
+def comparison_markdown(rows: list[dict], profile: str, profile_ranks: dict, flip: dict | None) -> str:
+    weights = PROFILES[profile]
+    header = ["Rank", "Idea", "Adjusted", "Raw"] + [f"{LABELS[k]} ({weights[k]})" for k in CRITERIA] + ["Flags"]
     lines = ["| " + " | ".join(header) + " |", "|" + "|".join(["---"] * len(header)) + "|"]
     for row in rows:
-        cells = [str(row["rank"]), row["name"], f"{row['total']:.1f}"]
-        cells += [str(row["scores"][k]) for k in WEIGHTS]
-        cells.append(row["confidence"])
+        flags = []
+        if row["gated_on"]:
+            flags.append("GATED: " + ", ".join(LABELS[k] for k in row["gated_on"]))
+        flags.append(f"{row['confidence']} confidence")
+        cells = [str(row["rank"]), row["name"], f"{row['adjusted_total']:.1f}", f"{row['raw_total']:.1f}"]
+        cells += [cell(row, k) for k in CRITERIA]
+        cells.append("; ".join(flags))
         lines.append("| " + " | ".join(cells) + " |")
-    lines.append("")
-    lines.append("Criterion scores are 1 to 5; the bracketed number is the weight. Total = sum(score x weight) / 5.")
-    lines.append("")
-    lines.append("**Leads each criterion:**")
-    lines.append("")
-    for key, names in criterion_leaders(rows).items():
-        lines.append(f"- {LABELS[key]}: {', '.join(names)}")
+    lines += [
+        "",
+        f"Weight profile: `{profile}` (bracketed numbers). Scores are 1 to 5 with an evidence grade: "
+        "s = strong, m = moderate, w = weak. Raw = sum(score x weight) / 5. Adjusted pulls moderate scores "
+        "25% and weak scores 50% of the way towards 3 before weighting; ideas rank on Adjusted. "
+        "A score of 1 on Problem, Monetisation, Feasibility or Timing/risk gates the idea below all ungated ideas.",
+        "",
+        "**Weakest criterion per idea:**",
+        "",
+    ]
+    lines += [f"- {row['name']}: {LABELS[row['weakest']]} ({row['scores'][row['weakest']]})" for row in rows]
+    lines += ["", "**Ranking under each weight profile:**", ""]
+    lines += [f"- `{name}`: " + " > ".join(names) for name, names in profile_ranks.items()]
+    if flip:
+        lines += ["", "**Sensitivity of the top two:**", ""]
+        lines.append(f"- {flip['first']} leads {flip['second']} by {flip['margin']:.1f} adjusted points.")
+        if flip["single_point_flips"]:
+            lines.append("- Any one of these single-point changes would swap them: " + "; ".join(flip["single_point_flips"]) + ".")
+        else:
+            lines.append("- No single one-point score change would swap them.")
     return "\n".join(lines) + "\n"
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("run_dir", type=Path)
+    parser.add_argument("--profile", choices=sorted(PROFILES), default=DEFAULT_PROFILE)
     parser.add_argument("--research-dir", type=Path, help="defaults to <run-dir>/research")
     parser.add_argument("--out", type=Path, help="defaults to <run-dir>")
     args = parser.parse_args()
@@ -195,17 +273,39 @@ def main() -> int:
         print("no valid research files", file=sys.stderr)
         return 1
 
-    rows = rank(ideas)
+    weights = PROFILES[args.profile]
+    rows = build_rows(ideas, weights)
+    profile_ranks = rank_under_profiles(ideas)
+    flip = flip_analysis(ideas, weights)
+
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "scores.json").write_text(
-        json.dumps({"weights": WEIGHTS, "ideas": rows, "invalid": failures}, indent=2) + "\n"
+        json.dumps(
+            {
+                "profile": args.profile,
+                "weights": weights,
+                "ideas": rows,
+                "ranking_by_profile": profile_ranks,
+                "top_two_sensitivity": flip,
+                "invalid": failures,
+            },
+            indent=2,
+        )
+        + "\n"
     )
-    (out_dir / "comparison.md").write_text(comparison_markdown(rows))
+    (out_dir / "comparison.md").write_text(comparison_markdown(rows, args.profile, profile_ranks, flip))
 
     for row in rows:
-        flag = "" if row["calibrated"] else "  (not yet calibrated)"
-        print(f"{row['rank']}. {row['name']}: {row['total']:.1f}  [{row['confidence']}]{flag}")
-    print(f"\nwrote {out_dir / 'scores.json'} and {out_dir / 'comparison.md'}")
+        notes = []
+        if row["gated_on"]:
+            notes.append("GATED on " + ", ".join(LABELS[k] for k in row["gated_on"]))
+        if not row["calibrated"]:
+            notes.append("not yet calibrated")
+        suffix = f"  ({'; '.join(notes)})" if notes else ""
+        print(f"{row['rank']}. {row['name']}: {row['adjusted_total']:.1f} adjusted, {row['raw_total']:.1f} raw  [{row['confidence']}]{suffix}")
+    if flip:
+        print(f"\ntop-two margin: {flip['margin']:.1f}; single-point flips: {len(flip['single_point_flips'])}")
+    print(f"wrote {out_dir / 'scores.json'} and {out_dir / 'comparison.md'}")
     return 1 if failures else 0
 
 
